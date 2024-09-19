@@ -1,45 +1,75 @@
-**Edit a file, create a new file, and clone from Bitbucket in under 2 minutes**
+# Project: Japanese Restaurant #
+---
 
-When you're done, you can delete the content in this README and update the file with details for others getting started with your repository.
-
-*We recommend that you open this README in another tab as you perform the tasks below. You can [watch our video](https://youtu.be/0ocf7u76WSo) for a full demo of all the steps in this tutorial. Open the video in a new tab to avoid leaving Bitbucket.*
+## Development Team ##
+Business Client:  Nguyen Nguyen
+<br/>
+Lead Developer:  Sherri Ashton
+<br/>
+Quality Control:   Vy Phan
+<br/>
+<br/>
+The project: This project Japanese Restaurant belongs to Nguyen Nguyen.
+<br/>
 
 ---
 
-## Edit a file
+## Description ##
+**A Culinary Journey: Our All - You - Can - Eat -  Japanese Restaurant**
+<br/><br/>
+Our Japanese restaurant offers an authentic dining experience that will transport you to the Land of the Rising Sun. With a commitment to using the freshest ingredients and traditional cooking techniques, we strive to create dishes that are both delicious and visually stunning.
+<br/><br/>
+Our menu features a wide variety of Japanese specialties, from classic sushi and sashimi to hearty ramen and savory tempura. For those seeking a more substantial meal, our ramen dishes are packed with flavorful broth, tender noodles, and a variety of toppings.
+<br/><br/>
+**A Seamless Reservation Experience**
+<br/><br/>
+To make your dining experience even more enjoyable, we offer a convenient online reservation system. Simply visit our website and select your desired date, time, and number of guests. Once you've submitted your reservation, you'll receive a confirmation email, ensuring that your booking is secure.
+<br/><br/>
+**Exclusive Offers and Discounts**
+<br/><br/>
+To make your reservation even more rewarding, we offer a variety of coupons and discounts that can be applied to your online booking. Whether you're looking for a discount on your total bill or a complimentary appetizer, our coupons provide a great way to save money and enhance your dining experience.
+<br/><br/>
+We understand that unexpected changes can sometimes occur, so we offer a flexible cancellation policy. If you need to cancel your reservation, simply contact us directly and we'll do our best to accommodate your request.
+<br/><br/>
+By choosing to make your reservation online, you're not only ensuring a hassle-free dining experience but also taking advantage of exclusive offers and discounts. We look forward to welcoming you to our restaurant and providing you with an unforgettable culinary journey.</br>
+---
+## Color ##
+Main Color: #68b04d (green) </br>
+Secondary Color: #ffffff (white) </br>
+Accent Color: #fcba03 (yellow) </br>
+---
+## Required Fields ##
+This will be a list of fields and their datatype (class design format). There are expected to be a minimum of six fields.<br>
+id: int - Unique id Assigns ID for every reservation <br/>
+name: String - Name of the person who books <br/>
+numberOfCustomers: int - Number of customers that will attend <br/>
+numberOfSeniors: int - Number of seniors that will attend <br/>
+numberOfChildren: int - Number of children that will attend <br/>
+numberOfAdults: int - Number of adults that will attend <br/>
+couponDiscount -double - 30% off the bill</br>
+entryCostPerCustomer - int - $25 for each customer<br/>
+date: LocalDateTime - The date and time of the reservation <br/>
+email: String Email - address of the person who books </br>
+bill: double - Final bill according to how many customers attend and if they have discounts  (see calculation) </br>
+childrenDiscount -double - 20% off the bill<br/>
+seniorDiscount - double - 15% off the bill
+ 
+---
+## Calculation ##
 
-You’ll start by editing this README file to learn how to edit a file in Bitbucket.
+Entry Cost per Customer: Every customer has a base entry cost of $25. This means, for each customer attending, the total bill starts by multiplying the number of customers by this base cost. <br/>
 
-1. Click **Source** on the left side.
-2. Click the README.md link from the list of files.
-3. Click the **Edit** button.
-4. Delete the following text: *Delete this line to make a change to the README from Bitbucket.*
-5. After making your change, click **Commit** and then **Commit** again in the dialog. The commit page will open and you’ll see the change you just made.
-6. Go back to the **Source** page.
+Discounts for Children and Seniors: If there are children or seniors attending, they receive special discounts on their portion of the bill.<br/>
+
+Children receive a 20% discount. <br/>
+
+Seniors receive a 15% discount. <br/>
+
+Regular Adult Customers: Any adults attending without a discount will simply pay the full entry cost of $25.<br/>
+
+Applying a Coupon Discount: If a coupon is applied, it will reduce the total bill by 30%. The final bill is calculated by subtracting 30% from the total. <br/>
+
 
 ---
-
-## Create a file
-
-Next, you’ll add a new file to this repository.
-
-1. Click the **New file** button at the top of the **Source** page.
-2. Give the file a filename of **contributors.txt**.
-3. Enter your name in the empty file space.
-4. Click **Commit** and then **Commit** again in the dialog.
-5. Go back to the **Source** page.
-
-Before you move on, go ahead and explore the repository. You've already seen the **Source** page, but check out the **Commits**, **Branches**, and **Settings** pages.
-
----
-
-## Clone a repository
-
-Use these steps to clone from SourceTree, our client for using the repository command-line free. Cloning allows you to work on your files locally. If you don't yet have SourceTree, [download and install first](https://www.sourcetreeapp.com/). If you prefer to clone from the command line, see [Clone a repository](https://confluence.atlassian.com/x/4whODQ).
-
-1. You’ll see the clone button under the **Source** heading. Click that button.
-2. Now click **Check out in SourceTree**. You may need to create a SourceTree account or log in.
-3. When you see the **Clone New** dialog in SourceTree, update the destination path and name if you’d like to and then click **Clone**.
-4. Open the directory you just created to see your repository’s files.
-
-Now that you're more familiar with your Bitbucket repository, go ahead and add a new file locally. You can [push your change back to Bitbucket with SourceTree](https://confluence.atlassian.com/x/iqyBMg), or you can [add, commit,](https://confluence.atlassian.com/x/8QhODQ) and [push from the command line](https://confluence.atlassian.com/x/NQ0zDQ).
+## Report Details ##
+To be determined.
