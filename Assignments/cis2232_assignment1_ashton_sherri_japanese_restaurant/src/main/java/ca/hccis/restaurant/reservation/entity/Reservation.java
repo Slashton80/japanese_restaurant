@@ -1,4 +1,4 @@
-package ca.hccis.photography.session.entity;
+package ca.hccis.restaurant.reservation.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

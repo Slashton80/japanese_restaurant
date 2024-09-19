@@ -1,4 +1,4 @@
-package ca.hccis.photography.session.adapter;
+package ca.hccis.restaurant.reservation.adapter;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;

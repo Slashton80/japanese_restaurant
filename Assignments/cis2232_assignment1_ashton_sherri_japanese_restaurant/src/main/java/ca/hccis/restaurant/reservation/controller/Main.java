@@ -1,6 +1,7 @@
-package ca.hccis.photography.session.controller;
+package ca.hccis.restaurant.reservation.controller;
 
-import ca.hccis.photography.session.entity.Reservation;
+import ca.hccis.restaurant.reservation.entity.Reservation;
+
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
@@ -13,7 +14,7 @@ import java.util.List;
 
 
 import com.google.gson.GsonBuilder;
-import ca.hccis.photography.session.adapter.LocalDateTimeAdapter;
+import ca.hccis.restaurant.reservation.adapter.LocalDateTimeAdapter;
 
 import java.io.File;
 import java.time.LocalDateTime;
