@@ -1,4 +1,4 @@
-package ca.hccis.adapter;
+package ca.hccis.photography.session.adapter;
 
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonSerializer;

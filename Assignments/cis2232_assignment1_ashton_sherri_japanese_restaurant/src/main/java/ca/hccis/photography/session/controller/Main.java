@@ -1,6 +1,6 @@
-package ca.hccis;
+package ca.hccis.photography.session.controller;
 
-import ca.hccis.entity.Reservation;
+import ca.hccis.photography.session.entity.Reservation;
 import com.google.gson.Gson;
 
 import java.io.BufferedWriter;
@@ -13,7 +13,7 @@ import java.util.List;
 
 
 import com.google.gson.GsonBuilder;
-import ca.hccis.adapter.LocalDateTimeAdapter;
+import ca.hccis.photography.session.adapter.LocalDateTimeAdapter;
 
 import java.io.File;
 import java.time.LocalDateTime;
@@ -55,7 +55,7 @@ public class Main {
             System.out.println("Japanese Restaurant Reservation System");
             System.out.println("\nA) Add a reservation");
             System.out.println("V) View all reservations");
-            System.out.println("Q) Quit");
+            System.out.println("X) Quit");
             System.out.print("\nEnter your choice:\n ");
             String choice = scanner.nextLine().toUpperCase();
 
@@ -68,13 +68,13 @@ public class Main {
                     viewReservationsFromJSON(gson);
                     break;
 
-                case "Q":
+                case "X":
                     running = false;
                     System.out.println("Exiting the system.");
                     break;
 
                 default:
-                    System.out.println("Invalid choice! Please enter A, V, or Q.");
+                    System.out.println("Invalid choice! Please enter A, V, or X.");
             }
         }
 
@@ -104,38 +104,38 @@ public class Main {
     }
 
     // Sets the idCounter based on the highest ID in the file
-    private static void setIdCounterFromFile(Gson gson) {
-        Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);
-        // This variable is to track the highest ID
-        int highestId = 0;
-
-        try {
-            // Checks if the file exists
-            if (Files.exists(filePath)) {
-                // Reads all lines from the JSON file
-                List<String> lines = Files.readAllLines(filePath);
-                if (!lines.isEmpty()) {
-                    for (String line : lines) {
-                        // Deserialize each line to a Reservation object
-                        Reservation current = gson.fromJson(line, Reservation.class);
-
-                        // Updates highestId to the max ID found so far
-                        if (current.getId() > highestId) {
-                            highestId = current.getId();
-                        }
-                    }
-
-                    // Sets idCounter to the highest ID + 1
-                    Reservation.setIdCounter(highestId + 1);
-                    System.out.println("Next reservation ID will be: " + (highestId + 1));
-                }
-            } else {
-                System.out.println("No reservations found. Starting from ID 1.");
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+//    private static void setIdCounterFromFile(Gson gson) {
+//        Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);
+//        // This variable is to track the highest ID
+//        int highestId = 0;
+//
+//        try {
+//            // Checks if the file exists
+//            if (Files.exists(filePath)) {
+//                // Reads all lines from the JSON file
+//                List<String> lines = Files.readAllLines(filePath);
+//                if (!lines.isEmpty()) {
+//                    for (String line : lines) {
+//                        // Deserialize each line to a Reservation object
+//                        Reservation current = gson.fromJson(line, Reservation.class);
+//
+//                        // Updates highestId to the max ID found so far
+//                        if (current.getId() > highestId) {
+//                            highestId = current.getId();
+//                        }
+//                    }
+//
+//                    // Sets idCounter to the highest ID + 1
+//                    Reservation.setIdCounter(highestId + 1);
+//                    System.out.println("Next reservation ID will be: " + (highestId + 1));
+//                }
+//            } else {
+//                System.out.println("No reservations found. Starting from ID 1.");
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//    }
     // This method is to view all reservations from the JSON file
     private static void viewReservationsFromJSON(Gson gson) {
         Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);

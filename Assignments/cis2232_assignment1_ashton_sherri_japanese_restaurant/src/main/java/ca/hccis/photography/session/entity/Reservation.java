@@ -1,4 +1,4 @@
-package ca.hccis.entity;
+package ca.hccis.photography.session.entity;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Reservation {
     private static int idCounter = 1;
-    private int id;
+    private final int id;
     private String name;
     private int numberOfCustomers;
     private LocalDateTime dateTime;
@@ -59,36 +59,12 @@ public class Reservation {
         return id;
     }
 
-    public int getNumberOfCustomers() {
-        return numberOfCustomers;
-    }
-
-    public void setNumberOfCustomers(int numberOfCustomers) {
-        this.numberOfCustomers = numberOfCustomers;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     @Override
@@ -100,7 +76,4 @@ public class Reservation {
                 "Email: " + email + System.lineSeparator();
     }
 
-    public String toCSV() {
-        return id + "," + name + "," + numberOfCustomers + "," + dateTime.format(DATE_TIME_FORMATTER) + "," + email;
-    }
 }
