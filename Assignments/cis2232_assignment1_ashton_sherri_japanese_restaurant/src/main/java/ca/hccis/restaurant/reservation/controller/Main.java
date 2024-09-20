@@ -20,6 +20,13 @@ import java.io.File;
 import java.time.LocalDateTime;
 import java.util.Scanner;
 
+/**
+ * This class is the entry point of the application. It runs a simple console-based menu to add or view reservations
+ * for a Japanese restaurant, using JSON to store reservation data.
+ *
+ * @author sherri ashton
+ * @since 2024-09-20
+ */
 public class Main {
 
     public static final String LAST_NAME = "Ashton";
@@ -32,7 +39,7 @@ public class Main {
 
         // Registers the LocalDateTimeAdapter with Gson to handle LocalDateTime serialization
         Gson gson = new GsonBuilder()
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())  // Register the adapter for LocalDateTime
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeAdapter())
                 .create();
 
         // Creates directory if it doesn't exist
@@ -42,16 +49,18 @@ public class Main {
                 System.out.println("Directory created: " + FOLDER_NAME);
             } else {
                 System.out.println("Failed to create directory: " + FOLDER_NAME);
-                return; // Exit if directory creation fails
+                return;
             }
         }
+        // Load and set the highest ID on startup
+        loadAndSetHighestId(gson);
 
         //Loops the menu
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
 
         while (running) {
-            // Display menu options
+            // Displays menu options
             System.out.println("------------------------------\n");
             System.out.println("Japanese Restaurant Reservation System");
             System.out.println("\nA) Add a reservation");
@@ -79,10 +88,47 @@ public class Main {
             }
         }
 
-        scanner.close();
     }
 
-    // This method adds a new reservation and saves it as JSON
+    /**
+     * This method reads all the existing reservations from a JSON file and identifies the highest reservation ID.
+     * It ensures that the ID counter (idCounter) for new reservations starts from the highest existing ID + 1.
+     *
+     * @author sherri ashton
+     * @since 2024-09-20
+     */
+    private static void loadAndSetHighestId(Gson gson) {
+        Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);
+        int highestId = 0;
+
+        try {
+            if (Files.exists(filePath)) {
+                List<String> lines = Files.readAllLines(filePath);
+                if (!lines.isEmpty()) {
+                    for (String line : lines) {
+                        Reservation current = gson.fromJson(line, Reservation.class);
+
+                        // Checks if current is not null and has a valid ID
+                        if (current != null && current.getId() > highestId) {
+                            highestId = current.getId();
+                        }
+                    }
+                }
+            }
+            // Set the idCounter to the highest found ID + 1
+            Reservation.setIdCounter(highestId + 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    /**
+     * This method creates a new Reservation and collects user input, then saves it as JSON.
+     *
+     * @author sherri ashton
+     * @since 2024-09-20
+     */
     private static void addReservation(Gson gson) {
         Reservation reservation = new Reservation();
         reservation.getInformation();
@@ -91,7 +137,14 @@ public class Main {
         saveAsJSON(gson, reservation);
     }
 
-    // Saves reservation as JSON
+    /**
+     * Writes a reservation object to a JSON file.
+     *
+     * @author sherri ashton
+     * @since 2024-09-20
+     */
+
+
     private static void saveAsJSON(Gson gson, Reservation reservation) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER_NAME + FILE_NAME_CUSTOM_JSON, true))) {
             // Serialize the reservation as JSON
@@ -104,43 +157,16 @@ public class Main {
         }
     }
 
-    // Sets the idCounter based on the highest ID in the file
-//    private static void setIdCounterFromFile(Gson gson) {
-//        Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);
-//        // This variable is to track the highest ID
-//        int highestId = 0;
-//
-//        try {
-//            // Checks if the file exists
-//            if (Files.exists(filePath)) {
-//                // Reads all lines from the JSON file
-//                List<String> lines = Files.readAllLines(filePath);
-//                if (!lines.isEmpty()) {
-//                    for (String line : lines) {
-//                        // Deserialize each line to a Reservation object
-//                        Reservation current = gson.fromJson(line, Reservation.class);
-//
-//                        // Updates highestId to the max ID found so far
-//                        if (current.getId() > highestId) {
-//                            highestId = current.getId();
-//                        }
-//                    }
-//
-//                    // Sets idCounter to the highest ID + 1
-//                    Reservation.setIdCounter(highestId + 1);
-//                    System.out.println("Next reservation ID will be: " + (highestId + 1));
-//                }
-//            } else {
-//                System.out.println("No reservations found. Starting from ID 1.");
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//    }
-    // This method is to view all reservations from the JSON file
+    /**
+     * Reads all reservations from the JSON file and displays them. Updates the idCounter to prevent duplicate IDs.
+     *
+     * @author sherri ashton
+     * @since 2024-09-20
+     * @param gson
+     */
+
     private static void viewReservationsFromJSON(Gson gson) {
         Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);
-        // Variable tracks the highest ID
         int highestId = 0;
 
         try {
@@ -149,14 +175,20 @@ public class Main {
                 if (lines.isEmpty()) {
                     System.out.println("No reservations found.");
                 } else {
-                    System.out.println("\n--- Existing Reservations (JSON) ---");
+                    System.out.println("\n--- Existing Reservations ---");
                     for (String line : lines) {
                         Reservation current = gson.fromJson(line, Reservation.class);
-                        System.out.println(current.toString());
 
-                        // Updates the highestId to be the maximum ID found so far
-                        if (current.getId() > highestId) {
-                            highestId = current.getId();
+                        // Checks if current is not null before calling toString()
+                        if (current != null) {
+                            System.out.println(current.toString());
+
+                            // Updates the highestId to be the maximum ID found so far
+                            if (current.getId() > highestId) {
+                                highestId = current.getId();
+                            }
+                        } else {
+                            System.out.println("Error: Encountered invalid data in the reservations file.");
                         }
                     }
                     System.out.println("------------------------------\n");

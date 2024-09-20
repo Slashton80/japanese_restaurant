@@ -1,12 +1,12 @@
-html{
+html {
     overflow: auto !important;
-    min-width:246px;
+    min-width: 246px;
 
 }
 
 /*Mathew Elder provided (2023-10) the following style to fix our view issue with many columns.*/
-th{
-    white-space:normal
+th {
+    white-space: normal
 }
 
 :root {
@@ -41,11 +41,12 @@ nav, .nav, .navbar {
     background: var(--main-color-dark) !important;
     position: sticky !important;
 }
+
 .navbar-brand, .navbar-brand:hover {
     color: var(--main-color-primary);
 }
 
-.navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav  .nav-link.show  {
+.navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav .nav-link.show {
     color: var(--main-color-primary);
 }
 
@@ -66,6 +67,7 @@ th, tr, td {
 td {
     padding: 0 !important
 }
+
 tr, thead, th {
     white-space: normal;
 }
@@ -150,8 +152,6 @@ img.sushi {
     border-radius: 10px; /* Gives a soft rounded corner look */
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow effect */
 }
-
-
 
 
 /*white background box.*/

@@ -5,6 +5,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
+/**
+ * This class represents a reservation made at the restaurant.
+ *
+ * @author sherri ashton
+ * @since 2024-09-20
+ */
 public class Reservation {
     private static int idCounter = 1;
     private final int id;
@@ -20,7 +26,14 @@ public class Reservation {
         this.id = idCounter;
         idCounter++;
     }
-    // This method allows a setting idCounter externally
+
+    /**
+     * This method allows a setting idCounter externally
+     *
+     * @author sherri ashton
+     * @since 2024-09-20
+     *
+     */
     public static void setIdCounter(int newIdCounter) {
         idCounter = newIdCounter;
     }
