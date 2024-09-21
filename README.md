@@ -34,9 +34,11 @@ We understand that unexpected changes can sometimes occur, so we offer a flexibl
 By choosing to make your reservation online, you're not only ensuring a hassle-free dining experience but also taking advantage of exclusive offers and discounts. We look forward to welcoming you to our restaurant and providing you with an unforgettable culinary journey.</br>
 ---
 ## Color ##
-Main Color: #68b04d (green) </br>
-Secondary Color: #ffffff (white) </br>
-Accent Color: #fcba03 (yellow) </br>
+main-color-light: #9c9a9a;<br/>
+main-color-primary: #d1a36e;<br/>
+main-color-dark: #f9f4ef;<br/>
+main-color-text: #ff6347;<br/>
+main-color-bright: #ffffff;<br/>
 ---
 ## Required Fields ##
 This will be a list of fields and their datatype (class design format). There are expected to be a minimum of six fields.<br>
@@ -72,4 +74,4 @@ Applying a Coupon Discount: If a coupon is applied, it will reduce the total bil
 
 ---
 ## Report Details ##
-To be determined.
+Currently, this is the project as it stands. However, modifications to documents, layout, functionality, and colors may be made in the future based on the client's preferences.
