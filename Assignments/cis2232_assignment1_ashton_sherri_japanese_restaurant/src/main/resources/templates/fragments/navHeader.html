@@ -4,7 +4,7 @@
 <nav th:fragment="navbar" class="navbar navbar-expand-lg sticky-top ">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">
-            <img src="images/squash_ball.png" alt="Logo"
+            <img src="images/sushi.png" alt="Logo"
                  style="width: 26px; height: 27.6666666667px; margin-right: 10px" class="d-inline-block align-text-top">
             <span th:text="#{application.name}"></span>
         </a>
@@ -22,7 +22,7 @@
                     <a class="nav-link dropdown-toggle dropdown-toggle-split" th:href="@{/skillsassessment}" href="#"
                        role="button" data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Assessments
+                        Reservation
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" th:href="@{/skillsassessment}" href="#">View</a></li>
@@ -32,7 +32,31 @@
                     <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" role="button"
                        data-bs-toggle="dropdown"
                        aria-expanded="false">
-                        Reports
+                        Menu
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" th:href="@{/report}" href="#">Reports</a></li>
+                        <li><a class="dropdown-item" th:href="@{/report/assessment/player}" href="#">report one</a></li>
+                        <li><a class="dropdown-item" th:href="@{/report/assessment/score}" href="#">report two</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Offers
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" th:href="@{/report}" href="#">Offers</a></li>
+                        <li><a class="dropdown-item" th:href="@{/report/assessment/player}" href="#">Senior Discount</a></li>
+                        <li><a class="dropdown-item" th:href="@{/report/assessment/score}" href="#">Children Discount</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle dropdown-toggle-split" href="#" role="button"
+                       data-bs-toggle="dropdown"
+                       aria-expanded="false">
+                        Contact Us
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li><a class="dropdown-item" th:href="@{/report}" href="#">Reports</a></li>

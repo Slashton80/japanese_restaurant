@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/view :: head">
+  <title>View Reservations</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container has-text-centered">
+  <h2 class="title is-2" th:text="#{label.view.reservations}">View Reservations</h2>
+
+  <p th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found}">No Data Found</p>
+
+  <table class="table" th:if="${not #lists.isEmpty(reservationInput.reservations)}">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Date and Time</th>
+      <th>Number of Guests</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="current : ${reservationInput.reservations}">
+      <td th:text="${current.id}"></td>
+      <td th:text="${current.name}"></td>
+      <td th:text="${current.dateTime}"></td>
+      <td th:text="${current.numberOfGuests}"></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
