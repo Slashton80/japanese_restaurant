@@ -7,7 +7,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BusPassTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testCalculateCost_length20() {
         BusPass busPass = new BusPass();
         busPass.setLengthOfPass(20);
@@ -15,7 +15,7 @@ class BusPassTest {
         Assertions.assertEquals(20,actual);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testCalculateCost_length30() {
         BusPass busPass = new BusPass();
         busPass.setLengthOfPass(30);
@@ -23,7 +23,7 @@ class BusPassTest {
         Assertions.assertEquals(25,actual);
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     void testCalculateCost_length20_WITH_RURAL() {
         BusPass busPass = new BusPass();
         busPass.setLengthOfPass(20);

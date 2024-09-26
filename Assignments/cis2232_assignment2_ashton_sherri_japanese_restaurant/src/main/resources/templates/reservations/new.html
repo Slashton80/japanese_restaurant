@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/new :: head">
+  <title>New Reservation</title>
+</head>
+<body>
+<nav th:replace="fragments/navbar :: navbar"></nav>
+<div class="container has-text-centered">
+  <h2 class="title is-2" th:text="#{label.new.reservation}">New Reservation</h2>
+
+  <form th:action="@{/reservations/new/submit}" method="post">
+    <label th:text="#{label.name}">Name:</label>
+    <input type="text" th:field="${reservationInput.name}" placeholder="Enter Name"/><br/>
+
+    <label th:text="#{label.date.time}">Date and Time:</label>
+    <input type="datetime-local" th:field="${reservationInput.dateTime}"/><br/>
+
+    <label th:text="#{label.number.guests}">Number of Guests:</label>
+    <input type="number" th:field="${reservationInput.numberOfGuests}"/><br/>
+
+    <button type="submit" class="button is-primary">Submit</button>
+  </form>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
