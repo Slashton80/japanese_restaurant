@@ -44,7 +44,6 @@ main-color-bright: #ffffff;<br/>
 This will be a list of fields and their datatype (class design format). There are expected to be a minimum of six fields.<br>
 id: int - Unique id Assigns ID for every reservation <br/>
 name: String - Name of the person who books <br/>
-numberOfCustomers: int - Number of customers that will attend <br/>
 numberOfSeniors: int - Number of seniors that will attend <br/>
 numberOfChildren: int - Number of children that will attend <br/>
 numberOfAdults: int - Number of adults that will attend <br/>
