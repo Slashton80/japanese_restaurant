@@ -171,30 +171,28 @@ Fields:
 
 Business Logic:
 - The Number_Of_Customers is generated as the sum of seniors, children, and adults.
-- Final_Bill is calculated based on the number of customers, the entry cost per customer, and the applicable discounts
--for children, seniors, and any coupon discounts.
+- Final_Bill is calculated based on the number of customers, the entry cost per customer, and the applicable discounts for children, seniors, and any coupon discounts.
 
 */
 CREATE TABLE Reservations (
-                              id int(5) auto_increment primary key COMMENT 'Unique reservation identifier',
-                              name varchar(100) not null COMMENT 'Name of the person booking the reservation',
-                              numberOfCustomers int(5) generated always as (numberOfSeniors + numberOfChildren + numberOfAdults)
-                                  stored COMMENT 'Total number of customers',
-                              numberOfAdults int(5) not null COMMENT 'Number of adult customers',
-                              numberOfSeniors int(5) not null COMMENT 'Number of senior customers',
-                              numberOfChildren int(5) not null COMMENT 'Number of child customers',
-                              dateTime varchar(20) not null COMMENT 'Reservation date and time yyyy-MM-dd HH:mm',
-                              entryCostPerCustomer int(5) default 25 COMMENT 'Entry cost per customer in dollars',
-                              couponDiscount double default 0.30 COMMENT 'Discount percentage applied via coupon (e.g., 0.30 for 30%)',
-                              seniorDiscount double default 0.15 COMMENT 'Discount rate for seniors (15%)',
-                              childrenDiscount double default 0.20 COMMENT 'Discount rate for children (20%)',
+                              id int auto_increment primary key,
+                              name varchar(100) not null,
+                              numberOfSeniors int not null,
+                              numberOfChildren int not null,
+                              numberOfAdults int not null,
+                              numberOfCustomers int generated always as (numberOfSeniors + numberOfChildren + numberOfAdults) stored,
+                              couponDiscount double default 0.30,
+                              dateTime datetime not null,
+                              entryCostPerCustomer int default 25,
+                              childrenDiscount double default 0.20,
+                              seniorDiscount double default 0.15,
                               finalBill double generated always as (
                                   (numberOfCustomers * entryCostPerCustomer)
                                       - (numberOfChildren * entryCostPerCustomer * childrenDiscount)
                                       - (numberOfSeniors * entryCostPerCustomer * seniorDiscount)
                                       - (numberOfCustomers * entryCostPerCustomer * couponDiscount)
-                                  ) stored COMMENT 'Final calculated bill amount'
-) COMMENT 'This table holds restaurant reservation details';
+                                  ) stored
+);
 
 
 

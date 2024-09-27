@@ -1,7 +1,5 @@
 package ca.hccis.restaurant.reservation.entity;
 
-import ca.hccis.restaurant.reservation.exception.ReservationException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -56,8 +54,17 @@ public class Reservation {
         System.out.println("Name: ");
         name = input.nextLine();
 
-        System.out.println("Email: ");
-        email = input.nextLine();
+        System.out.println("Number of Adults: ");
+        numberOfAdults = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Number of Seniors: ");
+        numberOfSeniors = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Number of Children: ");
+        numberOfChildren = input.nextInt();
+        input.nextLine();
 
         boolean validDate = false;
         while (!validDate) {
@@ -71,21 +78,11 @@ public class Reservation {
             }
         }
 
-        System.out.println("Number of Adults: ");
-        numberOfAdults = input.nextInt();
-        input.nextLine();
-
-        System.out.println("Number of Seniors: ");
-        numberOfSeniors = input.nextInt();
-        input.nextLine();
-
-        System.out.println("Number of Children: ");
-        numberOfChildren = input.nextInt();
-        input.nextLine();
+        System.out.println("Email: ");
+        email = input.nextLine();
 
         System.out.println("Coupon Discount (as a percentage, e.g., 30 for 30% off): ");
-        //stores as a decimal
-        couponDiscount = input.nextDouble() / 100;
+        couponDiscount = input.nextDouble() / 100; // Store as a decimal (e.g., 0.30 for 30%)
     }
 
     public int getId() {
@@ -133,15 +130,14 @@ public class Reservation {
     }
 
     /**
-     * This method calculate the total cost of the reservation based on the number of customers,
+     * This method calculates the total cost of the reservation based on the number of customers,
      * applying discounts for seniors, children, and any provided coupon discount.
      *
-     * @author sherri ashton
-     * @since 2024-09-25
+     * @return total cost
      */
     public double calculateTotalCost() {
         if (numberOfAdults < 0 || numberOfSeniors < 0 || numberOfChildren < 0) {
-            throw new ReservationException("Number of customers cannot be negative.");
+            throw new IllegalArgumentException("Number of customers cannot be negative.");
         }
 
         // Calculate the cost for adults (no discount)
@@ -160,20 +156,21 @@ public class Reservation {
         if (couponDiscount > 0) {
             totalCost = totalCost * (1 - couponDiscount);
         }
+
         return totalCost;
     }
+
 
     @Override
     public String toString() {
         return "Reservation ID: " + id + System.lineSeparator() +
                 "Name: " + name + System.lineSeparator() +
-                "Email: " + email + System.lineSeparator() +
+                "Number of Adults: " + numberOfAdults + System.lineSeparator() +
+                "Number of Seniors: " + numberOfSeniors + System.lineSeparator() +
+                "Number of Children: " + numberOfChildren + System.lineSeparator() +
                 "Date and Time: " + dateTime.format(DATE_TIME_FORMATTER) + System.lineSeparator() +
-                "Number of Adults (Age 11-64): " + numberOfAdults + System.lineSeparator() +
-                "Number of Seniors (Over 65 - 15% off): " + numberOfSeniors + System.lineSeparator() +
-                "Number of Children (Under 10 - 20% off): " + numberOfChildren + System.lineSeparator() +
-                "Coupon Discount: " + (couponDiscount * 100) + "%" + System.lineSeparator() +
-                "Total Cost: $" + String.format("%.2f", calculateTotalCost()) + System.lineSeparator();
+                "Email: " + email + System.lineSeparator() +
+                "Coupon Discount: " + (couponDiscount * 100) + "%" + System.lineSeparator();
     }
 
 
