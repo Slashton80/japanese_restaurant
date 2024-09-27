@@ -1,10 +1,12 @@
 package ca.hccis.restaurant.reservation.controller;
 
+import ca.hccis.restaurant.reservation.adapter.LocalDateTimeAdapter;
 import ca.hccis.restaurant.reservation.entity.Reservation;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import ca.hccis.restaurant.reservation.adapter.LocalDateTimeAdapter;
+
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +15,6 @@ import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Scanner;
-import java.io.File;
 
 /**
  * This class is the entry point of the application. It runs a simple console-based menu to add or view reservations
@@ -108,7 +109,7 @@ public class Main {
                     }
                 }
             }
-            // Set the idCounter to the highest found ID + 1
+            // Sets the idCounter to the highest found ID + 1
             Reservation.setIdCounter(highestId + 1);
         } catch (IOException e) {
             e.printStackTrace();
@@ -141,7 +142,7 @@ public class Main {
      */
     private static void saveAsJSON(Gson gson, Reservation reservation) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER_NAME + FILE_NAME_CUSTOM_JSON, true))) {
-            // Serialize the reservation as JSON
+            // Serializes the reservation as JSON
             writer.write(gson.toJson(reservation));
             // Ensures each JSON object is on a new line
             writer.newLine();
@@ -154,9 +155,9 @@ public class Main {
     /**
      * Reads all reservations from the JSON file and displays them. Updates the idCounter to prevent duplicate IDs.
      *
+     * @param gson
      * @author sherri ashton
      * @since 2024-09-20
-     * @param gson
      */
     private static void viewReservationsFromJSON(Gson gson) {
         Path filePath = Paths.get(FOLDER_NAME + FILE_NAME_CUSTOM_JSON);
