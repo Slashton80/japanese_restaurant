@@ -1,12 +1,14 @@
 package ca.hccis.restaurant.reservation.entity;
 
+import ca.hccis.restaurant.reservation.exception.ReservationException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * This class represents a reservation made at the restaurant.
+ * This class represents a reservation made at the restaurant. Includes discounts and calculation.
  *
  * @author sherri ashton
  * @since 2024-09-20
@@ -82,7 +84,7 @@ public class Reservation {
         email = input.nextLine();
 
         System.out.println("Coupon Discount (as a percentage, e.g., 30 for 30% off): ");
-        couponDiscount = input.nextDouble() / 100; // Store as a decimal (e.g., 0.30 for 30%)
+        couponDiscount = input.nextDouble() / 100;
     }
 
     public int getId() {
@@ -134,10 +136,12 @@ public class Reservation {
      * applying discounts for seniors, children, and any provided coupon discount.
      *
      * @return total cost
+     * @author sherri ashton
+     * @since 2024-09-27
      */
     public double calculateTotalCost() {
-        if (numberOfAdults < 0 || numberOfSeniors < 0 || numberOfChildren < 0) {
-            throw new IllegalArgumentException("Number of customers cannot be negative.");
+        if (numberOfAdults < 0 || numberOfChildren < 0 || numberOfSeniors < 0) {
+            throw new ReservationException("Number of customers cannot be negative.");
         }
 
         // Calculate the cost for adults (no discount)

@@ -125,11 +125,11 @@ public class Main {
         Reservation reservation = new Reservation();
         reservation.getInformation();
 
-        // Calculate and display total cost
+        // Calculates and display total cost
         double totalCost = reservation.calculateTotalCost();
         System.out.println("Total cost for this reservation: $" + totalCost);
 
-        // Save the reservation as JSON
+        // Saves the reservation as JSON
         saveAsJSON(gson, reservation);
     }
 
@@ -141,7 +141,7 @@ public class Main {
      */
     private static void saveAsJSON(Gson gson, Reservation reservation) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(FOLDER_NAME + FILE_NAME_CUSTOM_JSON, true))) {
-            // Serialize the reservation as JSON
+            // Serializes the reservation as JSON
             writer.write(gson.toJson(reservation));
             // Ensures each JSON object is on a new line
             writer.newLine();
@@ -186,7 +186,7 @@ public class Main {
                     }
                     System.out.println("------------------------------\n");
 
-                    // After loading all reservations, set the idCounter to the highest ID + 1
+                    // After loading all reservations, sets the idCounter to the highest ID + 1
                     Reservation.setIdCounter(highestId + 1);
                 }
             } else {
