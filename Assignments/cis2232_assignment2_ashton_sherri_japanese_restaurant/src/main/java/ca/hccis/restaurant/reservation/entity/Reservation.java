@@ -30,6 +30,7 @@ public class Reservation {
 
     // Declares the DateTimeFormatter at the class level
     private static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    private double totalCost;
 
     public Reservation() {
         this.id = idCounter;
@@ -56,17 +57,8 @@ public class Reservation {
         System.out.println("Name: ");
         name = input.nextLine();
 
-        System.out.println("Number of Adults: ");
-        numberOfAdults = input.nextInt();
-        input.nextLine();
-
-        System.out.println("Number of Seniors: ");
-        numberOfSeniors = input.nextInt();
-        input.nextLine();
-
-        System.out.println("Number of Children: ");
-        numberOfChildren = input.nextInt();
-        input.nextLine();
+        System.out.println("Email: ");
+        email = input.nextLine();
 
         boolean validDate = false;
         while (!validDate) {
@@ -80,13 +72,24 @@ public class Reservation {
             }
         }
 
-        System.out.println("Email: ");
-        email = input.nextLine();
+        System.out.println("Number of Adults: ");
+        numberOfAdults = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Number of Seniors: ");
+        numberOfSeniors = input.nextInt();
+        input.nextLine();
+
+        System.out.println("Number of Children: ");
+        numberOfChildren = input.nextInt();
+        input.nextLine();
 
         System.out.println("Coupon Discount (as a percentage, e.g., 30 for 30% off): ");
         couponDiscount = input.nextDouble() / 100;
     }
-
+    public void setTotalCost(double totalCost) {
+        this.totalCost = totalCost;
+    }
     public int getId() {
         return id;
     }
@@ -130,6 +133,8 @@ public class Reservation {
     public void setCouponDiscount(double couponDiscount) {
         this.couponDiscount = couponDiscount;
     }
+    
+    
 
     /**
      * This method calculates the total cost of the reservation based on the number of customers,
@@ -155,12 +160,7 @@ public class Reservation {
 
         // Add the costs for seniors and children to the total
         totalCost += seniorCost + childrenCost;
-
-        // Apply coupon discount if present
-        if (couponDiscount > 0) {
-            totalCost = totalCost * (1 - couponDiscount);
-        }
-
+        this.totalCost = totalCost;
         return totalCost;
     }
 
@@ -169,13 +169,15 @@ public class Reservation {
     public String toString() {
         return "Reservation ID: " + id + System.lineSeparator() +
                 "Name: " + name + System.lineSeparator() +
+                "Email: " + email + System.lineSeparator() +
+                "Date and Time: " + dateTime.format(DATE_TIME_FORMATTER) + System.lineSeparator() +
                 "Number of Adults: " + numberOfAdults + System.lineSeparator() +
                 "Number of Seniors: " + numberOfSeniors + System.lineSeparator() +
                 "Number of Children: " + numberOfChildren + System.lineSeparator() +
-                "Date and Time: " + dateTime.format(DATE_TIME_FORMATTER) + System.lineSeparator() +
-                "Email: " + email + System.lineSeparator() +
-                "Coupon Discount: " + (couponDiscount * 100) + "%" + System.lineSeparator();
+                "Coupon Discount: " + (couponDiscount * 100) + "%" + System.lineSeparator() +
+                "Total Cost: " + totalCost + System.lineSeparator();
     }
+
 
 
 }
