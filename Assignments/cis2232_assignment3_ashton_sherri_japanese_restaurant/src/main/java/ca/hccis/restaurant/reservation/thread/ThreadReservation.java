@@ -250,8 +250,26 @@ public class ThreadReservation extends Thread implements Config {
     private Reservation gatherReservationInfoConsole() {
         try {
             Reservation reservation = new Reservation();
-            reservation.setName(getInputString("Enter Customer Name: "));
-            reservation.setEmail(getInputString("Enter Customer Email: "));
+           // Prompt for name until a valid non-null value is entered
+            while (true) {
+                String name = getInputString("Enter Customer Name: ");
+                if (name != null && !name.trim().isEmpty()) {
+                    reservation.setName(name);
+                    break;
+                } else {
+                    System.out.println("Name cannot be empty. Please enter a valid name.");
+                }
+            }
+            // Prompt for email until a valid non-null value is entered
+            while (true) {
+                String email = getInputString("Enter Customer Email: ");
+                if (email != null && !email.trim().isEmpty()) {
+                    reservation.setEmail(email);
+                    break;
+                } else {
+                    System.out.println("Email cannot be empty. Please enter a valid email.");
+                }
+            }
             boolean validDate = false;
             while (!validDate) {
                 try {
@@ -262,10 +280,45 @@ public class ThreadReservation extends Thread implements Config {
                     System.out.println("Invalid date format. Please use 'YYYY-MM-DD HH:MM'.");
                 }
             }
-            reservation.setNumberOfAdults(Integer.parseInt(getInputString("Enter Number of Adults: ")));
-            reservation.setNumberOfSeniors(Integer.parseInt(getInputString("Enter Number of Seniors (Over the age of 65: 15% discount):")));
-            reservation.setNumberOfChildren(Integer.parseInt(getInputString("Enter Number of Children (Under the age of 10: 20% discount): ")));
-            reservation.setCouponDiscount(Double.parseDouble(getInputString("Enter Coupon Discount (as a percentage, e.g., 30 for 30% off): ")) / 100);
+            // Number of Adults with validation
+            while (true) {
+                try {
+                    reservation.setNumberOfAdults(Integer.parseInt(getInputString("Enter Number of Adults: ")));
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number for adults.");
+                }
+            }
+
+            // Number of Seniors with validation
+            while (true) {
+                try {
+                    reservation.setNumberOfSeniors(Integer.parseInt(getInputString("Enter Number of Seniors (Over the age of 65: 15% discount):")));
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number for seniors.");
+                }
+            }
+
+            // Number of Children with validation
+            while (true) {
+                try {
+                    reservation.setNumberOfChildren(Integer.parseInt(getInputString("Enter Number of Children (Under the age of 10: 20% discount): ")));
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid number for children.");
+                }
+            }
+
+            // Coupon Discount with validation
+            while (true) {
+                try {
+                    reservation.setCouponDiscount(Double.parseDouble(getInputString("Enter Coupon Discount (as a percentage, e.g., 30 for 30% off): ")) / 100);
+                    break;
+                } catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter a valid discount percentage.");
+                }
+            }
 
             // Calculates the total cost after all details have been set
             reservation.calculateTotalCost();
@@ -288,8 +341,26 @@ public class ThreadReservation extends Thread implements Config {
     private Reservation gatherReservationInfoGUI() {
         try {
             Reservation reservation = new Reservation();
-            reservation.setName(JOptionPane.showInputDialog("Enter Customer Name: "));
-            reservation.setEmail(JOptionPane.showInputDialog("Enter Customer Email: "));
+            // Prompt for name until a valid non-null value is entered
+            while (true) {
+                String name = JOptionPane.showInputDialog("Enter Customer Name: ");
+                if (name != null && !name.trim().isEmpty()) {
+                    reservation.setName(name);
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Name cannot be empty. Please enter a valid name.");
+                }
+            }
+            // Prompt for email until a valid non-null value is entered
+            while (true) {
+                String email = JOptionPane.showInputDialog("Enter Customer Email: ");
+                if (email != null && !email.trim().isEmpty()) {
+                    reservation.setEmail(email);
+                    break;
+                } else {
+                    JOptionPane.showMessageDialog(null, "Email cannot be empty. Please enter a valid email.");
+                }
+            }
             boolean validDate = false;
             while (!validDate) {
                 try {
@@ -300,11 +371,45 @@ public class ThreadReservation extends Thread implements Config {
                     JOptionPane.showMessageDialog(null, "Invalid date format. Please use 'YYYY-MM-DD HH:MM'.");
                 }
             }
-            reservation.setNumberOfAdults(Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Adults : ")));
-            reservation.setNumberOfSeniors(Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Seniors (Over the age of 65: 15% discount): ")));
-            reservation.setNumberOfChildren(Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Children (Under the age of 10: 20% discount) :")));
-            reservation.setCouponDiscount(Double.parseDouble(JOptionPane.showInputDialog("Enter Coupon Discount (as a percentage, e.g., 30 for 30% of: ")) / 100);
+            // Number of Adults with validation
+            while (true) {
+                try {
+                    reservation.setNumberOfAdults(Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Adults: ")));
+                    break;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number for adults.");
+                }
+            }
 
+            // Number of Seniors with validation
+            while (true) {
+                try {
+                    reservation.setNumberOfSeniors(Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Seniors (Over the age of 65: 15% discount): ")));
+                    break;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number for seniors.");
+                }
+            }
+
+            // Number of Children with validation
+            while (true) {
+                try {
+                    reservation.setNumberOfChildren(Integer.parseInt(JOptionPane.showInputDialog("Enter Number of Children (Under the age of 10: 20% discount): ")));
+                    break;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid number for children.");
+                }
+            }
+
+            // Coupon Discount with validation
+            while (true) {
+                try {
+                    reservation.setCouponDiscount(Double.parseDouble(JOptionPane.showInputDialog("Enter Coupon Discount (as a percentage, e.g., 30 for 30% of): ")) / 100);
+                    break;
+                } catch (NumberFormatException e) {
+                    JOptionPane.showMessageDialog(null, "Invalid input. Please enter a valid discount percentage. ");
+                }
+            }
             // Calculates the total cost after all details have been set
             reservation.calculateTotalCost();
 

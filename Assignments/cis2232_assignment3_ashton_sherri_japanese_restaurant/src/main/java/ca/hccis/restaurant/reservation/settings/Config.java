@@ -11,5 +11,7 @@ public interface Config {
     String FIRST_NAME = "Sherri";
     String FILE_NAME_CUSTOM_JSON = "data_" + LAST_NAME.toLowerCase() + "_" + FIRST_NAME.toLowerCase() + ".json";
     String FOLDER_NAME = "C:\\CIS2232\\";
+
+
 }
 
