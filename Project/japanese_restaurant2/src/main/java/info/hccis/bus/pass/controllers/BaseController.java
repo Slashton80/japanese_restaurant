@@ -1,4 +1,4 @@
-package pass.controllers;
+package info.hccis.bus.pass.controllers;
 
 import info.hccis.bus.pass.repositories.CodeValueRepository;
 import info.hccis.bus.pass.util.CisUtility;

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle">Report</title>
+</head>
+<body>
+<style scoped="scoped">input:not(.hidden) {
+    display: inline-block;
+    float: right
+}
+
+.cd {
+    color: #F00 !important;
+    font-weight: bold;
+    margin-bottom: -48px
+}
+
+label {
+    margin-right: 8px
+}</style>
+
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2" th:text="#{label.report.1}">_</h2>
+    <form th:action="@{/report/assessment/player/submit}" method="post" class="wbb"
+          style="display:inline-block;text-align:left!important">
+        <label>Player Name: </label>
+        <input type="text" th:field="${reportInput.playerName}"></input>
+        <br></br>
+        <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
+    </form>
+    <br></br>
+
+    <!--                    https://stackoverflow.com/a/33106495
+                            https://stackoverflow.com/questions/51301074/how-to-check-null-and-empty-condition-using-thymeleaf-in-one-single-operation
+                            https://stackoverflow.com/questions/20789441/how-to-show-localization-messages-with-parameters-in-spring-3-thymeleaf
+    -->
+
+    <p th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found(${reportInput.playerName})}">
+        test</p>
+
+    <table class="wbb centered" th:if="${not #lists.isEmpty(reportInput.assessments)}"
+           style="padding:0!important;display:inline-block!important">
+
+        <tr>
+            <th>ID</th>
+            <th class="a"></th>
+            <th>Assessment Date</th>
+            <th class="a"></th>
+            <th>Created</th>
+            <th class="a"></th>
+            <th>Athlete</th>
+            <th class="a"></th>
+            <th>Assessor</th>
+            <th class="a"></th>
+            <th>FH Drives</th>
+            <th class="a"></th>
+            <th>BH Drives</th>
+            <th class="a"></th>
+            <th>FH Volley Max</th>
+            <th class="a"></th>
+            <th>FH Volley Sum</th>
+            <th class="a"></th>
+            <th>BH Volley Max</th>
+            <th class="a"></th>
+            <th>BH Volley Sum</th>
+            <th class="a"></th>
+            <th>Score</th>
+            <th class="a"></th>
+        </tr>
+        <tr th:each="current,iterStat : ${reportInput.assessments}">
+            <td th:text="${current.id}"></td>
+            <td></td>
+            <td th:text="${current.assessmentDate}"></td>
+            <td></td>
+            <td th:text="${current.createdDateTime}"></td>
+            <td></td>
+            <td th:text="${current.athleteName}"></td>
+            <td></td>
+            <td th:text="${current.assessorName}"></td>
+            <td></td>
+            <td th:text="${current.forehandDrives}"></td>
+            <td></td>
+            <td th:text="${current.backhandDrives}"></td>
+            <td></td>
+            <td th:text="${current.forehandVolleyMax}"></td>
+            <td></td>
+            <td th:text="${current.forehandVolleySum}"></td>
+            <td></td>
+            <td th:text="${current.backhandVolleyMax}"></td>
+            <td></td>
+            <td th:text="${current.backhandVolleySum}"></td>
+            <td></td>
+            <td th:text="${current.technicalScore}"></td>
+            <td></td>
+        </tr>
+    </table>
+
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<<head>
+  <title>View Reservations</title>
+</head>
+<body>
+
+<h1>All Reservations</h1>
+
+<table border="1">
+  <thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Date and Time</th>
+    <th>Number of Adults</th>
+    <th>Number of Seniors</th>
+    <th>Number of Children</th>
+    <th>Total Cost</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="reservation : ${reservations}">
+    <td th:text="${reservation.id}"></td>
+    <td th:text="${reservation.name}"></td>
+    <td th:text="${reservation.email}"></td>
+    <td th:text="${reservation.dateTime}"></td>
+    <td th:text="${reservation.numberOfAdults}"></td>
+    <td th:text="${reservation.numberOfSeniors}"></td>
+    <td th:text="${reservation.numberOfChildren}"></td>
+    <td th:text="${reservation.totalCost}"></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

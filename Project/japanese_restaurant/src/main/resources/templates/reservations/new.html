@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>New Reservation</title>
+</head>
+<body>
+
+<h1>Create a New Reservation</h1>
+
+<form th:action="@{/reservations/new/submit}" method="post">
+  <label for="name">Name:</label>
+  <input type="text" id="name" th:field="*{name}" placeholder="Enter your name"/><br/>
+
+  <label for="adults">Number of Adults:</label>
+  <input type="number" id="adults" th:field="*{numberOfAdults}" placeholder="Enter number of adults"/><br/>
+
+  <label for="seniors">Number of Seniors:</label>
+  <input type="number" id="seniors" th:field="*{numberOfSeniors}" placeholder="Enter number of seniors"/><br/>
+
+  <label for="children">Number of Children:</label>
+  <input type="number" id="children" th:field="*{numberOfChildren}" placeholder="Enter number of children"/><br/>
+
+  <label for="couponDiscount">Coupon Discount (e.g., 0.20 for 20%):</label>
+  <input type="number" step="0.01" id="couponDiscount" th:field="*{couponDiscount}" placeholder="Enter discount"/><br/>
+
+  <button type="submit">Submit</button>
+</form>
+
+</body>
+</html>

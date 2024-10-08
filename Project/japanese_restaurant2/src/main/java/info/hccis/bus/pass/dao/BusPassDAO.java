@@ -1,7 +1,6 @@
 package info.hccis.bus.pass.dao;
 
 import info.hccis.bus.pass.entity.BusPass;
-import info.hccis.bus.pass.jpa.entity.TicketOrder;
 
 import java.sql.*;
 import java.util.ArrayList;
