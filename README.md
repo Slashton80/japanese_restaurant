@@ -73,4 +73,17 @@ Applying a Coupon Discount: If a coupon is applied, it will reduce the total bil
 
 ---
 ## Report Details ##
-Currently, this is the project as it stands. However, modifications to documents, layout, functionality, and colors may be made in the future based on the client's preferences.
+The report allows users to retrieve reservations based on a specified time period.<br/>
+
+DAO Class:
+<br/>Complete the DAO class to fetch reservation data from the database using JDBC.
+User Input View:
+Develop an input form for users to enter a start and end date for the report.<br/>
+<br/>
+Controller Class:
+<br/>Created a controller to manage user inputs, process report logic, and display results.
+Results View:
+<br/>Designed a view to show the report results along with the input criteria.<br/>
+<br/>
+File Output:
+<br/>Implemented functionality to save report results to a file in the c:\cis2232\ directory, with a naming convention that includes the report type and current date (e.g., ReservationsForPeriodYYYYMMDDHHMM.txt).
