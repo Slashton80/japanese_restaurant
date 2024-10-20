@@ -7,7 +7,7 @@ use cis2232_japanese_restaurant;
 -- table with 7-9 fields.
 --------------------------------------------------------------------------------
 
-CREATE TABLE SkillsAssessmentSquashTechnical(
+/*CREATE TABLE SkillsAssessmentSquashTechnical(
                                                 id int(5),
                                                 assessmentDate varchar(10) NOT NULL COMMENT 'yyyy-MM-dd',
                                                 createdDateTime varchar(20) NOT NULL COMMENT 'yyyy-MM-dd hh:mm:ss',
@@ -39,7 +39,7 @@ ALTER TABLE SkillsAssessmentSquashTechnical
 
 INSERT INTO skillsassessmentsquashtechnical (id, assessmentDate, createdDateTime, athleteName, assessorName, forehandDrives, backhandDrives, forehandVolleyMax, forehandVolleySum, backhandVolleyMax, backhandVolleySum, technicalScore) VALUES
                                                                                                                                                                                                                                              (1, '2022-08-22', '2023-11-07 01:38:48', 'Maria Smith', 'BJ MacLean', 11, 5, 14, 78, 6, 59, 1085),
-                                                                                                                                                                                                                                             (2, '2022-08-11', '2023-11-07 01:38:52', 'Rhonda Jones', 'BJ MacLean', 5, 7, 4, 36, 5, 38, 622),
+ */                                                                                                                                                                                                                                            (2, '2022-08-11', '2023-11-07 01:38:52', 'Rhonda Jones', 'BJ MacLean', 5, 7, 4, 36, 5, 38, 622),
                                                                                                                                                                                                                                              (3, '2022-08-07', '2023-11-07 01:38:56', 'Chad Collins', 'BJ MacLean', 8, 8, 4, 37, 5, 42, 707),
                                                                                                                                                                                                                                              (4, '2022-08-07', '2023-11-07 01:38:59', 'Rhonda Jones', 'BJ MacLean', 12, 8, 9, 53, 4, 42, 879),
                                                                                                                                                                                                                                              (5, '2022-08-07', '2023-11-07 01:39:01', 'Chad Collins', 'BJ MacLean', 8, 10, 7, 52, 3, 26, 740),
@@ -57,7 +57,7 @@ INSERT INTO skillsassessmentsquashtechnical (id, assessmentDate, createdDateTime
 -- Code type 1 is always user types that may exist in your projects.
 --------------------------------------------------------------------------------
 
-CREATE TABLE CodeType (codeTypeId int(3) COMMENT 'This is the primary key for code types',
+/*CREATE TABLE CodeType (codeTypeId int(3) COMMENT 'This is the primary key for code types',
                        englishDescription varchar(100) NOT NULL COMMENT 'English description',
                        frenchDescription varchar(100) DEFAULT NULL COMMENT 'French description',
                        createdDateTime datetime DEFAULT NULL,
@@ -177,6 +177,7 @@ Business Logic:
 CREATE TABLE Reservations (
                               id int auto_increment primary key,
                               name varchar(100) not null,
+                              email varchar(100) not null,  -- Changed to VARCHAR to store email addresses
                               numberOfSeniors int not null,
                               numberOfChildren int not null,
                               numberOfAdults int not null,
@@ -193,6 +194,20 @@ CREATE TABLE Reservations (
                                       - (numberOfCustomers * entryCostPerCustomer * couponDiscount)
                                   ) stored
 );
+
+
+INSERT INTO cis2232_japanese_restaurant.reservations (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount)
+VALUES ('John Doe', 'john.doe@example.com', 2, 1, 1, '2024-10-20 18:30:00', 0.10);
+INSERT INTO cis2232_japanese_restaurant.reservations (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount)
+VALUES ('Alice Johnson', 'alice.johnson@example.com', 3, 2, 2, '2024-11-01 19:00:00', 0.00);
+INSERT INTO cis2232_japanese_restaurant.reservations (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount)
+VALUES ('Bob Smith', 'bob.smith@example.com', 4, 1, 3, '2024-11-10 18:00:00', 0.50);
+INSERT INTO cis2232_japanese_restaurant.reservations (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount)
+VALUES ('Charlie Lee', 'charlie.lee@example.com', 5, 0, 0, '2024-11-15 20:00:00', 0.20);
+INSERT INTO cis2232_japanese_restaurant.reservations (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount)
+VALUES ('David Green', 'david.green@example.com', 50, 10, 5, '2024-12-01 12:30:00', 0.10);
+INSERT INTO cis2232_japanese_restaurant.reservations (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount)
+VALUES ('Eve White', 'eve.white@example.com', 3, 0, 0, '2024-12-05 13:00:00', 0.00);
 
 
 

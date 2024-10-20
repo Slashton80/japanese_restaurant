@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 /**
  * This class represents a reservation made at the restaurant. Includes discounts and calculation.
@@ -121,7 +122,7 @@ public class Reservation {
         this.name = name;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 
@@ -260,5 +261,34 @@ public class Reservation {
         return Integer.hashCode(id); // Uses the ID for hash code
     }
 
+//    public class ReportReservation {
+//        private String dataStart;
+//        private String dataEnd;
+//        private ArrayList<Reservation> reservations;
+//
+//        public String getDataStart() {
+//            return dataStart;
+//        }
+//
+//        public void setDataStart(String dataStart) {
+//            this.dataStart = dataStart;
+//        }
+//
+//        public String getDataEnd() {
+//            return dataEnd;
+//        }
+//
+//        public void setDataEnd(String dataEnd) {
+//            this.dataEnd = dataEnd;
+//        }
+//
+//        public ArrayList<Reservation> getReservations() {
+//            return reservations;
+//        }
+//
+//        public void setReservations(ArrayList<Reservation> reservations) {
+//            this.reservations = reservations;
+//        }
+//    }
 
 }

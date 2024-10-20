@@ -15,7 +15,7 @@ th {
     --main-color-light: #9c9a9a;
     --main-color-primary: #d1a36e;
     --main-color-dark: #f9f4ef;
-    --main-color-text: #ff6347;
+    --main-color-text: #fa8072;
     --main-color-bright: #ffffff;
 
 }
@@ -65,7 +65,7 @@ th, tr, td {
 }
 
 td {
-    padding: 0 !important
+    padding: 10px !important
 }
 
 tr, thead, th {
@@ -149,8 +149,8 @@ img.sushi {
     width: 100%;
     max-width: 300px;
     height: auto;
-    border-radius: 10px; /* Gives a soft rounded corner look */
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Adds a soft shadow effect */
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 
@@ -162,4 +162,30 @@ img.sushi {
     border-radius: 12px !important;
     /*white-space: nowrap !important;*/
 }
+.nav-link:hover, .dropdown-item:hover {
+    color: black;
+    transition: color 0.3s ease;
+}
 
+h2 {
+    padding-bottom: 30px;
+    font-size:30px;
+
+}
+.dropdown-menu .dropdown-item {
+    white-space: normal;
+    word-wrap: break-word;
+    max-width: 250px;
+}
+.container {
+    padding-top: 30px;
+}
+.success-message {
+    color: green;
+    font-weight: bold;
+}
+
+.error-message {
+    color: red;
+    font-weight: bold;
+}

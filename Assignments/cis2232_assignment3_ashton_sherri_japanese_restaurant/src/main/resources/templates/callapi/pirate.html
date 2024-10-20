@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
-    <title id="pageTitle">Report</title>
+    <title id="pageTitle" th:text="#{application.name}">App name</title>
 </head>
 <body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+
 <style scoped="scoped">input:not(.hidden) {
     display: inline-block;
     float: right
@@ -19,7 +21,7 @@ label {
     margin-right: 8px
 }</style>
 
-<nav th:replace="fragments/navHeader :: navbar"></nav>
+
 <div class="container has-text-centered">
     <h2 class="title is-2">Pirate Translator</h2>
     <form th:action="@{/callapi/pirate/submit}" method="post" class="wbb"

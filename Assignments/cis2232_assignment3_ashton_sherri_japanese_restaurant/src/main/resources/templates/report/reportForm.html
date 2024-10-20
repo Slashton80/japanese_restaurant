@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+  <title id="pageTitle" th:text="${session.title}">Reports</title>
+</head>
+<body>
+<style scoped="scoped">
+  label {
+    margin-right: 8px;
+  }
+  input:not(.hidden) {
+    display: inline-block;
+    float: right;
+  }
+</style>
+
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+
+<div class="container has-text-centered">
+  <h2 class="title is-2" th:text="#{label.report.reservation.date.range}">Reservation Date Range</h2>
+
+  <!-- Form to submit start and end date for generating the report -->
+  <form th:action="@{/report/reservation/daterange}" method="post" class="wbb" style="text-align:left!important">
+    <label>Start Date: </label>
+    <input type="date" th:field="${reportInput.startDate}" />
+    <br />
+    <label>End Date: </label>
+    <input type="date" th:field="${reportInput.endDate}" />
+    <br />
+    <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
+  </form>
+
+  <br />
+
+  <!-- Display a message if no data is found -->
+  <p th:if="${not #strings.isEmpty(message)}" th:text="${message}">No data found</p>
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

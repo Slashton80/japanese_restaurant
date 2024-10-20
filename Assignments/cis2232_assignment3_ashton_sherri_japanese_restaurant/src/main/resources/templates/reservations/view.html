@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<<head>
-  <title>View Reservations</title>
+<head th:replace="fragments/head :: head">
+  <title id="pageTitle">Report</title>
 </head>
 <body>
+<h1>Reservation Report from [[${report.dataStart}]] to [[${report.dataEnd}]]</h1>
+<p>Total Reservations: [[${report.minLength}]]</p>
 
-<h1>All Reservations</h1>
-
-<table border="1">
+<table>
   <thead>
   <tr>
-    <th>ID</th>
     <th>Name</th>
     <th>Email</th>
-    <th>Date and Time</th>
-    <th>Number of Adults</th>
-    <th>Number of Seniors</th>
-    <th>Number of Children</th>
+    <th>Adults</th>
+    <th>Seniors</th>
+    <th>Children</th>
+    <th>Coupon Discount</th>
     <th>Total Cost</th>
   </tr>
   </thead>
   <tbody>
-  <tr th:each="reservation : ${reservations}">
-    <td th:text="${reservation.id}"></td>
+  <tr th:each="reservation : ${report.reservations}">
     <td th:text="${reservation.name}"></td>
     <td th:text="${reservation.email}"></td>
-    <td th:text="${reservation.dateTime}"></td>
     <td th:text="${reservation.numberOfAdults}"></td>
     <td th:text="${reservation.numberOfSeniors}"></td>
     <td th:text="${reservation.numberOfChildren}"></td>
+    <td th:text="${reservation.couponDiscount}"></td>
     <td th:text="${reservation.totalCost}"></td>
   </tr>
   </tbody>
 </table>
-
 </body>
 </html>

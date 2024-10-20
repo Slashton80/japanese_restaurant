@@ -121,7 +121,7 @@ public class Reservation {
         this.name = name;
     }
 
-    public Object getEmail() {
+    public String getEmail() {
         return email;
     }
 

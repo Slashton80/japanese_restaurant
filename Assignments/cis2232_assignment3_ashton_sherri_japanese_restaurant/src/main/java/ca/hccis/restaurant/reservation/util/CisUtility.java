@@ -13,13 +13,13 @@ import java.util.Scanner;
  */
 public class CisUtility {
 
-    private static Scanner input = new Scanner(System.in);
+    private static final Scanner input = new Scanner(System.in);
 
     //The isGUI will be used to determine if JOptionPane is used or console
     private static boolean isGUI = false;
 
     public void setIsGUI(boolean isGUI) {
-        this.isGUI = isGUI;
+        CisUtility.isGUI = isGUI;
     }
 
     /**

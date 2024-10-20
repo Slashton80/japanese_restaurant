@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+  <title id="pageTitle" th:text="${session.title}">Reservation Report</title>
+</head>
+<body>
+<style scoped="scoped">
+  th, td {
+    text-align: left;
+  }
+  tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  .a {
+    padding: 0 16px;
+  }
+</style>
+
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+
+<div class="container has-text-centered">
+  <h2 class="title is-2" th:text="#{label.report.reservation.result}">Reservation Report</h2>
+
+  <!-- Table to show reservation data -->
+  <table class="table is-bordered" th:if="${not #lists.isEmpty(reportInput.reservations)}">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Date</th>
+      <th>Customer Name</th>
+      <th>Number of Guests</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reservation : ${reportInput.reservations}">
+      <td th:text="${reservation.id}"></td>
+      <td th:text="${reservation.date}"></td>
+      <td th:text="${reservation.customerName}"></td>
+      <td th:text="${reservation.numberOfGuests}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <!-- Message if no reservations are found -->
+  <p th:if="${#lists.isEmpty(reportInput.reservations)}" th:text="#{label.no.reservations}">No reservations found.</p>
+</div>
+
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
