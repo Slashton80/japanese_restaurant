@@ -8,7 +8,7 @@ import ca.hccis.restaurant.reservation.thread.ThreadReservation;
  * @author Sherri Ashton
  * @since Originally 2024-09-20. 2024-09-30 (changes - created threads for both console and gui, moved info from assignment 2 to ThreadReservation Class)
  */
-public class Main {
+public class MainController {
 
     // Main method
     public static void main(String[] args) {
