@@ -37,14 +37,15 @@ public class ReservationDAO {
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {
                 Reservation reservation = new Reservation();
-                Reservation.setIdCounter(rs.getInt("id"));
+                reservation.setIdCounter(rs.getInt("id"));
                 reservation.setName(rs.getString("name"));
                 reservation.setEmail(rs.getString("email"));
                 reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
                 reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
                 reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
                 reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
-                reservation.setTotalCost(rs.getDouble("finalBill"));
+                reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+                reservation.setTotalCost(rs.getDouble("totalCost"));
                 reservations.add(reservation);
             }
         } catch (SQLException e) {
@@ -81,22 +82,33 @@ public class ReservationDAO {
         return reservations;
     }
 
-//    // Insert new reservation
-//    public void insert(Reservation reservation) {
-//        String query = "INSERT INTO reservation (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount) " +
-//                "VALUES (?, ?, ?, ?, ?, ?, ?)";
-//
-//        try (PreparedStatement ps = conn.prepareStatement(query)) {
-//            ps.setString(1, reservation.getName());
-//            ps.setString(2, reservation.getEmail());
-//            ps.setInt(3, reservation.getNumberOfAdults());
-//            ps.setInt(4, reservation.getNumberOfSeniors());
-//            ps.setInt(5, reservation.getNumberOfChildren());
-//            ps.setTimestamp(6, Timestamp.valueOf(reservation.getDateTime()));
-//            ps.setDouble(7, reservation.getCouponDiscount());
-//            ps.executeUpdate();
-//        } catch (SQLException e) {
-//            logger.error("Error inserting reservation: " + e.getMessage());
-//        }
-//    }
+    // Insert new reservation
+    public void insert(Reservation reservation) {
+        String query = "INSERT INTO reservation (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setString(1, reservation.getName());
+            ps.setString(2, reservation.getEmail());
+            ps.setInt(3, reservation.getNumberOfAdults());
+            ps.setInt(4, reservation.getNumberOfSeniors());
+            ps.setInt(5, reservation.getNumberOfChildren());
+            ps.setTimestamp(6, Timestamp.valueOf(reservation.getDateTime()));
+            ps.setDouble(7, reservation.getCouponDiscount());
+            ps.setDouble(8, reservation.getTotalCost());
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Error inserting reservation: " + e.getMessage());
+        }
+    }
+    public void delete(int id) {
+        String query = "DELETE FROM reservation WHERE id = ?";
+        try (PreparedStatement ps = conn.prepareStatement(query)) {
+            ps.setInt(1, id);
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            logger.error("Error deleting reservation: " + e.getMessage());
+        }
+    }
+
 }

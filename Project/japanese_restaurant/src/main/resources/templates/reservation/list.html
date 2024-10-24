@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle" th:text="${session.title}">Reservations</title>
+</head>
+<body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2">Reservations</h2>
+
+    <table class="wbb centered">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date and Time</th>
+            <th>Number of Adults</th>
+            <th>Number of Seniors</th>
+            <th>Number of Children</th>
+            <th>Total Cost</th>
+            <th>Options</th>
+        </tr>
+        <tr th:each="reservation : ${reservations}">
+            <td th:text="${reservation.id}"></td>
+            <td th:text="${reservation.name}"></td>
+            <td th:text="${reservation.email}"></td>
+            <td th:text="${#temporals.format(reservation.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
+            <td th:text="${reservation.numberOfAdults}"></td>
+            <td th:text="${reservation.numberOfSeniors}"></td>
+            <td th:text="${reservation.numberOfChildren}"></td>
+            <td th:text="${reservation.totalCost}"></td>
+            <td class="centered2">
+                <a th:href="@{/templates/reservation/edit/{id}(id=${reservation.id})}">
+                    <span class="icon"><i class="fas fa-edit" title="Edit"></i></span>
+                </a>
+                <a th:href="@{/templates/reservation/delete/{id}(id=${reservation.id})}">
+                    <span class="icon"><i class="fas fa-trash" title="Delete"></i></span>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="9" style="text-align:center">
+                <a th:href="@{/templates/reservation/add}">
+                    <span class="icon"><i class="fas fa-plus-square" title="New"></i></span>
+                </a>
+            </td>
+        </tr>
+    </table>
+    <br></br>
+    <p class="wbb" style="display:inline-block">Total: <b><span th:text="${#lists.size(reservations)}"></span></b> reservations.</p>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
