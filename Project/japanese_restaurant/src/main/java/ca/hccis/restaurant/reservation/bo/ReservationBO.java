@@ -53,7 +53,7 @@ public static ArrayList<Reservation> processDateRangeReport(String start, String
         ReservationDAO reservationDAO = new ReservationDAO();
         ArrayList<Reservation> reservations = null;
 
-        reservations = (ArrayList<Reservation>) reservationDAO.selectAllWithMinLength(minLength);
+        reservations = reservationDAO.selectAllWithMinLength(minLength);
 
         //Also write the report to a file
         CisUtilityFile.writeReportToFile("minLengthReport", reservations);

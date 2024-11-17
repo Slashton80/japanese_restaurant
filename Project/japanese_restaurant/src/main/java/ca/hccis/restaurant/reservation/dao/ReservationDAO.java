@@ -52,7 +52,7 @@ public class ReservationDAO {
         try {
 
             stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from Reservation;");
+            rs = stmt.executeQuery("select * from reservation;");
 
             //******************************************************************
             //Loop through the result set using the next method.
@@ -109,58 +109,48 @@ public class ReservationDAO {
         //statement object will allow us to run sql commands against the database.
         //******************************************************************
         try {
-
             stmt = conn.createStatement();
-            String sqlStatement = "select * from Reservation " +
-                    "where startDate >= '"+start
-                    +"' and startDate <= '"+end+"';";
+            String sqlStatement = "SELECT * FROM reservation " +
+                    "WHERE reservationDateTime >= '" + start +
+                    "' AND reservationDateTime <= '" + end + "';";
 
             rs = stmt.executeQuery(sqlStatement);
 
-            //******************************************************************
-            //Loop through the result set using the next method.
-            //******************************************************************
-            passes = new ArrayList();
-
+            passes = new ArrayList<>();
             while (rs.next()) {
-
                 Reservation reservation = new Reservation();
-                Reservation.setIdCounter(rs.getInt("id"));
-                reservation.setName(rs.getString("name"));
-                reservation.setEmail(rs.getString("email"));
-                reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
-                reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
-                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
-                reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
-                reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+                reservation.setId(rs.getInt("id")); // Maps the ID column
+                reservation.setName(rs.getString("name")); // Maps the Name column
+                reservation.setEmail(rs.getString("email")); // Maps the Email column
+                reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime()); // Maps DateTime
+                reservation.setNumberOfAdults(rs.getInt("numberOfAdults")); // Maps Number of Adults
+                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors")); // Maps Number of Seniors
+                reservation.setNumberOfChildren(rs.getInt("numberOfChildren")); // Maps Number of Children
+                reservation.setCouponDiscount(rs.getDouble("couponDiscount")); // Maps Coupon Discount
+                reservation.setTotalCost(rs.getBigDecimal("totalCost")); // Maps Total Cost
 
                 passes.add(reservation);
             }
-
         } catch (SQLException e) {
-
             e.printStackTrace();
-
         } finally {
-
             try {
-                stmt.close();
+                if (stmt != null) stmt.close();
             } catch (SQLException ex) {
                 System.out.println("There was an error closing");
             }
         }
         return passes;
     }
-
     /**
      * Select all for min length report
      *
      * @since 20241011
      * @author BJM
      */
-    public ArrayList<Reservation> selectAllWithMinLength(int minLength) throws SQLException {
-        ArrayList<Reservation> passes = null;
-        Statement stmt = null;
+    public ArrayList<Reservation> selectAllWithMinLength(int minLength) {
+        ArrayList<Reservation> passes = new ArrayList<>();
+        String sql = "SELECT * FROM reservation WHERE LENGTH(name) >= ?";
 
         //******************************************************************
         //Use the DriverManager to get a connection to our MySql database.  Note
@@ -171,46 +161,26 @@ public class ReservationDAO {
         //Create a statement object using our connection to the database.  This
         //statement object will allow us to run sql commands against the database.
         //******************************************************************
-        try {
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, minLength);
 
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from BusPass " +
-                    "where lengthOfPass >= "+minLength+";");
-
-            //******************************************************************
-            //Loop through the result set using the next method.
-            //******************************************************************
-            passes = new ArrayList();
-
+            rs = pstmt.executeQuery();
             while (rs.next()) {
-
                 Reservation reservation = new Reservation();
-        Reservation.setIdCounter(rs.getInt("id"));
-        reservation.setName(rs.getString("name"));
-        reservation.setEmail(rs.getString("email"));
-        reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
-        reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
-        reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
-        reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
-        reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
-
-
+                reservation.setId(rs.getInt("id")); // Maps the ID column
+                reservation.setName(rs.getString("name")); // Maps the Name column
+                reservation.setEmail(rs.getString("email")); // Maps the Email column
+                reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime()); // Maps DateTime
+                reservation.setNumberOfAdults(rs.getInt("numberOfAdults")); // Maps Number of Adults
+                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors")); // Maps Number of Seniors
+                reservation.setNumberOfChildren(rs.getInt("numberOfChildren")); // Maps Number of Children
+                reservation.setCouponDiscount(rs.getDouble("couponDiscount")); // Maps Coupon Discount
+                reservation.setTotalCost(rs.getBigDecimal("totalCost")); // Maps Total Cost
 
                 passes.add(reservation);
             }
-
         } catch (SQLException e) {
-
             e.printStackTrace();
-            throw e;
-
-        } finally {
-
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                System.out.println("There was an error closing");
-            }
         }
         return passes;
     }
