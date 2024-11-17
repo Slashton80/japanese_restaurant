@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
  */
 public class CisUtility {
 
-    private static final Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
 
     //The isGUI will be used to determine if JOptionPane is used or console
     private static boolean isGUI = false;
@@ -215,7 +215,7 @@ public class CisUtility {
      * @author BJ MacLean
      * @since 20190301
      */
-    public static String getCurrentDate(String format) {
+    public static String getCurrentDate(int i, String format) {
         //Set the default format.
         if (format == null || format.length() == 0) {
             format = "yyyy-MM-dd";
@@ -224,26 +224,6 @@ public class CisUtility {
         return LocalDateTime.now().format(DateTimeFormatter.ofPattern(format));
 
     }
-
-    /**
-     * Get the formatted date adjusted based on offset
-     * https://stackoverflow.com/questions/1459656/how-to-get-the-current-time-in-yyyy-mm-dd-hhmisec-millisecond-format-in-java
-     * @param offsetDays Days to offset the date
-     * @param format Format for date (default yyyy-MM-dd)
-     * @author BJ MacLean
-     * @since 20241018
-     */
-    public static String getCurrentDate(int offsetDays, String format) {
-        //Set the default format.
-        if (format == null || format.length() == 0) {
-            format = "yyyy-MM-dd";
-        }
-
-        LocalDateTime theDate = LocalDateTime.now().plusDays(offsetDays);
-        return theDate.format(DateTimeFormatter.ofPattern(format));
-
-    }
-
 
     /**
      * This method will return the current time in milliseconds since a specific

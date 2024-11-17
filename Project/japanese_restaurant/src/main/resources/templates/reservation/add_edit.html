@@ -1,0 +1,138 @@
+<!-- add_edit.html -->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+  <title id="pageTitle" th:text="#{}">Add/Edit Reservation</title>
+</head>
+<body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+  <h2 class="title is-2" th:if= "${reservation.id != null}" th:text="#{label.edit.order}">label Edit</h2>
+  <h2 class="title is-2" th:if= "${reservation.id == null}" th:text="#{label.add.order}">label Add</h2>
+  <form th:action="@{/reservation/submit}" method="post" class="wbb" style="display:inline-block;text-align:left!important">
+    <input class="hidden" hidden="hidden" type="text" readonly="readonly" th:field="${reservation.id}"></input>
+    <input class="hidden" hidden="hidden" type="text" readonly="readonly" th:field="${reservation.cost}"></input>
+
+    <p><label>Name: </label>
+      <input type="text" th:field="${reservation.name}"></input>
+    </p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.name}')}" th:errors="${reservation.name}"></p>
+
+    <p><label>Email: </label>
+      <input type="text" th:field="${reservation.email}"></input>
+    </p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.email}')}" th:errors="${reservation.email}"></p>
+
+    <p><label>Date and Time: </label>
+      <input type="text" th:field="${reservation.dateTime}"></input>
+    </p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.dateTime}')}" th:errors="${reservation.dateTime}"></p>
+
+    <p><label>Number of Adults: </label>
+      <input type="text" th:field="${reservation.numberOfAdults}"></input>
+    </p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.numberOfAdults}')}" th:errors="${reservation.numberOfAdults}"></p>
+
+    <!--                <p><label>Reservation type(1,2,3,4): </label>-->
+    <!--                    <input type="text" th:field="${reservation.reservationType}"></input>-->
+    <!--                </p>-->
+    <p><label>Number of Seniors: </label>
+      <input type="text" th:field="${reservation.numberOfSeniors}"></input>
+    </p>
+
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.numberOfChildren}')}" th:errors="${reservation.numberOfChildren}"></p>
+    <p><label>Number of Children: </label>
+      <input type="text" th:field="${reservation.numberOfChildren}"></input>
+    </p>
+    <p><label>Coupon Discount: </label>
+      <input type="text" th:field="${reservation.couponDiscount}"></input>
+    </p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.numberOfAdults}')}" th:errors="${reservation.numberOfSeniors}"></p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.numberOfAdults}')}" th:errors="${reservation.numberOfSeniors}"></p>
+    <p><label for="reservationType" th:text="#{label.restaurant.reservation.type}">Reservation Type </label>
+      <select id="reservationType" th:field="${reservation.reservationType}">
+        <option value="0">select option</option>
+        <option th:each="option : ${session.reservationTypes}" th:value="${option.codeValueSequence}" th:text="${option.englishDescription}"></option>                    </select>
+    </p>
+    <p class="cd" th:if="${#fields.hasErrors('${reservation.reservationType}')}" th:errors="${reservation.reservationType}"></p>
+
+
+<!--    <p><label>Valid for rural?  (true/false): </label>-->
+<!--      <input type="text" th:field="${busPass.validForRuralRoute}"></input>-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('${busPass.validForRuralRoute}')}" th:errors="${busPass.validForRuralRoute}"></p>-->
+
+<!--    <p><label>Length of pass: </label>-->
+<!--      <input type="number" th:field="${busPass.lengthOfPass}"></input>-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('${busPass.lengthOfPass}')}" th:errors="${busPass.lengthOfPass}"></p>-->
+
+<!--    <p><label>Start date: </label>-->
+<!--      <input type="text" th:field="${busPass.startDate}"></input>-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('${busPass.startDate}')}" th:errors="${busPass.startDate}"></p>-->
+
+    <button style="display:block;margin-top:24px!important" class="centered" th:text="#{label.submit}">label Submit</button>
+  </form>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+<!--<body>-->
+<!--<nav th:replace="fragments/navHeader :: navbar"></nav>-->
+<!--<div class="container has-text-centered">-->
+<!--  <h2 class="title is-2" th:if="${reservation.id != null}" th:text="#{}">Edit Reservation</h2>-->
+<!--  <h2 class="title is-2" th:if="${reservation.id == null}" th:text="#{}">Add Reservation</h2>-->
+
+<!--  &lt;!&ndash; Reservation Form &ndash;&gt;-->
+<!--  <form th:action="@{/reservation/add}" method="post" class="wbb" style="display:inline-block;text-align:left!important">-->
+<!--    <input class="hidden" hidden="hidden" type="text" readonly="readonly" th:field="${reservation.id}" />-->
+<!--    <input class="hidden" hidden="hidden" type="text" readonly="readonly" th:field="${reservation.totalCost}" />-->
+
+<!--    <p>-->
+<!--      <label>Name: </label>-->
+<!--      <input type="text" th:field="${reservation.name}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.name')}" th:errors="${reservation.name}"></p>-->
+
+<!--    <p>-->
+<!--      <label>Email: </label>-->
+<!--      <input type="email" th:field="${reservation.email}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.email')}" th:errors="${reservation.email}"></p>-->
+
+<!--    <p>-->
+<!--      <label>Reservation Date & Time: </label>-->
+<!--      <input type="datetime-local" th:field="${reservation.reservationDateTime}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.reservationDateTime')}" th:errors="${reservation.reservationDateTime}"></p>-->
+
+<!--    <p>-->
+<!--      <label>Number of Adults: </label>-->
+<!--      <input type="number" th:field="${reservation.numberOfAdults}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.numberOfAdults')}" th:errors="${reservation.numberOfAdults}"></p>-->
+
+<!--    <p>-->
+<!--      <label>Number of Seniors: </label>-->
+<!--      <input type="number" th:field="${reservation.numberOfSeniors}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.numberOfSeniors')}" th:errors="${reservation.numberOfSeniors}"></p>-->
+
+<!--    <p>-->
+<!--      <label>Number of Children: </label>-->
+<!--      <input type="number" th:field="${reservation.numberOfChildren}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.numberOfChildren')}" th:errors="${reservation.numberOfChildren}"></p>-->
+
+<!--    <p>-->
+<!--      <label>Coupon Discount: </label>-->
+<!--      <input type="number" step="0.01" min="0" max="1" th:field="${reservation.couponDiscount}" />-->
+<!--    </p>-->
+<!--    <p class="cd" th:if="${#fields.hasErrors('$reservation.couponDiscount')}" th:errors="${reservation.couponDiscount}"></p>-->
+
+<!--    <button style="display:block;margin-top:24px!important" class="btn btn-primary" th:text="#{}">Submit</button>-->
+<!--  </form>-->
+<!--</div>-->
+<!--<footer th:replace="fragments/footer :: footer"></footer>-->
+<!--</body>-->
+</html>

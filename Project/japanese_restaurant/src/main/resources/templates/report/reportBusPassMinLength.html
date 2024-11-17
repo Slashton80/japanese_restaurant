@@ -21,7 +21,7 @@ label {
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <div class="container has-text-centered">
     <h2 class="title is-2" th:text="#{label.report.restaurant.reservation.min.length}">_</h2>
-    <form th:action="@{/report/buspass/minlength/submit}" method="post" class="wbb"
+    <form th:action="@{/report/reservation/minlength/submit}" method="post" class="wbb"
           style="display:inline-block;text-align:left!important">
         <label>Min Length: </label>
         <input type="number" th:field="${reportInput.minLength}"></input>
@@ -34,32 +34,48 @@ label {
 
 
     <!--https://stackoverflow.com/a/33106495-->
-    <table class="wbb centered" th:if="${not #lists.isEmpty(reportInput.busPasses)}"
+    <table class="wbb centered" th:if="${not #lists.isEmpty(reportInput.reservations)}"
            style="padding:0!important;display:inline-block!important">
-        <tr><!--All style overrides still needed. Not a great way to force spacing between elements but works.-->
+        <thead>
+        <tr>
             <th>ID</th>
             <th class="a"></th>
             <th>Name</th>
             <th class="a"></th>
-            <th>Address</th>
+            <th>Email</th>
             <th class="a"></th>
-            <th>City</th>
-            <th>Length</th>
-            <th>Cost</th>
+            <th>Date and Time</th>
+            <th class="a"></th>
+            <th>Number of Adults</th>
+            <th class="a"></th>
+            <th>Number of Seniors</th>
+            <th class="a"></th>
+            <th>Number of Children</th>
+            <th class="a"></th>
+            <th>Coupon Discount</th>
+            <th class="a"></th>
+            <th>Total Cost</th>
             <th class="a"></th>
         </tr>
+        </thead>
         <tr th:each="current,iterStat : ${reportInput.busPasses}">
             <td th:text="${current.id}"></td>
             <td></td>
             <td th:text="${current.name}"></td>
             <td></td>
-            <td th:text="${current.address}"></td>
+            <td th:text="${current.dateTime}"></td>
             <td></td>
-            <td th:text="${current.city}"></td>
+            <td th:text="${current.email}"></td>
             <td></td>
-            <td th:text="${current.lengthOfPass}"></td>
+            <td th:text="${current.numberOfAdults}"></td>
             <td></td>
-            <td th:text="${#numbers.formatCurrency(current.cost)}"></td>
+            <td th:text="${current.numberOfSeniors}"></td>
+            <td></td>
+            <td th:text="${current.numberOfChildren}"></td>
+            <td></td>
+            <td th:text="${current.couponDiscount}"></td>
+            <td></td>
+            <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
             <td></td>
         </tr><!--Ignore this error, as there will only be one td (the if above).-->
     </table>

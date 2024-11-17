@@ -29,12 +29,20 @@
             <h2 class="title is-2" style="margin-bottom:-10px!important">Reports</h2>
             <br></br>
             <table class="wbb centered" style="padding:0!important;display:inline-block!important">
+<!--                <tr>-->
+<!--                    <td><a th:href="@{/report/order/dateoforder}">Order date</a></td>-->
+<!--                    <td></td>-->
+<!--                </tr>-->
+<!--                <tr>-->
+<!--                    <td><a th:href="@{/report/order/customername}">Customer name</a></td>-->
+<!--                    <td></td>-->
+<!--                </tr>-->
                 <tr>
-                    <td><a th:href="@{/report/order/dateoforder}">Order date</a></td>
+                    <td><a th:href="@{/report/reservation/daterange}" th:text="#{label.report.restaurant.reservation.date.range}" >Date Range</a></td>
                     <td></td>
                 </tr><!-- comment -->
                 <tr>
-                    <td><a th:href="@{/report/order/customername}">Customer name</a></td>
+                    <td><a th:href="@{/report/reservation/minlength}"th:text="#{label.report.restaurant.reservation.min.length}" >Min Pass Length</a></td>
                     <td></td>
                 </tr><!-- comment -->
             </table>

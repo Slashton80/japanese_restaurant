@@ -24,55 +24,79 @@ label {
     <form th:action="@{/report/reservation/daterange/submit}" method="post" class="wbb"
           style="display:inline-block;text-align:left!important">
         <label>Start date: </label>
-        <input type="date" th:max="${session.currentDate}" th:field="${reportInput.dateStart}"></input>
+        <input type="date" th:field="${reportInput.dateStart}"></input>
         <br></br>
         <label>End date: </label>
-        <input type="date" th:max="${session.currentDate}" th:field="${reportInput.dateEnd}"></input>
+        <input type="date" th:field="${reportInput.dateEnd}"></input>
         <br></br>
         <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
     </form>
     <br></br>
-  <!--Messages-->
-    <p th:if="${message}" th:text="${message}"
-       th:classappend="${message == 'No reservations found for the selected date range.' ? 'error-message' : 'success-message'}">
-    </p>
+    <!--Messages-->
+    <p th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found.date}">test</p>
 
 
     <div class="container">
         <h2>Reservations</h2>
-    <!--https://stackoverflow.com/a/33106495-->
-    <!--<table class="wbb centered" th:if="${not #lists.isEmpty(reportInput.reservations)}"
-           style="padding:0!important;display:inline-block!important">-->
         <table class="table is-bordered">
-        <!--All style overrides still needed. Not a great way to force spacing between elements but works.-->
             <thead>
             <tr>
                 <th>ID</th>
+                <th class="a"></th>
                 <th>Name</th>
+                <th class="a"></th>
                 <th>Email</th>
+                <th class="a"></th>
                 <th>Date and Time</th>
+                <th class="a"></th>
                 <th>Number of Adults</th>
+                <th class="a"></th>
                 <th>Number of Seniors</th>
+                <th class="a"></th>
                 <th>Number of Children</th>
+                <th class="a"></th>
                 <th>Coupon Discount</th>
+                <th class="a"></th>
                 <th>Total Cost</th>
+                <th class="a"></th>
             </tr>
             </thead>
-            <tbody>
-            <tr th:each="reservation : ${reservations}">
-                <td th:text="${reservation.id}"></td>
-                <td th:text="${reservation.name}"></td>
-                <td th:text="${reservation.email}"></td>
-                <td th:text="${#temporals.format(reservation.dateTime, 'yyyy-MM-dd HH:mm')}"></td>
-                <td th:text="${reservation.numberOfAdults}"></td>
-                <td th:text="${reservation.numberOfSeniors}"></td>
-                <td th:text="${reservation.numberOfChildren}"></td>
-                <td th:text="${reservation.couponDiscount * 100 + '%'}"></td>
-                <td th:text="${reservation.totalCost}"></td>
+            <tr th:each="current,iterStat : ${reportInput.reservations}">
+                <td th:text="${current.id}"></td>
+                <td></td>
+                <td th:text="${current.name}"></td>
+                <td></td>
+                <td th:text="${current.dateTime}"></td>
+                <td></td>
+                <td th:text="${current.email}"></td>
+                <td></td>
+                <td th:text="${current.numberOfAdults}"></td>
+                <td></td>
+                <td th:text="${current.numberOfSeniors}"></td>
+                <td></td>
+                <td th:text="${current.numberOfChildren}"></td>
+                <td></td>
+                <td th:text="${current.couponDiscount}"></td>
+                <td></td>
+                <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
+                <td></td>
             </tr>
-            </tbody>
+<!--            <tbody>-->
+<!--            <tr th:each="reservation : ${reportInput.reservations}">-->
+<!--                <td th:text="${reservation.id}"></td>-->
+<!--                <td th:text="${reservation.name}"></td>-->
+<!--                <td th:text="${reservation.email}"></td>-->
+<!--                <td th:text="${#temporals.format(reservation.reservationDateTime, 'yyyy-MM-dd HH:mm')}"></td>-->
+<!--                <td th:text="${reservation.numberOfAdults}"></td>-->
+<!--                <td th:text="${reservation.numberOfSeniors}"></td>-->
+<!--                <td th:text="${reservation.numberOfChildren}"></td>-->
+<!--                <td th:text="${reservation.couponDiscount * 100 + '%'}"></td>-->
+<!--                <td th:text="${reservation.totalCost}"></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+
         </table>
-</div>
+    </div>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>

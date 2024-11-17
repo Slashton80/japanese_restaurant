@@ -1,20 +1,21 @@
 package ca.hccis.restaurant.reservation.dao;
 
-import ca.hccis.restaurant.reservation.entity.Reservation;
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class ReservationDAO {
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
 
+public class ReservationDAO {
     private static ResultSet rs;
     private static Connection conn = null;
     private static final Logger logger = LoggerFactory.getLogger(ReservationDAO.class);
 
-    // Constructor to establish a connection
     public ReservationDAO() {
+
         String propFileName = "application";
         ResourceBundle rb = ResourceBundle.getBundle(propFileName);
         String connectionString = rb.getString("spring.datasource.url");
@@ -24,46 +25,42 @@ public class ReservationDAO {
         try {
             conn = DriverManager.getConnection(connectionString, userName, password);
         } catch (SQLException e) {
-            logger.error("Error establishing connection: " + e.getMessage());
+            logger.error(e.toString());
         }
+
     }
 
-    // Selects all reservations
+    /**
+     * Select all
+     *
+     * @since 20210924
+     * @author BJM
+     */
     public ArrayList<Reservation> selectAll() {
-        ArrayList<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservation";
+        ArrayList<Reservation> passes = null;
+        Statement stmt = null;
 
-        try (Statement stmt = conn.createStatement()) {
-            ResultSet rs = stmt.executeQuery(query);
+        //******************************************************************
+        //Use the DriverManager to get a connection to our MySql database.  Note
+        //that in the dependencies, we added the Java connector to MySql which
+        //will allow us to connect to a MySql database.
+        //******************************************************************
+        //******************************************************************
+        //Create a statement object using our connection to the database.  This
+        //statement object will allow us to run sql commands against the database.
+        //******************************************************************
+        try {
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from Reservation;");
+
+            //******************************************************************
+            //Loop through the result set using the next method.
+            //******************************************************************
+            passes = new ArrayList();
+
             while (rs.next()) {
-                Reservation reservation = new Reservation();
-                reservation.setIdCounter(rs.getInt("id"));
-                reservation.setName(rs.getString("name"));
-                reservation.setEmail(rs.getString("email"));
-                reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
-                reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
-                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
-                reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
-                reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
-                reservation.setTotalCost(rs.getDouble("totalCost"));
-                reservations.add(reservation);
-            }
-        } catch (SQLException e) {
-            logger.error("Error fetching reservations: " + e.getMessage());
-        }
-        return reservations;
-    }
 
-    // Selects reservations by date range
-    public ArrayList<Reservation> selectAllByDateRange(String start, String end) {
-        ArrayList<Reservation> reservations = new ArrayList<>();
-        String query = "SELECT * FROM reservation WHERE dateTime >= ? AND dateTime <= ?";
-
-        try (PreparedStatement stmt = conn.prepareStatement(query)) {
-            stmt.setString(1, start);
-            stmt.setString(2, end);
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
                 Reservation reservation = new Reservation();
                 Reservation.setIdCounter(rs.getInt("id"));
                 reservation.setName(rs.getString("name"));
@@ -73,42 +70,229 @@ public class ReservationDAO {
                 reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
                 reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
                 reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
-                reservation.setTotalCost(rs.getDouble("finalBill"));
-                reservations.add(reservation);
+
+                passes.add(reservation);
             }
+
         } catch (SQLException e) {
-            logger.error("Error fetching reservations by date range: " + e.getMessage());
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                System.out.println("There was an error closing");
+            }
         }
-        return reservations;
+        return passes;
     }
 
-    // Insert new reservation
-    public void insert(Reservation reservation) {
-        String query = "INSERT INTO reservation (name, email, numberOfAdults, numberOfSeniors, numberOfChildren, dateTime, couponDiscount) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+    /**
+     * Select all by date range
+     *
+     * @since 20241010
+     * @author BJM
+     */
+    public ArrayList<Reservation> selectAllByDateRange(String start, String end) {
+        ArrayList<Reservation> passes = null;
+        Statement stmt = null;
 
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setString(1, reservation.getName());
-            ps.setString(2, reservation.getEmail());
-            ps.setInt(3, reservation.getNumberOfAdults());
-            ps.setInt(4, reservation.getNumberOfSeniors());
-            ps.setInt(5, reservation.getNumberOfChildren());
-            ps.setTimestamp(6, Timestamp.valueOf(reservation.getDateTime()));
-            ps.setDouble(7, reservation.getCouponDiscount());
-            ps.setDouble(8, reservation.getTotalCost());
-            ps.executeUpdate();
+        //******************************************************************
+        //Use the DriverManager to get a connection to our MySql database.  Note
+        //that in the dependencies, we added the Java connector to MySql which
+        //will allow us to connect to a MySql database.
+        //******************************************************************
+        //******************************************************************
+        //Create a statement object using our connection to the database.  This
+        //statement object will allow us to run sql commands against the database.
+        //******************************************************************
+        try {
+
+            stmt = conn.createStatement();
+            String sqlStatement = "select * from Reservation " +
+                    "where startDate >= '"+start
+                    +"' and startDate <= '"+end+"';";
+
+            rs = stmt.executeQuery(sqlStatement);
+
+            //******************************************************************
+            //Loop through the result set using the next method.
+            //******************************************************************
+            passes = new ArrayList();
+
+            while (rs.next()) {
+
+                Reservation reservation = new Reservation();
+                Reservation.setIdCounter(rs.getInt("id"));
+                reservation.setName(rs.getString("name"));
+                reservation.setEmail(rs.getString("email"));
+                reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
+                reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
+                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
+                reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
+                reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+
+                passes.add(reservation);
+            }
+
         } catch (SQLException e) {
-            logger.error("Error inserting reservation: " + e.getMessage());
+
+            e.printStackTrace();
+
+        } finally {
+
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                System.out.println("There was an error closing");
+            }
         }
-    }
-    public void delete(int id) {
-        String query = "DELETE FROM reservation WHERE id = ?";
-        try (PreparedStatement ps = conn.prepareStatement(query)) {
-            ps.setInt(1, id);
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            logger.error("Error deleting reservation: " + e.getMessage());
-        }
+        return passes;
     }
 
+    /**
+     * Select all for min length report
+     *
+     * @since 20241011
+     * @author BJM
+     */
+    public ArrayList<Reservation> selectAllWithMinLength(int minLength) throws SQLException {
+        ArrayList<Reservation> passes = null;
+        Statement stmt = null;
+
+        //******************************************************************
+        //Use the DriverManager to get a connection to our MySql database.  Note
+        //that in the dependencies, we added the Java connector to MySql which
+        //will allow us to connect to a MySql database.
+        //******************************************************************
+        //******************************************************************
+        //Create a statement object using our connection to the database.  This
+        //statement object will allow us to run sql commands against the database.
+        //******************************************************************
+        try {
+
+            stmt = conn.createStatement();
+            rs = stmt.executeQuery("select * from BusPass " +
+                    "where lengthOfPass >= "+minLength+";");
+
+            //******************************************************************
+            //Loop through the result set using the next method.
+            //******************************************************************
+            passes = new ArrayList();
+
+            while (rs.next()) {
+
+                Reservation reservation = new Reservation();
+        Reservation.setIdCounter(rs.getInt("id"));
+        reservation.setName(rs.getString("name"));
+        reservation.setEmail(rs.getString("email"));
+        reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
+        reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
+        reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
+        reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
+        reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+
+
+
+                passes.add(reservation);
+            }
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            throw e;
+
+        } finally {
+
+            try {
+                stmt.close();
+            } catch (SQLException ex) {
+                System.out.println("There was an error closing");
+            }
+        }
+        return passes;
+    }
+
+//    private static final Logger logger = LoggerFactory.getLogger(ReservationDAO.class);
+//
+//    public ReservationDAO() {
+//        // The connection could be managed by a connection pool, e.g., using DataSource
+//    }
+//
+//    /**
+//     * Select reservations by date range.
+//     */
+//    public List<Reservation> selectAllByDateRange(String startDate, String endDate) {
+//        String query = "SELECT * FROM Reservation WHERE dateTime >= ? AND dateTime <= ?";
+//        List<Reservation> reservations = new ArrayList<>();
+//        try (Connection conn = DriverManager.getConnection(getConnectionString(), getUserName(), getPassword());
+//             PreparedStatement ps = conn.prepareStatement(query)) {
+//            ps.setString(1, startDate);
+//            ps.setString(2, endDate);
+//            try (ResultSet rs = ps.executeQuery()) {
+//                while (rs.next()) {
+//                    reservations.add(mapResultSetToReservation(rs));
+//                }
+//            }
+//        } catch (SQLException e) {
+//            logger.error("Error while selecting reservations by date range", e);
+//        }
+//        return reservations;
+//    }
+//
+//    /**
+//     * Insert a new reservation.
+//     */
+//    public void insert(Reservation reservation) {
+//        String sql = "INSERT INTO Reservation (name, email, dateTime, numberOfAdults, numberOfSeniors, numberOfChildren, couponDiscount) " +
+//                "VALUES (?, ?, ?, ?, ?, ?, ?)";
+//        try (Connection conn = DriverManager.getConnection(getConnectionString(), getUserName(), getPassword());
+//             PreparedStatement ps = conn.prepareStatement(sql)) {
+//            ps.setString(1, reservation.getName());
+//            ps.setString(2, reservation.getEmail());
+//            ps.setTimestamp(3, Timestamp.valueOf(reservation.getDateTime()));
+//            ps.setInt(4, reservation.getNumberOfAdults());
+//            ps.setInt(5, reservation.getNumberOfSeniors());
+//            ps.setInt(6, reservation.getNumberOfChildren());
+//            ps.setDouble(7, reservation.getCouponDiscount());
+//            ps.executeUpdate();
+//            logger.info("Reservation inserted successfully!");
+//        } catch (SQLException e) {
+//            logger.log("Error while inserting reservation", e);
+//        }
+//    }
+//
+//    /**
+//     * Helper method to map ResultSet to Reservation.
+//     */
+//    private Reservation mapResultSetToReservation(ResultSet rs) throws SQLException {
+//        Reservation reservation = new Reservation();
+//        Reservation.setIdCounter(rs.getInt("id"));
+//        reservation.setName(rs.getString("name"));
+//        reservation.setEmail(rs.getString("email"));
+//        reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
+//        reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
+//        reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
+//        reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
+//        reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+//        return reservation;
+//    }
+//
+//    // Assuming you have methods to fetch these values
+//    private String getConnectionString() {
+//        ResourceBundle rb = ResourceBundle.getBundle("application");
+//        return rb.getString("spring.datasource.url");
+//    }
+//
+//    private String getUserName() {
+//        ResourceBundle rb = ResourceBundle.getBundle("application");
+//        return rb.getString("spring.datasource.username");
+//    }
+//
+//    private String getPassword() {
+//        ResourceBundle rb = ResourceBundle.getBundle("application");
+//        return rb.getString("spring.datasource.password");
+//    }
 }

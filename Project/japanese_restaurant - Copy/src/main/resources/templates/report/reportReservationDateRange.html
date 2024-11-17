@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle">Report</title>
+</head>
+<body>
+<style scoped="scoped">input:not(.hidden) {
+    display: inline-block;
+    float: right
+}
+
+.cd {
+    color: #F00 !important;
+    font-weight: bold;
+    margin-bottom: -48px
+}
+
+label {
+    margin-right: 8px
+}</style>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2" th:text="#{label.report.restaurant.reservation.date.range}">_</h2>
+    <form th:action="@{/report/reservation/daterange/submit}" method="post" class="wbb"
+          style="display:inline-block;text-align:left!important">
+        <label>Start date: </label>
+        <input type="date" th:field="${reportInput.dateStart}"></input>
+        <br></br>
+        <label>End date: </label>
+        <input type="date" th:field="${reportInput.dateEnd}"></input>
+        <br></br>
+        <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
+    </form>
+    <br></br>
+    <!--Messages-->
+    <p th:if="${message}" th:text="${message}"
+       th:classappend="${message == 'No reservations found for the selected date range.' ? 'error-message' : 'success-message'}">
+    </p>
+
+
+    <div class="container">
+        <h2>Reservations</h2>
+        <table class="table is-bordered">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Date and Time</th>
+                <th>Number of Adults</th>
+                <th>Number of Seniors</th>
+                <th>Number of Children</th>
+                <th>Coupon Discount</th>
+                <th>Total Cost</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="reservation : ${reportInput.reservations}">
+                <td th:text="${reservation.id}"></td>
+                <td th:text="${reservation.name}"></td>
+                <td th:text="${reservation.email}"></td>
+                <td th:text="${#temporals.format(reservation.reservationDateTime, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${reservation.numberOfAdults}"></td>
+                <td th:text="${reservation.numberOfSeniors}"></td>
+                <td th:text="${reservation.numberOfChildren}"></td>
+                <td th:text="${reservation.couponDiscount * 100 + '%'}"></td>
+                <td th:text="${reservation.totalCost}"></td>
+            </tr>
+            </tbody>
+
+        </table>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>
