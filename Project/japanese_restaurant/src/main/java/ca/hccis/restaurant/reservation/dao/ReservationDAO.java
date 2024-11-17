@@ -37,8 +37,8 @@ public class ReservationDAO {
      * @author BJM
      */
     public ArrayList<Reservation> selectAll() {
-        ArrayList<Reservation> passes = null;
-        Statement stmt = null;
+        ArrayList<Reservation> reservations = new ArrayList<>();
+        String sql = "SELECT * FROM reservation";
 
         //******************************************************************
         //Use the DriverManager to get a connection to our MySql database.  Note
@@ -49,45 +49,31 @@ public class ReservationDAO {
         //Create a statement object using our connection to the database.  This
         //statement object will allow us to run sql commands against the database.
         //******************************************************************
-        try {
-
-            stmt = conn.createStatement();
-            rs = stmt.executeQuery("select * from reservation;");
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
             //******************************************************************
             //Loop through the result set using the next method.
             //******************************************************************
-            passes = new ArrayList();
-
             while (rs.next()) {
-
                 Reservation reservation = new Reservation();
-                Reservation.setIdCounter(rs.getInt("id"));
+                reservation.setId(rs.getInt("id"));
                 reservation.setName(rs.getString("name"));
                 reservation.setEmail(rs.getString("email"));
-                reservation.setDateTime(rs.getTimestamp("dateTime").toLocalDateTime());
+                reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime());
                 reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
                 reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
                 reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
                 reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
-
-                passes.add(reservation);
+                reservation.setTotalCost(rs.getBigDecimal("totalCost"));
+                reservations.add(reservation);
             }
-
         } catch (SQLException e) {
-
             e.printStackTrace();
-
-        } finally {
-
-            try {
-                stmt.close();
-            } catch (SQLException ex) {
-                System.out.println("There was an error closing");
-            }
         }
-        return passes;
+        return reservations;
     }
+
 
     /**
      * Select all by date range
@@ -265,4 +251,69 @@ public class ReservationDAO {
 //        ResourceBundle rb = ResourceBundle.getBundle("application");
 //        return rb.getString("spring.datasource.password");
 //    }
+public void saveOrUpdate(Reservation reservation) {
+    if (reservation.getId() != null) {
+        // Update existing reservation
+        String sql = "UPDATE reservation SET name = ?, email = ?, reservationDateTime = ?, " +
+                "numberOfAdults = ?, numberOfSeniors = ?, numberOfChildren = ?, " +
+                "couponDiscount = ?, totalCost = ? WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, reservation.getName());
+            pstmt.setString(2, reservation.getEmail());
+            pstmt.setTimestamp(3, Timestamp.valueOf(reservation.getReservationDateTime()));
+            pstmt.setInt(4, reservation.getNumberOfAdults());
+            pstmt.setInt(5, reservation.getNumberOfSeniors());
+            pstmt.setInt(6, reservation.getNumberOfChildren());
+            pstmt.setDouble(7, reservation.getCouponDiscount());
+            pstmt.setBigDecimal(8, reservation.getTotalCost());
+            pstmt.setInt(9, reservation.getId());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    } else {
+        // Insert new reservation
+        String sql = "INSERT INTO reservation (name, email, reservationDateTime, numberOfAdults, " +
+                "numberOfSeniors, numberOfChildren, couponDiscount, totalCost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, reservation.getName());
+            pstmt.setString(2, reservation.getEmail());
+            pstmt.setTimestamp(3, Timestamp.valueOf(reservation.getReservationDateTime()));
+            pstmt.setInt(4, reservation.getNumberOfAdults());
+            pstmt.setInt(5, reservation.getNumberOfSeniors());
+            pstmt.setInt(6, reservation.getNumberOfChildren());
+            pstmt.setDouble(7, reservation.getCouponDiscount());
+            pstmt.setBigDecimal(8, reservation.getTotalCost());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+}
+    public List<Reservation> selectByName(String name) {
+        List<Reservation> reservations = new ArrayList<>();
+        String sql = "SELECT * FROM reservation WHERE name LIKE ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, "%" + name + "%");
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setId(rs.getInt("id"));
+                    reservation.setName(rs.getString("name"));
+                    reservation.setEmail(rs.getString("email"));
+                    reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime());
+                    reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
+                    reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
+                    reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
+                    reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+                    reservation.setTotalCost(rs.getBigDecimal("totalCost"));
+                    reservations.add(reservation);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return reservations;
+    }
+
 }

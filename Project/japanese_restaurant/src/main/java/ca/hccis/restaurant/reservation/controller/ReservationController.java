@@ -1,6 +1,7 @@
 package ca.hccis.restaurant.reservation.controller;
 
 import ca.hccis.restaurant.reservation.bo.ReservationBO;
+import ca.hccis.restaurant.reservation.dao.ReservationDAO;
 import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.repositories.CodeValueRepository;
 import ca.hccis.restaurant.reservation.repositories.ReservationRepository;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -43,8 +45,9 @@ public class ReservationController {
 @Autowired
 private MessageSource messageSource;
     private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
+    private ReservationDAO reservationDAO;
 
-    @RequestMapping("")
+    @GetMapping("")
     public String home(Model model, HttpSession session) {
 
         Iterable<Reservation> reservations = _bpr.findAll();
@@ -52,6 +55,16 @@ private MessageSource messageSource;
         model.addAttribute("reservation", new Reservation());
         return "reservation/list";
     }
+
+    @GetMapping("/view")
+    public String listReservations(Model model) {
+        List<Reservation> reservations = reservationDAO.selectAll();
+        model.addAttribute("reservations", reservations);
+        model.addAttribute("reservation", new Reservation());
+        return "reservation/list";
+    }
+
+
 //    // Display list of reservations
 //    @GetMapping("/view")
 //    public String listReservations(Model model) {
@@ -68,7 +81,7 @@ private MessageSource messageSource;
 //    }
 
     // Process adding a new reservation
-    @RequestMapping("/add")
+    @GetMapping("/add")
     public String add(Model model, HttpSession session) {
 
         ReservationBO.setReservationTypes(_cvr, session);
@@ -116,18 +129,18 @@ private MessageSource messageSource;
 //        model.addAttribute("reservations", reservationService.findByNameContaining(searchName));
 //        return "reservation/list";
 //    }
-@RequestMapping("/search")
+@PostMapping("/search")
 public String search(Model model, @ModelAttribute("reservation") Reservation reservation) {
 
     //**********************************************************************
     //Use repository method created to find any entities which contain
     //the name entered on the list page.
     //**********************************************************************
-    model.addAttribute("reservation", _bpr.findByNameContaining(reservation.getName()));
+    model.addAttribute("reservations", _bpr.findByNameContaining(reservation.getName()));
     logger.debug("searched for Reservation name:" + reservation.getName());
     return "reservation/list";
 }
-    @RequestMapping("/edit/{id}")
+    @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model, HttpSession session) {
 
         ReservationBO.setReservationTypes(_cvr, session);
@@ -142,7 +155,7 @@ public String search(Model model, @ModelAttribute("reservation") Reservation res
         model.addAttribute("message", "Could not load the reservation");
         return "redirect:/reservation";
     }
-    @RequestMapping("/submit")
+    @PostMapping("/submit")
     public String submit(Model model, HttpServletRequest request, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
         boolean valid = true;
         if (!valid || bindingResult.hasErrors()) {

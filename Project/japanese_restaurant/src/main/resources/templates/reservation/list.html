@@ -1,4 +1,3 @@
-<!-- list.html -->
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
@@ -11,98 +10,58 @@
     <p th:if="${not #strings.isEmpty(message)}" th:text="${message}">Message from controller</p>
 
     <!-- Search Form -->
-    <form th:object="${reservation}" action="replacedBeforePageRendered" th:action="@{/reservation/search}"  method="post">
+    <form th:object="${reservation}" th:action="@{/reservation/search}" method="post">
         <label for="name">Name</label>
-        <input type="text" id="name" th:field="${reservation.name}"/>
+        <input type="text" id="name" th:field="*{name}"/>
         <button type="submit">Search</button>
     </form>
 
-
-
-
     <!-- Reservations Table -->
-    <div class="container">
-        <h2>Reservations</h2>
-        <table class="table is-bordered">
-            <thead>
-            <tr>
-                <th>ID</th>
-                <th class="a"></th>
-                <th>Name</th>
-                <th class="a"></th>
-                <th>Email</th>
-                <th class="a"></th>
-                <th>Date and Time</th>
-                <th class="a"></th>
-                <th>Number of Adults</th>
-                <th class="a"></th>
-                <th>Number of Seniors</th>
-                <th class="a"></th>
-                <th>Number of Children</th>
-                <th class="a"></th>
-                <th>Coupon Discount</th>
-                <th class="a"></th>
-                <th>Total Cost</th>
-                <th class="a"></th>
-            </tr>
-            </thead>
-            <tr th:each="current,iterStat : ${reportInput.reservations}">
-                <td th:text="${current.id}"></td>
-                <td></td>
-                <td th:text="${current.name}"></td>
-                <td></td>
-                <td th:text="${current.reservationDateTime}"></td>
-                <td></td>
-                <td th:text="${current.email}"></td>
-                <td></td>
-                <td th:text="${current.numberOfAdults}"></td>
-                <td></td>
-                <td th:text="${current.numberOfSeniors}"></td>
-                <td></td>
-                <td th:text="${current.numberOfChildren}"></td>
-                <td></td>
-                <td th:text="${current.couponDiscount}"></td>
-                <td></td>
-                <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
-                <td></td>
-            </tr>
+    <table class="table is-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date and Time</th>
+            <th>Number of Adults</th>
+            <th>Number of Seniors</th>
+            <th>Number of Children</th>
+            <th>Coupon Discount</th>
+            <th>Total Cost</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="current : ${reservations}">
+            <td th:text="${current.id}"></td>
+            <td th:text="${current.name}"></td>
+            <td th:text="${current.email}"></td>
+            <td th:text="${current.reservationDateTime}"></td>
+            <td th:text="${current.numberOfAdults}"></td>
+            <td th:text="${current.numberOfSeniors}"></td>
+            <td th:text="${current.numberOfChildren}"></td>
+            <td th:text="${current.couponDiscount}"></td>
+            <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
+            <td>
                 <a th:href="@{/reservation/edit/{id}(id=${current.id})}">
-                    <span class="icon"><i class="fas fa-edit" title="Edit"></i></span>
+                    <i class="fas fa-edit" title="Edit"></i>
                 </a>
                 <a th:href="@{/reservation/delete/{id}(id=${current.id})}">
-                    <span class="icon"><i class="fas fa-trash" title="Delete"></i></span>
+                    <i class="fas fa-trash" title="Delete"></i>
                 </a>
             </td>
         </tr>
-            </tr><!--Ignore this error, as there will only be one td (the if above).-->
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td style="padding:0!important;text-align:center!important">
-                    <a th:href="@{/reservation/add}">
-                        <span class="icon"><i class="fas fa-plus-square" title="New"></i></span>
-                    </a>
-                </td>
-            </tr>
-        </table>
-    <br>
+        </tbody>
+    </table>
+
     <!-- Total Number of Reservations -->
-    <p class="wbb" style="display:inline-block">
-        Total: <b><span th:text="${#lists.size(reservations)}"></span></b> reservations.
-    </p>
-</div>
+    <p>Total: <b th:text="${#lists.size(reservations)}"></b> reservations.</p>
+
+    <!-- Add New Reservation -->
+    <a th:href="@{/reservation/add}">
+        <button class="button is-primary">Add New Reservation</button>
+    </a>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
