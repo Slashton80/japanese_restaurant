@@ -8,12 +8,26 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
+/**
+ * Data Access Object (DAO) for the Reservation entity.
+ *
+ * This class handles database operations such as selecting, updating, and inserting
+ * reservations using JDBC.
+ *
+ * @author BJM
+ * @modifiedBy Sherri Ashton
+ * @since 2024-10-10
+ */
 public class ReservationDAO {
     private static ResultSet rs;
     private static Connection conn = null;
     private static final Logger logger = LoggerFactory.getLogger(ReservationDAO.class);
-
+    /**
+     * Constructor to establish the database connection using credentials
+     * and connection string from the application properties file.
+     * @author Sherri Ashton
+     * @since 2024-10-25
+     */
     public ReservationDAO() {
 
         String propFileName = "application";
@@ -31,10 +45,11 @@ public class ReservationDAO {
     }
 
     /**
-     * Select all
+     * Retrieves all reservations from the database.
      *
-     * @since 20210924
-     * @author BJM
+     * @return List of all reservations.
+     * @author Sherri Ashton
+     * @since 2024-10-25
      */
     public ArrayList<Reservation> selectAll() {
         ArrayList<Reservation> reservations = new ArrayList<>();
@@ -78,7 +93,7 @@ public class ReservationDAO {
     /**
      * Select all by date range
      *
-     * @since 20241010
+     * @since 20241010. Updated for reservation by Sherri Ashton, 2024-10-25.
      * @author BJM
      */
     public ArrayList<Reservation> selectAllByDateRange(String start, String end) {
@@ -131,7 +146,7 @@ public class ReservationDAO {
     /**
      * Select all for min length report
      *
-     * @since 20241011
+     * @since 20241011.  Updated for reservation by Sherri Ashton, 2024-10-25.
      * @author BJM
      */
     public ArrayList<Reservation> selectAllWithMinLength(int minLength) {

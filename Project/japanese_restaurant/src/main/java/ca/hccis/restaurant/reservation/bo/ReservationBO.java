@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -104,21 +105,43 @@ public class ReservationBO {
     /**
      * Calculates the total cost of a reservation based on customer counts and discounts.
      *
-     * <p>
-     * This method sets the total cost of a reservation to -1, and should be
-     * extended for more complex calculations.
-     * </p>
      *
      * @param reservation The reservation object whose cost is to be calculated.
-     * @return A placeholder value of -1.
      * @author Sherri Ashton
      * @since 2024-11-16
      */
-    public static double calculateReservationCost(Reservation reservation) {
 
-        reservation.setTotalCost(new BigDecimal(-1));
-        return -1;
+    public static void calculateReservationCost(Reservation reservation) {
+        // Constants for pricing and discounts
+        final double COST_PER_ADULT = 25.0;
+        final double SENIOR_DISCOUNT = 0.15;
+        final double CHILDREN_DISCOUNT = 0.20;
 
+        // Validate inputs
+        if (reservation.getNumberOfAdults() < 0 || reservation.getNumberOfSeniors() < 0 || reservation.getNumberOfChildren() < 0) {
+            throw new IllegalArgumentException("Number of customers cannot be negative.");
+        }
+
+        // Calculate the total cost
+        double totalCost = 0.0;
+
+        // Cost for adults
+        totalCost += reservation.getNumberOfAdults() * COST_PER_ADULT;
+
+        // Cost for seniors (apply discount)
+        totalCost += reservation.getNumberOfSeniors() * COST_PER_ADULT * (1 - SENIOR_DISCOUNT);
+
+        // Cost for children (apply discount)
+        totalCost += reservation.getNumberOfChildren() * COST_PER_ADULT * (1 - CHILDREN_DISCOUNT);
+
+        // Apply coupon discount if available
+        if (reservation.getCouponDiscount() != null && reservation.getCouponDiscount() > 0.0) {
+            totalCost *= (1 - reservation.getCouponDiscount());
+        }
+
+        // Round to two decimal places
+        BigDecimal roundedTotalCost = BigDecimal.valueOf(totalCost).setScale(2, RoundingMode.HALF_UP);
+        reservation.setTotalCost(roundedTotalCost);
     }
 
 

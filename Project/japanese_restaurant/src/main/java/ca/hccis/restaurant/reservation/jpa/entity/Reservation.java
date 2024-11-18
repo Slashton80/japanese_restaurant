@@ -157,5 +157,15 @@ public class Reservation {
     }
 
 
+    @Transient
+    private String formattedReservationDateTime;
+
+    public String getFormattedReservationDateTime() {
+        return formattedReservationDateTime;
+    }
+
+    public void setFormattedReservationDateTime(String formattedReservationDateTime) {
+        this.formattedReservationDateTime = formattedReservationDateTime;
+    }
 }
 

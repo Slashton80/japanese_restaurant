@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.math.BigDecimal;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 /**
@@ -91,6 +92,12 @@ private MessageSource messageSource;
     public String home(Model model, HttpSession session) {
 
         Iterable<Reservation> reservations = _bpr.findAll();
+        // Format the date and time for each reservation
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        reservations.forEach(reservation -> {
+            String formattedDateTime = reservation.getReservationDateTime().format(formatter);
+            reservation.setFormattedReservationDateTime(formattedDateTime);
+        });
         model.addAttribute("reservations", reservations);
         model.addAttribute("reservation", new Reservation());
         return "reservation/list";
@@ -111,17 +118,7 @@ private MessageSource messageSource;
      * @author Sherri Ashton
      * @since 2024-11-16
      */
-//    @GetMapping("/add")
-//    public String add(Model model, HttpSession session) {
-//
-//        ReservationBO.setReservationTypes(_cvr, session);
-//
-//        ReservationBO.setReservationTypes(_cvr, session);
-//        Reservation reservation = new Reservation();
-//        ReservationBO.setReservationDefaults(reservation);
-//        model.addAttribute("reservation", reservation);
-//        return "reservation/add";
-//    }
+
     @GetMapping("/add")
     public String add(Model model, HttpSession session) {
         ReservationBO.setReservationTypes(_cvr, session);
@@ -224,25 +221,7 @@ public String search(Model model, @ModelAttribute("reservation") Reservation res
      * @author Sherri Ashton
      * @since 2024-11-16
      */
-//    @PostMapping("/submit")
-//    public String submit(Model model, HttpServletRequest request, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
-//        boolean valid = true;
-//        if (!valid || bindingResult.hasErrors()) {
-//            System.out.println("--------------------------------------------");
-//            System.out.println("Validation error - BJM");
-//            for (ObjectError error : bindingResult.getAllErrors()) {
-//                System.out.println(error.getObjectName() + "-" + error.toString() + "-" + error.getDefaultMessage());
-//            }
-//            System.out.println("--------------------------------------------");
-//            reservation.setTotalCost(new BigDecimal(0));
-//            model.addAttribute("reservation", reservation);
-//            return "reservation/add";
-//        }
-//
-//        ReservationBO.calculateReservationCost(reservation);
-//        _bpr.save(reservation);
-//        return "redirect:/reservation";
-//    }
+
     @PostMapping("/submit")
     public String submit(Model model, HttpServletRequest request, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
