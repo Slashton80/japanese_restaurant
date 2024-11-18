@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /**
  * Controller class for handling report-related operations in the restaurant reservation system.
@@ -115,6 +116,11 @@ public class ReportController {
         //Call BO method to process the report
         ArrayList<Reservation> reservations = ReservationBO.processDateRangeReport(reportReservation.getDateStart(), reportReservation.getDateEnd());
 
+        // Format the date and time for each reservation
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        reservations.forEach(reservation -> {
+            reservation.setFormattedReservationDateTime(reservation.getReservationDateTime().format(formatter));
+        });
         //Put the list in the Java object
         reportReservation.setReservations(reservations);
 
