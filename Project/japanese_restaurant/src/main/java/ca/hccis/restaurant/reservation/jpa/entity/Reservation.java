@@ -45,7 +45,7 @@ public class Reservation {
     @Column(name = "email", nullable = false)
     private String email;
 
-    @NotNull
+    @NotNull(message = "Reservation date and time cannot be null.")
     @Column(name = "reservationDateTime", nullable = false)
     private LocalDateTime reservationDateTime;
 

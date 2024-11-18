@@ -111,18 +111,25 @@ private MessageSource messageSource;
      * @author Sherri Ashton
      * @since 2024-11-16
      */
+//    @GetMapping("/add")
+//    public String add(Model model, HttpSession session) {
+//
+//        ReservationBO.setReservationTypes(_cvr, session);
+//
+//        ReservationBO.setReservationTypes(_cvr, session);
+//        Reservation reservation = new Reservation();
+//        ReservationBO.setReservationDefaults(reservation);
+//        model.addAttribute("reservation", reservation);
+//        return "reservation/add";
+//    }
     @GetMapping("/add")
     public String add(Model model, HttpSession session) {
-
-        ReservationBO.setReservationTypes(_cvr, session);
-
         ReservationBO.setReservationTypes(_cvr, session);
         Reservation reservation = new Reservation();
         ReservationBO.setReservationDefaults(reservation);
         model.addAttribute("reservation", reservation);
         return "reservation/add";
     }
-
 
     /**
      * Deletes a reservation by its ID.
@@ -217,23 +224,36 @@ public String search(Model model, @ModelAttribute("reservation") Reservation res
      * @author Sherri Ashton
      * @since 2024-11-16
      */
+//    @PostMapping("/submit")
+//    public String submit(Model model, HttpServletRequest request, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
+//        boolean valid = true;
+//        if (!valid || bindingResult.hasErrors()) {
+//            System.out.println("--------------------------------------------");
+//            System.out.println("Validation error - BJM");
+//            for (ObjectError error : bindingResult.getAllErrors()) {
+//                System.out.println(error.getObjectName() + "-" + error.toString() + "-" + error.getDefaultMessage());
+//            }
+//            System.out.println("--------------------------------------------");
+//            reservation.setTotalCost(new BigDecimal(0));
+//            model.addAttribute("reservation", reservation);
+//            return "reservation/add";
+//        }
+//
+//        ReservationBO.calculateReservationCost(reservation);
+//        _bpr.save(reservation);
+//        return "redirect:/reservation";
+//    }
     @PostMapping("/submit")
     public String submit(Model model, HttpServletRequest request, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
-        boolean valid = true;
-        if (!valid || bindingResult.hasErrors()) {
-            System.out.println("--------------------------------------------");
-            System.out.println("Validation error - BJM");
-            for (ObjectError error : bindingResult.getAllErrors()) {
-                System.out.println(error.getObjectName() + "-" + error.toString() + "-" + error.getDefaultMessage());
-            }
-            System.out.println("--------------------------------------------");
-            reservation.setTotalCost(new BigDecimal(0));
+        if (bindingResult.hasErrors()) {
+            bindingResult.getAllErrors().forEach(error -> logger.error("Validation error: {}", error.getDefaultMessage()));
             model.addAttribute("reservation", reservation);
             return "reservation/add";
         }
-
+        logger.info("Saving reservation: {}", reservation.getName());
         ReservationBO.calculateReservationCost(reservation);
         _bpr.save(reservation);
         return "redirect:/reservation";
     }
+
 }
