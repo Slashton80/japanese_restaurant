@@ -4,7 +4,28 @@ import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-
+/**
+ * Entity class representing a reservation in the restaurant reservation system.
+ *
+ * <p>
+ * This class is mapped to the "reservation" table in the database and contains all the
+ * attributes required to define a reservation, such as name, email, reservation date and time,
+ * number of adults, seniors, and children, coupon discount, and total cost.
+ * </p>
+ *
+ * <p>
+ * Validation annotations are applied to ensure data integrity, such as constraints on
+ * minimum and maximum values, mandatory fields, and proper email format.
+ * </p>
+ *
+ * <p>
+ * The entity is used in various operations, including creating, reading, updating,
+ * and deleting reservations in the database.
+ * </p>
+ *
+ * @author Sherri Ashton
+ * @since 2024-11-16
+ */
 @Entity
 @Table(name = "reservation")
 public class Reservation {
@@ -126,27 +147,6 @@ public class Reservation {
     public void setTotalCost(BigDecimal totalCost) {
         this.totalCost = totalCost;
     }
-
-//    // Method to calculate the total cost
-//    public BigDecimal
-//    calculateTotalCost() {
-//        final double COST_PER_ADULT = 25.0;
-//        final double SENIOR_DISCOUNT = 0.15;
-//        final double CHILD_DISCOUNT = 0.20;
-//
-//        double cost = numberOfAdults * COST_PER_ADULT;
-//        if (numberOfSeniors != null) {
-//            cost += numberOfSeniors * COST_PER_ADULT * (1 - SENIOR_DISCOUNT);
-//        }
-//        if (numberOfChildren != null) {
-//            cost += numberOfChildren * COST_PER_ADULT * (1 - CHILD_DISCOUNT);
-//        }
-//        if (couponDiscount != null) {
-//            cost *= (1 - couponDiscount);
-//        }
-//
-//        return BigDecimal.valueOf(cost).setScale(2, BigDecimal.ROUND_HALF_UP);
-//    }
 
     public void setDateTime(LocalDateTime parseDateTime) {
         this.reservationDateTime = parseDateTime;

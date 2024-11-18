@@ -4,45 +4,85 @@ import ca.hccis.restaurant.reservation.dao.ReservationDAO;
 import ca.hccis.restaurant.reservation.jpa.entity.CodeValue;
 import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.repositories.CodeValueRepository;
-
 import ca.hccis.restaurant.reservation.util.CisUtilityFile;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Business Object class for managing operations related to Reservations.
+ * This class includes methods for processing reports, calculating reservation costs,
+ * setting default values, and managing reservation types.
+ *
+ * <p>
+ * The class interacts with DAOs, repositories, and utility classes to perform
+ * business-specific logic for the restaurant reservation system.
+ * </p>
+ *
+ * <p>
+ * Key functionalities include:
+ * <ul>
+ *     <li>Processing date range and minimum length reports</li>
+ *     <li>Calculating reservation costs based on customer types and discounts</li>
+ *     <li>Setting default values for reservations</li>
+ *     <li>Loading reservation types into session attributes</li>
+ * </ul>
+ * </p>
+ *
+ * @author Sherri Ashton
+ * @since 2024-11-16
+ */
 @Component
 public class ReservationBO {
 
-//    private final ReservationService reservationService;
-//    private final CodeValueRepository codeValueRepository;
-//
-//    @Autowired
-//    public ReservationBO(ReservationService reservationServices) {
-//        this.reservationService = reservationServices;
-//    }
-public static ArrayList<Reservation> processDateRangeReport(String start, String end){
+    /**
+     * Processes reservations within a specific date range and writes the report to a file.
+     *
+     * <p>
+     * This method uses the {@link ReservationDAO} to fetch reservations that fall within
+     * the specified start and end dates. It also writes the resulting report to a file for further reference.
+     * </p>
+     *
+     * @param start The start date of the range (format: "yyyy-MM-dd").
+     * @param end   The end date of the range (format: "yyyy-MM-dd").
+     * @return A list of {@link Reservation} objects within the specified date range.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
+    public static ArrayList<Reservation> processDateRangeReport(String start, String end) {
 
-    //**********************************************************************
-    // This could be done using the repository but there will be times when
-    // jdbc will be useful.  For the reports, the requirements state that you
-    // are to use jdbc to obtain the data for the report.
-    //**********************************************************************
-    ReservationDAO reservationDAO = new ReservationDAO();
-    ArrayList<Reservation>reservations = reservationDAO.selectAllByDateRange(start, end);
+        //**********************************************************************
+        // This could be done using the repository but there will be times when
+        // jdbc will be useful.  For the reports, the requirements state that you
+        // are to use jdbc to obtain the data for the report.
+        //**********************************************************************
+        ReservationDAO reservationDAO = new ReservationDAO();
+        ArrayList<Reservation> reservations = reservationDAO.selectAllByDateRange(start, end);
 
-    //Also write the report to a file
-    CisUtilityFile.writeReportToFile("dateRangeReport", reservations);
+        //writes the report to a file
+        CisUtilityFile.writeReportToFile("dateRangeReport", reservations);
 
-    return reservations;
-}
+        return reservations;
+    }
 
+    /**
+     * Processes reservations based on a minimum length and writes the report to a file.
+     *
+     * <p>
+     * This method uses the {@link ReservationDAO} to fetch reservations that meet the
+     * specified minimum length requirement. It also writes the resulting report to a file for further reference.
+     * </p>
+     *
+     * @param minLength The minimum length of the reservation.
+     * @return A list of {@link Reservation} objects meeting the minimum length requirement.
+     * @throws SQLException If an SQL error occurs while fetching data.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     public static ArrayList<Reservation> processMinLengthReport(int minLength) throws SQLException {
 
         //**********************************************************************
@@ -55,105 +95,48 @@ public static ArrayList<Reservation> processDateRangeReport(String start, String
 
         reservations = reservationDAO.selectAllWithMinLength(minLength);
 
-        //Also write the report to a file
+        // writes the report to a file
         CisUtilityFile.writeReportToFile("minLengthReport", reservations);
 
         return reservations;
     }
+
     /**
-     * Calculate the total cost of a reservation.
-     * The cost is based on the number of adults, seniors, and children.
-     * Applies discounts for seniors (15%) and children (20%).
+     * Calculates the total cost of a reservation based on customer counts and discounts.
      *
-     * @param reservation The reservation to calculate the cost for.
-     * @since 2024-11-08
+     * <p>
+     * This method sets the total cost of a reservation to -1, and should be
+     * extended for more complex calculations.
+     * </p>
+     *
+     * @param reservation The reservation object whose cost is to be calculated.
+     * @return A placeholder value of -1.
+     * @author Sherri Ashton
+     * @since 2024-11-16
      */
-//    public void calculateReservationCost(Reservation reservation) {
-//        if (reservation.getNumberOfAdults() < 0 || reservation.getNumberOfSeniors() < 0 || reservation.getNumberOfChildren() < 0) {
-//            throw new IllegalArgumentException("Number of customers cannot be negative.");
-//        }
-//
-//        // Constants for pricing and discounts
-//        final double COST_PER_ADULT = 25.0;
-//        final double SENIOR_DISCOUNT = 0.15;
-//        final double CHILDREN_DISCOUNT = 0.20;
-//
-//        // Calculate the cost for adults (no discount)
-//        double totalCost = reservation.getNumberOfAdults() * COST_PER_ADULT;
-//
-//        // Calculate the cost for seniors (15% discount)
-//        double seniorCost = reservation.getNumberOfSeniors() * COST_PER_ADULT * (1 - SENIOR_DISCOUNT);
-//
-//        // Calculate the cost for children (20% discount)
-//        double childrenCost = reservation.getNumberOfChildren() * COST_PER_ADULT * (1 - CHILDREN_DISCOUNT);
-//
-//        // Add all costs together
-//        totalCost += seniorCost + childrenCost;
-//
-//        // Apply coupon discount if available
-//        if (reservation.getCouponDiscount() != null) {
-//            totalCost *= (1 - reservation.getCouponDiscount());
-//        }
-//
-//        // Round the total cost to 2 decimal places
-//        BigDecimal roundedTotalCost = new BigDecimal(totalCost).setScale(2, RoundingMode.HALF_UP);
-//        reservation.setTotalCost(roundedTotalCost);
-//
-//    }
-    public static double calculateReservationCost(Reservation reservation){
+    public static double calculateReservationCost(Reservation reservation) {
 
         reservation.setTotalCost(new BigDecimal(-1));
         return -1;
 
     }
-    /**
-     * Find reservations by a date range.
-     * Uses ReservationService to get data from the database.
-     *
-     * @param dateStart Start date as a String in 'yyyy-MM-dd HH:mm' format.
-     * @param dateEnd   End date as a String in 'yyyy-MM-dd HH:mm' format.
-     * @return List of reservations within the date range.
-     */
-//    public List<Reservation> findReservationsByDateRange(LocalDateTime dateStart, LocalDateTime dateEnd) {
-//        List<Reservation> reservations = reservationService.findReservationsByDateRange(dateStart, dateEnd);
-//        // Apply additional processing if needed, for example, calculate the cost for each reservation
-//        reservations.forEach(this::calculateReservationCost);
-//        return reservations;
-//    }
 
-//    /**
-//     * Process date range report.
-//     * Uses ReservationService to get data from the database.
-//     *
-//     * @param dateStart Start date as LocalDateTime.
-//     * @param dateEnd   End date as LocalDateTime.
-//     * @return List of reservations within the date range.
-//     */
-//    public List<Reservation> processDateRangeReport(LocalDateTime dateStart, LocalDateTime dateEnd) {
-//        return findReservationsByDateRange(dateStart, dateEnd);
-//    }
-
-//    /**
-//     * Save or Update a reservation
-//     * @param reservation The reservation object to save or update
-//     */
-//    public void saveOrUpdateReservation(Reservation reservation) {
-//        calculateReservationCost(reservation); // Calculate cost before saving
-//        reservationService.processAndSaveReservation(reservation);
-//    }
-//
-//    /**
-//     * Delete a reservation by ID
-//     * @param id ID of the reservation to delete
-//     */
-//    public void deleteReservationById(Integer id) {
-//        reservationService.deleteReservationById(id);
-//    }
 
     /**
-     * Set default values
+     * Sets default values for a reservation object.
      *
-     * @param reservation
+     * <p>
+     * This method initializes a reservation with default values, including:
+     * <ul>
+     *     <li>Number of adults: 1</li>
+     *     <li>Number of seniors: 0</li>
+     *     <li>Number of children: 0</li>
+     *     <li>Coupon discount: 0.0</li>
+     *     <li>Total cost: 25.00</li>
+     * </ul>
+     * </p>
+     *
+     * @param reservation The {@link Reservation} object to be initialized with default values.
      * @author Sherri Ashton
      * @since 2024-11-14
      */
@@ -167,7 +150,20 @@ public static ArrayList<Reservation> processDateRangeReport(String start, String
 
 
     }
-
+    /**
+     * Loads reservation types into the HTTP session if they are not already loaded.
+     *
+     * <p>
+     * The method checks if the "reservationTypes" attribute is present in the session.
+     * If not, it fetches the reservation types from the {@link CodeValueRepository} and
+     * stores them in the session.
+     * </p>
+     *
+     * @param _cvr The {@link CodeValueRepository} used to fetch reservation types.
+     * @param session The current HTTP session where reservation types will be stored.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     public static void setReservationTypes(CodeValueRepository _cvr, HttpSession session) {
         List<CodeValue> reservationTypes = (List) session.getAttribute("reservationTypes");
         if (reservationTypes == null) {

@@ -22,31 +22,71 @@ import javax.validation.Valid;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-
+/**
+ * Controller class for managing reservation-related operations in the restaurant reservation system.
+ *
+ * <p>
+ * This controller provides endpoints for CRUD operations on reservations, including:
+ * <ul>
+ *     <li>Viewing all reservations</li>
+ *     <li>Adding a new reservation</li>
+ *     <li>Editing an existing reservation</li>
+ *     <li>Deleting a reservation</li>
+ *     <li>Searching for reservations by name</li>
+ * </ul>
+ * </p>
+ *
+ * <p>
+ * The controller interacts with repositories, the {@link ReservationBO} business logic,
+ * and the {@link Model} object to manage data and pass it to views.
+ * </p>
+ *
+ * @author Sherri Ashton
+ * @since 2024-11-16
+ */
 @Controller
 @RequestMapping("/reservation")
 public class ReservationController {
 
     private final ReservationRepository _bpr;
     private final CodeValueRepository _cvr;
-
+    /**
+     * Constructor to initialize dependencies for {@link ReservationController}.
+     *
+     * <p>
+     * This constructor initializes the repositories used for fetching and managing reservations
+     * and code values.
+     * </p>
+     *
+     * @param bpr The {@link ReservationRepository} used for CRUD operations on reservations.
+     * @param cvr The {@link CodeValueRepository} used for fetching reservation types and code values.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     @Autowired
     public ReservationController(ReservationRepository bpr, CodeValueRepository cvr) {
         _bpr = bpr;
         _cvr = cvr;
     }
 
-//    private final ReservationService reservationService;
-
-//    @Autowired
-//    public ReservationController(ReservationService reservationService) {
-//        this.reservationService = reservationService;
-//    }
 @Autowired
 private MessageSource messageSource;
     private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
     private ReservationDAO reservationDAO;
-
+    /**
+     * Displays the list of all reservations.
+     *
+     * <p>
+     * This method fetches all reservations from the database and adds them to the model for rendering.
+     * It also initializes an empty {@link Reservation} object for the search form.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param session The {@link HttpSession} object for managing session attributes.
+     * @return The name of the view ("reservation/list") for displaying the list of reservations.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     @GetMapping("")
     public String home(Model model, HttpSession session) {
 
@@ -56,31 +96,21 @@ private MessageSource messageSource;
         return "reservation/list";
     }
 
-    @GetMapping("/view")
-    public String listReservations(Model model) {
-        List<Reservation> reservations = reservationDAO.selectAll();
-        model.addAttribute("reservations", reservations);
-        model.addAttribute("reservation", new Reservation());
-        return "reservation/list";
-    }
 
-
-//    // Display list of reservations
-//    @GetMapping("/view")
-//    public String listReservations(Model model) {
-//        model.addAttribute("reservations", reservationService.getAllReservations());
-//        model.addAttribute("reservation", new Reservation());
-//        return "reservation/list";
-//    }
-
-//    // Display form for adding a new reservation
-//    @GetMapping("/add")
-//    public String addReservationForm(Model model) {
-//        model.addAttribute("reservation", new Reservation());
-//        return "reservation/add_edit";
-//    }
-
-    // Process adding a new reservation
+    /**
+     * Displays the form for adding a new reservation.
+     *
+     * <p>
+     * This method initializes a new {@link Reservation} object with default values
+     * using {@link ReservationBO#setReservationDefaults} and passes it to the view.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param session The {@link HttpSession} object for managing session attributes.
+     * @return The name of the view ("reservation/add") for rendering the reservation form.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     @GetMapping("/add")
     public String add(Model model, HttpSession session) {
 
@@ -93,42 +123,40 @@ private MessageSource messageSource;
         return "reservation/add";
     }
 
-//    // Display form for updating an existing reservation
-//    @GetMapping("/update/{id}")
-//    public String updateReservationForm(@PathVariable("id") Integer id, Model model) {
-//        Reservation reservation = reservationService.getReservationById(id);
-//        if (reservation != null) {
-//            model.addAttribute("reservation", reservation);
-//            return "reservation/add_edit";
-//        }
-//        return "redirect:/reservation/view";
-//    }
-//
-//    // Process updating an existing reservation
-//    @PostMapping("/update/{id}")
-//    public String updateReservationSubmit(@PathVariable("id") Integer id, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult result) {
-//        if (result.hasErrors()) {
-//            return "reservation/add_edit";
-//        }
-//        reservation.setId(id);
-//        reservationService.processAndSaveReservation(reservation);
-//        return "redirect:/reservation/view";
-//    }
 
-    // Delete a reservation by ID
+    /**
+     * Deletes a reservation by its ID.
+     *
+     * <p>
+     * This method deletes a reservation from the database using its ID and redirects
+     * the user to the reservation list page.
+     * </p>
+     *
+     * @param id The ID of the reservation to be deleted.
+     * @return A redirect to the reservation list page.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable int id) {
         _bpr.deleteById(id);
         return "redirect:/reservation";
     }
 
-//    // Search for reservations by name
-//    @RequestMapping("/search")
-//    public String searchReservations(@ModelAttribute("reservation") Reservation reservation, Model model) {
-//        String searchName = reservation.getName();
-//        model.addAttribute("reservations", reservationService.findByNameContaining(searchName));
-//        return "reservation/list";
-//    }
+    /**
+     * Searches for reservations by name.
+     *
+     * <p>
+     * This method uses the {@link ReservationRepository#findByNameContaining} method
+     * to find reservations whose names match the search query.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param reservation The {@link Reservation} object containing the search query.
+     * @return The name of the view ("reservation/list") for displaying the search results.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
 @PostMapping("/search")
 public String search(Model model, @ModelAttribute("reservation") Reservation reservation) {
 
@@ -140,6 +168,22 @@ public String search(Model model, @ModelAttribute("reservation") Reservation res
     logger.debug("searched for Reservation name:" + reservation.getName());
     return "reservation/list";
 }
+    /**
+     * Displays the form for editing an existing reservation.
+     *
+     * <p>
+     * This method fetches a reservation by its ID and passes it to the view for editing.
+     * If the reservation is not found, a message is added to the model, and the user is redirected.
+     * </p>
+     *
+     * @param id The ID of the reservation to be edited.
+     * @param model The {@link Model} object for passing data to the view.
+     * @param session The {@link HttpSession} object for managing session attributes.
+     * @return The name of the view ("reservation/add") for editing the reservation,
+     *         or a redirect to the reservation list if the reservation is not found.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable int id, Model model, HttpSession session) {
 
@@ -155,6 +199,24 @@ public String search(Model model, @ModelAttribute("reservation") Reservation res
         model.addAttribute("message", "Could not load the reservation");
         return "redirect:/reservation";
     }
+    /**
+     * Processes the submission of a reservation form.
+     *
+     * <p>
+     * This method validates the reservation data and calculates its total cost using
+     * {@link ReservationBO#calculateReservationCost}. If validation errors occur,
+     * the user is returned to the form with error messages.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param request The {@link HttpServletRequest} containing the request details.
+     * @param reservation The {@link Reservation} object to be submitted.
+     * @param bindingResult The {@link BindingResult} object for validation errors.
+     * @return A redirect to the reservation list page if successful, or the reservation
+     *         form view ("reservation/add") if validation errors occur.
+     * @author Sherri Ashton
+     * @since 2024-11-16
+     */
     @PostMapping("/submit")
     public String submit(Model model, HttpServletRequest request, @Valid @ModelAttribute("reservation") Reservation reservation, BindingResult bindingResult) {
         boolean valid = true;

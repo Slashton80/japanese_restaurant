@@ -16,26 +16,63 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
 import java.util.ArrayList;
-
+/**
+ * Controller class for handling report-related operations in the restaurant reservation system.
+ *
+ * <p>
+ * This controller provides endpoints for generating and viewing reservation reports, including:
+ * <ul>
+ *     <li>Reports based on date ranges</li>
+ *     <li>Reports based on minimum reservation length</li>
+ * </ul>
+ * </p>
+ *
+ * <p>
+ * The controller uses {@link ReservationBO} for business logic and interacts with the model to
+ * pass data to the view for rendering.
+ * </p>
+ *
+ * @author Sherri Ashton
+ * @since 2024-10-25
+ */
 @Controller
 @RequestMapping("/report")
 public class ReportController {
 
     private static final Logger logger = LoggerFactory.getLogger(ReportController.class);
-
-//    private final ReservationBO reservationBO;
-
-//    @Autowired
-//    public ReportController(ReservationBO reservationBO) {
-//        this.reservationBO = reservationBO;
-//    }
-
+    /**
+     * Displays the base view for reports.
+     *
+     * <p>
+     * This method is the entry point for the report module and redirects users
+     * to the report listing page.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param session The {@link HttpSession} object for managing session attributes.
+     * @return The name of the view ("report/list") for displaying the report list.
+     * @author Sherri Ashton
+     * @since 2024-10-25
+     */
     @RequestMapping("")
     public String home(Model model, HttpSession session) {
         logger.info("Running the reports controller base method");
         return "report/list";
     }
-
+    /**
+     * Displays the input form for generating a reservation report based on a date range.
+     *
+     * <p>
+     * This method initializes the {@link ReportReservation} object with default start and
+     * end dates and adds it to the model. The current date is also set in the session.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param session The {@link HttpSession} object for managing session attributes.
+     * @return The name of the view ("report/reportReservationDateRange") for rendering the form.
+     * @author Sherri Ashton
+     * @since 2024-10-25
+     */
     @GetMapping("/reservation/daterange")
     public String reportReservationDateRange(Model model, HttpSession session) {
         // Set the current date
@@ -53,28 +90,26 @@ public class ReportController {
         //Set the default start/end dates for the report
         reportReservation.setDateStart(start);
         reportReservation.setDateEnd(end);
-//        // Calculate start and end dates manually
-//        LocalDateTime currentDateTime = LocalDateTime.now();
-//        LocalDateTime startDate = currentDateTime.minusDays(30);
-//        LocalDateTime endDate = currentDateTime.plusDays(30);
-//
-//        // Format the dates using DateTimeFormatter
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-//        String start = startDate.format(formatter);
-//        String end = endDate.format(formatter);
-//
-//        // Set the date range in the report reservation
-//        ReportReservation reportReservation = new ReportReservation();
-//        reportReservation.setDateStart(start);
-//        reportReservation.setDateEnd(end);
 
-        // Add the report reservation to the model
         model.addAttribute("reportInput", reportReservation);
 
         return "report/reportReservationDateRange";
     }
 
-
+    /**
+     * Processes the date range report and displays the results.
+     *
+     * <p>
+     * This method uses {@link ReservationBO#processDateRangeReport} to fetch reservations
+     * within the specified date range. If no reservations are found, a message is displayed.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @param reportReservation The {@link ReportReservation} object containing the date range.
+     * @return The name of the view ("report/reportReservationDateRange") for rendering the results.
+     * @author Sherri Ashton
+     * @since 2024-10-25
+     */
     @PostMapping("/reservation/daterange/submit")
     public String reportReservationDateRangeSubmit(Model model, @ModelAttribute("reportInput") ReportReservation reportReservation) {
         //Call BO method to process the report
@@ -93,53 +128,16 @@ public class ReportController {
         model.addAttribute("reportInput", reportReservation);
 
         return "report/reportReservationDateRange";
-//        try {
-//            logger.info("Processing date range report: start={}, end={}", reportReservation.getDateStart(), reportReservation.getDateEnd());
-//
-//            // Parse dates to LocalDateTime for repository query
-//            String startDate = String.valueOf(LocalDate.parse(reportReservation.getDateStart(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atStartOfDay());
-//            LocalDateTime endDate = LocalDate.parse(reportReservation.getDateEnd(), DateTimeFormatter.ofPattern("yyyy-MM-dd")).atTime(23, 59, 59);
-//
-//            List<Reservation> reservations = reservationBO.findReservationsByDateRange(LocalDateTime.parse(startDate), LocalDateTime.parse(String.valueOf(endDate)));
-//
-//            if (reservations == null || reservations.isEmpty()) {
-//                model.addAttribute("message", "No reservations found for the selected date range.");
-//                logger.info("No data found for the selected date range.");
-//            } else {
-//                reportReservation.setReservations(new ArrayList<>(reservations));
-//                logger.info("Found {} reservations", reservations.size());
-//            }
 
-//            model.addAttribute("reportInput", reportReservation);
-//        } catch (Exception e) {
-//            logger.error("Error processing date range report", e);
-//            model.addAttribute("message", "An error occurred while processing your request. Please try again later.");
-//        }
-//
-//        return "report/reportReservationDateRange";
     }
-//    @GetMapping("/daterange")
-//    public String reportByDateRange(Model model) {
-//        model.addAttribute("reportInput", new ReportReservation());
-//        return "report/reportReservationDateRange";
-//    }
-//
-//    @PostMapping("/daterange/submit")
-//    public String reportByDateRangeSubmit(@ModelAttribute("reportInput") ReportReservation reportReservation, Model model) {
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-//        LocalDateTime startDate = LocalDateTime.parse(reportReservation.getDateStart(), formatter);
-//        LocalDateTime endDate = LocalDateTime.parse(reportReservation.getDateEnd(), formatter);
-//
-//        model.addAttribute("reservations", reservationService.findReservationsByDateRange(startDate, endDate));
-//        return "report/reportReservationDateRange";
-//    }
+
     /**
      * Method to send user to the min length report.
      *
      * @param model
      * @return view for list
      * @author BJM
-     * @since 2024-10-10
+     * @since 2024-10-10 . Changed 2024-10-25 by Sherri Ashton for reservation.
      */
     @RequestMapping("/reservation/minlength")
     public String reportReservationMinLength(Model model) {
@@ -160,7 +158,7 @@ public class ReportController {
      * @param reportReservation Object containing inputs for the report
      * @return view to show report
      * @author BJM
-     * @since 2024-10-11
+     * @since 2024-10-11.  Changed 2024-10-25 by Sherri Ashton for reservation.
      */
     @RequestMapping("/reservation/minlength/submit")
     public String reportReservationMinLengthSubmit(Model model, @ModelAttribute("reportInput") ReportReservation reportReservation) {
