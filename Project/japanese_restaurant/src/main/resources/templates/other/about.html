@@ -5,23 +5,28 @@
 <body>
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <div class="container has-text-centered">
-    <h2 class="title is-2" th:text="#{about}"></h2>
-    <table class="wbb centered">
-        <tr class="centered2">
-            <th>Nguyen Nguyen</th>
-            <th>&nbsp;</th>
+    <h2 class="title is-2" th:text="#{about}">About Us</h2>
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <thead>
+        <tr>
+            <th>Name</th>
             <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Nguyen Nguyen</td>
+            <td>Team Lead</td>
         </tr>
         <tr>
             <td>Vy Phan</td>
-            <td>&nbsp;&nbsp;</td>
             <td>Business Representative</td>
         </tr>
         <tr>
             <td>Sherri Ashton</td>
-            <td>&nbsp;&nbsp;</td>
             <td>Lead Developer</td>
         </tr>
+        </tbody>
     </table>
 </div>
 </body>

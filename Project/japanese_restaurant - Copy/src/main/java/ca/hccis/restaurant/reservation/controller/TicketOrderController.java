@@ -2,7 +2,6 @@ package ca.hccis.restaurant.reservation.controller;
 
 import ca.hccis.restaurant.reservation.bo.TicketOrderBO;
 import ca.hccis.restaurant.reservation.jpa.entity.CodeValue;
-import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.jpa.entity.TicketOrder;
 import ca.hccis.restaurant.reservation.repositories.CodeValueRepository;
 import ca.hccis.restaurant.reservation.repositories.TicketOrderRepository;
@@ -104,7 +103,7 @@ public class TicketOrderController {
         
         TicketOrder ticketOrder = new TicketOrder();
         ticketOrder.setCostOfTickets(new BigDecimal(0));
-        ticketOrder.setDateOfOrder(CisUtility.getCurrentDate("yyyy-MM-dd"));
+        ticketOrder.setDateOfOrder(String.valueOf(CisUtility.getCurrentDate(-30, "yyyy-MM-dd")));
         ticketOrder.setNumberOfTickets(1); //default to 1
 
         model.addAttribute("ticketOrder", ticketOrder);

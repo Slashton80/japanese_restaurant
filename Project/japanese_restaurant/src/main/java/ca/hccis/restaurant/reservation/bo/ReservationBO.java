@@ -5,7 +5,9 @@ import ca.hccis.restaurant.reservation.jpa.entity.CodeValue;
 import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.repositories.CodeValueRepository;
 import ca.hccis.restaurant.reservation.util.CisUtilityFile;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -194,6 +196,7 @@ public class ReservationBO {
             session.setAttribute("reservationTypes", reservationTypes);
         }
     }
+
 
 }
 

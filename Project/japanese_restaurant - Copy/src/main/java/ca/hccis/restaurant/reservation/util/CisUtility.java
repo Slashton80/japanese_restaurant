@@ -1,9 +1,9 @@
 package ca.hccis.restaurant.reservation.util;
 
-import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
+import javax.swing.JOptionPane;
 
 /**
  * Class containing utility methods that are useful for our projects.
@@ -13,7 +13,7 @@ import java.util.Scanner;
  */
 public class CisUtility {
 
-    private static final Scanner input = new Scanner(System.in);
+    private static Scanner input = new Scanner(System.in);
 
     //The isGUI will be used to determine if JOptionPane is used or console
     private static boolean isGUI = false;
@@ -79,7 +79,7 @@ public class CisUtility {
 
     /**
      * Method to input a boolean value.The prompt will have y/n instructions
- appended to it.
+     appended to it.
      *
      * @author BJ MacLean
      * @param prompt Base prompt for the user
@@ -91,7 +91,7 @@ public class CisUtility {
         return temp.equalsIgnoreCase("y") || temp.equalsIgnoreCase("yes") || temp.equalsIgnoreCase("true")
                 || temp.equalsIgnoreCase("1");
     }
-    
+
     /**
      * Method to display a string for the user
      *
@@ -118,7 +118,7 @@ public class CisUtility {
      */
     public static int getRandom(int max) {
 
-        //Math.random will give a fraction between 0 
+        //Math.random will give a fraction between 0
         double theFraction = Math.random();
         int theResult = (int) (theFraction * max);
         return 1 + theResult;
@@ -215,7 +215,7 @@ public class CisUtility {
      * @author BJ MacLean
      * @since 20190301
      */
-    public static String getCurrentDate(String format) {
+    public static String getCurrentDate(int i, String format) {
         //Set the default format.
         if (format == null || format.length() == 0) {
             format = "yyyy-MM-dd";
@@ -226,31 +226,11 @@ public class CisUtility {
     }
 
     /**
-     * Get the formatted date adjusted based on offset
-     * https://stackoverflow.com/questions/1459656/how-to-get-the-current-time-in-yyyy-mm-dd-hhmisec-millisecond-format-in-java
-     * @param offsetDays Days to offset the date
-     * @param format Format for date (default yyyy-MM-dd)
-     * @author BJ MacLean
-     * @since 20241018
-     */
-    public static String getCurrentDate(int offsetDays, String format) {
-        //Set the default format.
-        if (format == null || format.length() == 0) {
-            format = "yyyy-MM-dd";
-        }
-
-        LocalDateTime theDate = LocalDateTime.now().plusDays(offsetDays);
-        return theDate.format(DateTimeFormatter.ofPattern(format));
-
-    }
-
-
-    /**
      * This method will return the current time in milliseconds since a specific
      * start of time.
      *
      * https://www.tutorialspoint.com/java/lang/system_currenttimemillis.htm
-     * 
+     *
      * @author BJ MacLean
      * @since 20200127
      */

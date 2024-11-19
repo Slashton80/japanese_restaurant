@@ -6,6 +6,7 @@ import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.repositories.CodeValueRepository;
 import ca.hccis.restaurant.reservation.repositories.ReservationRepository;
 
+import ca.hccis.restaurant.reservation.service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,7 +74,8 @@ public class ReservationController {
 @Autowired
 private MessageSource messageSource;
     private static final Logger logger = LoggerFactory.getLogger(ReservationController.class);
-    private ReservationDAO reservationDAO;
+
+
     /**
      * Displays the list of all reservations.
      *
@@ -234,5 +236,31 @@ public String search(Model model, @ModelAttribute("reservation") Reservation res
         _bpr.save(reservation);
         return "redirect:/reservation";
     }
+    /**
+     * Displays today's reservations.
+     *
+     * <p>
+     * Fetches all reservations made for the current date and passes them to the view.
+     * </p>
+     *
+     * @param model The {@link Model} object for passing data to the view.
+     * @return The name of the view ("reservation/today") for displaying today's reservations.
+     */
+    @Autowired
+    private ReservationService reservationService;
 
+    @GetMapping("/today")
+    public String getTodayReservations(Model model) {
+        List<Reservation> reservations = reservationService.getReservationsForToday();
+
+        // Format the reservation dates before passing to the view
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        reservations.forEach(reservation -> {
+            String formattedDateTime = reservation.getReservationDateTime().format(formatter);
+            reservation.setFormattedReservationDateTime(formattedDateTime);
+        });
+
+        model.addAttribute("reservations", reservations);
+        return "reservation/today";
+    }
 }

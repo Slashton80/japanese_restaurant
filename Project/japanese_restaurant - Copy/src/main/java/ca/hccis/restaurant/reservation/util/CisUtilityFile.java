@@ -14,7 +14,7 @@ public class CisUtilityFile {
 
     public static void writeReportToFile(String fileName, ArrayList theObjects) {
 
-        String fullName = FOLDER_NAME + fileName + CisUtility.getCurrentDate("_yyyyMMddhhmmss") + ".txt";
+        String fullName = FOLDER_NAME + fileName + CisUtility.getCurrentDate(-30, "_yyyyMMddhhmmss") + ".txt";
         Path path = Paths.get(FOLDER_NAME);
         try {
             Files.createDirectories(path);

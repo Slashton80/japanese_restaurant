@@ -1,9 +1,14 @@
 package ca.hccis.restaurant.reservation.jpa.entity;
 
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * Entity class representing a reservation in the restaurant reservation system.
  *
@@ -167,5 +172,7 @@ public class Reservation {
     public void setFormattedReservationDateTime(String formattedReservationDateTime) {
         this.formattedReservationDateTime = formattedReservationDateTime;
     }
+
+
 }
 
