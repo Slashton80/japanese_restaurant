@@ -21,32 +21,38 @@
             <li class="nav-item me-3"> <!-- `me-3` adds margin-right -->
                 <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : ''}" th:href="@{/}">Home</a>
             </li>
-            <li class="nav-item dropdown me-3">
-                <a class="nav-link dropdown-toggle" id="reservationDropdown" role="button" data-bs-toggle="dropdown"
-                   th:classappend="${#httpServletRequest.getRequestURI().contains('/reservation') ? 'active' : ''}"
-                   th:href="@{/reservation}">Reservations</a>
-                <ul class="dropdown-menu" aria-labelledby="reservationDropdown">
-                    <li><a class="dropdown-item" th:href="@{/reservation/today}">Today's Reservations</a></li>
-                </ul>
-            </li>
+            <!-- Reservations-->
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-end">
+                    <!-- Reservations Dropdown -->
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a th:href="@{/reservation}" href="/reservation" class="navbar-link">Reservations</a>
+                        <div class="navbar-dropdown">
+                            <a th:href="@{/reservation/today}" href="/reservation/today" class="navbar-item">Today's Reservations</a>
+                            <hr class="navbar-divider">
+                        </div>
+                    </div>
 
-            <li class="nav-item dropdown me-3">
-                <a class="nav-link dropdown-toggle" id="reportDropdown" href="#" role="button" data-bs-toggle="dropdown" th:classappend="${#httpServletRequest.getRequestURI().contains('/report') ? 'active' : ''}" th:href="@{/report}">Reports</a>
-                <ul class="dropdown-menu" aria-labelledby="reportDropdown">
-                    <li><a class="dropdown-item" th:href="@{/report/reservation/daterange}" th:text="#{label.report.restaurant.reservation.date.range}">Date Range</a></li>
-                    <li><a class="dropdown-item" th:href="@{/report/reservation/minlength}" th:text="#{label.report.restaurant.reservation.min.length}">Min Pass Length</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                </ul>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="aboutDropdown" href="#" role="button" data-bs-toggle="dropdown" th:classappend="${#httpServletRequest.getRequestURI().contains('/about') ? 'active' : ''}" th:href="@{/about}">About</a>
-                <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
-                    <li><a class="dropdown-item" th:href="@{/about}">About</a></li>
-                    <li><a class="dropdown-item" th:href="@{/pirate}">Pirate</a></li>
-                    <li><hr class="dropdown-divider"></li>
-                </ul>
-            </li>
-        </ul>
+                    <!-- Reports Dropdown -->
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a th:href="@{/report}" href="/report" class="navbar-link">Reports</a>
+                        <div class="navbar-dropdown">
+                            <a th:href="@{/report/reservation/daterange}" href="/report/reservation/daterange" class="navbar-item">Date Range</a>
+                            <hr class="navbar-divider">
+                            <a th:href="@{/report/reservation/minlength}" href="/report/reservation/minlength" class="navbar-item">Min Pass Length</a>
+                        </div>
+                    </div>
+
+                    <!-- About Dropdown -->
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a th:href="@{/about}" href="/about" class="navbar-link">About</a>
+                        <div class="navbar-dropdown">
+                            <a th:href="@{/about}" href="/about" class="navbar-item">About</a>
+                            <hr class="navbar-divider">
+                            <a th:href="@{/pirate}" href="/pirate" class="navbar-item">Pirate</a>
+                        </div>
+                    </div>
+
     </div>
 </nav>
 </body>

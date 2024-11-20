@@ -12,7 +12,7 @@ th {
 :root {
     /*Variable for team color*/
     /*light ac3e37 main 770711 dark 470000*/
-    --main-color-light: #9c9a9a;
+    --main-color-grey: #9c9a9a;
     --main-color-primary: #d1a36e;
     --main-color-dark: #f9f4ef;
     --main-color-text: #fa8072;
@@ -24,7 +24,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    background: var(--main-color-light);
+    background: var(--main-color-grey);
 }
 
 main {
@@ -42,19 +42,20 @@ nav, .nav, .navbar {
     position: sticky !important;
 }
 
+/* Navbar brand logo */
 .navbar-brand, .navbar-brand:hover {
-    color: var(--main-color-primary);
+    color: var(--main-color-primary) !important;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav .nav-link.show {
-    color: var(--main-color-primary);
+    color: var(--main-color-primary); !important;
 }
 
-.cd {
-    color: #F00 !important;
-    /*    font-weight:bold;*/
-    /*    margin-bottom:-48px*/
-}
+/*.cd {*/
+/*    color: #F00 !important;*/
+/*    !*    font-weight:bold;*!*/
+/*    !*    margin-bottom:-48px*!*/
+/*}*/
 
 label {
     margin-right: 8px
@@ -189,3 +190,22 @@ h2 {
     color: red;
     font-weight: bold;
 }
+/* Apply the same style to all navbar links */
+.nav-link, .dropdown-item {
+    color: var(--main-color-primary) !important; /* Match color with Home link */
+    text-decoration: none; /* Remove underline */
+    transition: color 0.3s ease; /* Smooth transition effect */
+}
+
+/* Highlight active or hovered links */
+.nav-link:hover, .dropdown-item:hover {
+    color: black !important; /* Hover color */
+    background-color: var(--main-color-dark) !important; /* Optional hover background */
+}
+
+/* Active link styling */
+.nav-link.active, .dropdown-item.active {
+    color: var(--main-color-primary) !important;
+    font-weight: bold; /* Optional: Bold for active */
+}
+
