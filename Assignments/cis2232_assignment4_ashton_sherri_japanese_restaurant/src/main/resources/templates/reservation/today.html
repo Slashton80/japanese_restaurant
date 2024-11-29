@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+
+  <title>Today's Reservations</title>
+</head>
+<body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container">
+  <h2>Reservations for Today</h2>
+
+  <table class="table is-bordered is-striped is-hoverable">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Date and Time</th>
+      <th>Number of Adults</th>
+      <th>Number of Seniors</th>
+      <th>Number of Children</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="reservation : ${reservations}">
+      <td th:text="${reservation.id}"></td>
+      <td th:text="${reservation.name}"></td>
+      <td th:text="${reservation.email}"></td>
+      <td th:text="${reservation.formattedReservationDateTime}"></td>
+      <td th:text="${reservation.numberOfAdults}"></td>
+      <td th:text="${reservation.numberOfSeniors}"></td>
+      <td th:text="${reservation.numberOfChildren}"></td>
+    </tr>
+    </tbody>
+  </table>
+
+  <p th:if="${#lists.isEmpty(reservations)}">No reservations found for today.</p>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title th:text="#{title.report.list}">Reports</title>
+</head>
+<body>
+<!-- Include the Navbar -->
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+
+<div class="container">
+    <!-- Instructions -->
+    <h2>Reports</h2>
+
+
+    <!-- Table for Report Links -->
+    <table class="table is-bordered is-striped is-hoverable">
+        <thead>
+        <tr>
+            <th>Report Name</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td th:text="#{label.report.restaurant.reservation.date.range}">Date Range Report</td>
+            <td>Generate a report for reservations within a specific date range.</td>
+            <td>
+                <a th:href="@{/report/reservation/daterange}" class="button is-primary">View</a>
+            </td>
+        </tr>
+        <tr>
+            <td th:text="#{label.report.restaurant.reservation.min.length}">Minimum Length Report</td>
+            <td>Generate a report for reservations exceeding a minimum duration.</td>
+            <td>
+                <a th:href="@{/report/reservation/minlength}" class="button is-primary">View</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- Include the Footer -->
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</html>

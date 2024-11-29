@@ -1,0 +1,34 @@
+<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head">
+    <title id="pageTitle" th:text="#{application.name}">App name</title>
+</head>
+<body>
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+<div class="container has-text-centered">
+    <h2 class="title is-2" th:text="#{about}">About Us</h2>
+    <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Nguyen Nguyen</td>
+            <td>Team Lead</td>
+        </tr>
+        <tr>
+            <td>Vy Phan</td>
+            <td>Business Representative</td>
+        </tr>
+        <tr>
+            <td>Sherri Ashton</td>
+            <td>Lead Developer</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+<footer th:replace="fragments/footer :: footer"></footer>
+</html>

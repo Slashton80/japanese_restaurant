@@ -1,19 +1,13 @@
 package ca.hccis.restaurant.reservation.jpa.entity;
 
-//import jakarta.persistence.*;
-//import jakarta.validation.constraints.*;
-//import org.springframework.data.annotation.Transient;
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import org.hibernate.annotations.Table;
-//import org.springframework.data.annotation.Id;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * Entity class representing a reservation in the restaurant reservation system.
@@ -80,6 +74,10 @@ public class Reservation {
 
     @Column(name = "totalCost", precision = 10, scale = 2)
     private BigDecimal totalCost;
+
+    public static void setIdCounter(int idCounter) {
+
+    }
 
     // Getters and Setters
 

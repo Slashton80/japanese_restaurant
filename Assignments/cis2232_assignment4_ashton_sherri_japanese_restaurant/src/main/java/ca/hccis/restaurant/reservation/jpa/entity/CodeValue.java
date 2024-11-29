@@ -4,14 +4,6 @@
  */
 package ca.hccis.restaurant.reservation.jpa.entity;
 
-//import jakarta.persistence.Basic;
-//import jakarta.persistence.Column;
-//import jakarta.persistence.Entity;
-//import jakarta.persistence.TemporalType;
-//import org.hibernate.annotations.Table;
-//import org.springframework.data.annotation.Id;
-//import org.springframework.data.jpa.repository.Temporal;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -179,11 +171,10 @@ public class CodeValue implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (object instanceof CodeValue) {
-            CodeValue other = (CodeValue) object;
-            return (this.codeValueSequence != null || other.codeValueSequence == null) && (this.codeValueSequence == null || this.codeValueSequence.equals(other.codeValueSequence));
+        if (!(object instanceof CodeValue other)) {
+            return false;
         }
-        return false;
+        return (this.codeValueSequence != null || other.codeValueSequence == null) && (this.codeValueSequence == null || this.codeValueSequence.equals(other.codeValueSequence));
     }
 
     @Override

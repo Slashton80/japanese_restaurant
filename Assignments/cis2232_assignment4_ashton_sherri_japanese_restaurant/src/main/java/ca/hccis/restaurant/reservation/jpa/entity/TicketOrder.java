@@ -181,10 +181,9 @@ public class TicketOrder implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof TicketOrder)) {
+        if (!(object instanceof TicketOrder other)) {
             return false;
         }
-        TicketOrder other = (TicketOrder) object;
         return (this.id != null || other.id == null) && (this.id == null || this.id.equals(other.id));
     }
 
