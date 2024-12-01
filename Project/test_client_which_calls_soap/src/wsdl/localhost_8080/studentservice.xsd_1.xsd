@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.9-b130926.1035 svn-revision#5f6196f2b90e9460065a4c2f4e30e065b245e51e. --><xs:schema xmlns:tns="http://services.sample.hccis.info/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://services.sample.hccis.info/">
+
+<xs:element name="getStudent" type="tns:getStudent"></xs:element>
+
+<xs:element name="getStudentResponse" type="tns:getStudentResponse"></xs:element>
+
+<xs:complexType name="getStudent">
+<xs:sequence>
+<xs:element name="arg0" type="xs:int"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="getStudentResponse">
+<xs:sequence>
+<xs:element name="return" type="tns:student" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="student">
+<xs:sequence>
+<xs:element name="name" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="program" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="studentId" type="xs:int" minOccurs="0"></xs:element>
+</xs:sequence>
+</xs:complexType>
+</xs:schema>

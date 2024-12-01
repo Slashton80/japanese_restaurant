@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://www.apache.org/xsd/maven-4.0.0.xsd">
+    <!-- Project metadata configuration -->
+    <modelVersion>4.0.0</modelVersion> <!-- The POM model version -->
+    <groupId>info.hccis</groupId> <!-- The group ID of the project, usually a domain-like identifier -->
+    <artifactId>test_client_which_calls_soap</artifactId> <!-- The artifact ID, representing the name of the project -->
+    <version>1.0-SNAPSHOT</version> <!-- Version of the project. "SNAPSHOT" indicates it's in progress -->
+    <packaging>jar</packaging> <!-- Type of packaging (jar, war, etc.) -->
+
+    <!-- Build configuration section -->
+    <build>
+        <!-- Resources configuration, defining paths and included files -->
+        <resources>
+            <resource>
+                <targetPath>META-INF</targetPath> <!-- Target directory for the resources -->
+                <directory>src</directory> <!-- Directory where the resources are located -->
+                <includes>
+                    <include>jax-ws-catalog.xml</include> <!-- Including the jax-ws catalog file -->
+                    <include>wsdl/**</include> <!-- Including all WSDL files within the wsdl folder -->
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory> <!-- Additional resource directory -->
+            </resource>
+        </resources>
+
+        <!-- Plugins configuration -->
+        <plugins>
+            <plugin>
+                <!-- Plugin for working with JAX-WS -->
+                <groupId>org.jvnet.jax-ws-commons</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>2.3</version> <!-- Plugin version -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal> <!-- Goal to generate Java source code from WSDL -->
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>localhost_8083/reservationservice.wsdl</wsdlFile> <!-- Path to the WSDL file -->
+                            </wsdlFiles>
+                            <packageName>info.hccis.testusingsoap.soap</packageName> <!-- Package name for the generated code -->
+                            <vmArgs>
+                                <vmArg>-Djavax.xml.accessExternalSchema=all</vmArg> <!-- JVM argument to allow access to external schemas -->
+                            </vmArgs>
+                            <wsdlLocation>http://localhost:8083/reservationservice?wsdl</wsdlLocation> <!-- URL location of the WSDL -->
+                            <staleFile>${project.build.directory}/jaxws/stale/reservationservice.stale</staleFile> <!-- A file to track staleness of the WSDL for regeneration -->
+                        </configuration>
+                        <id>wsimport-generate-reservationservice</id> <!-- Execution ID -->
+                        <phase>generate-sources</phase> <!-- Phase during which the execution happens -->
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <!-- Dependency for web services API -->
+                        <groupId>javax.xml</groupId>
+                        <artifactId>webservices-api</artifactId>
+                        <version>2.0</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir> <!-- Directory for generated Java source code -->
+                    <xnocompile>true</xnocompile> <!-- Prevents automatic compilation -->
+                    <verbose>true</verbose> <!-- Enables verbose output for troubleshooting -->
+                    <extension>true</extension> <!-- Enables plugin extension -->
+                    <catalog>${basedir}/src/jax-ws-catalog.xml</catalog> <!-- Path to the JAX-WS catalog file -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <!-- Properties configuration section -->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- Encoding for the project -->
+        <maven.compiler.source>1.8</maven.compiler.source> <!-- Java source version (1.8) -->
+        <maven.compiler.target>1.8</maven.compiler.target> <!-- Java target version (1.8) -->
+    </properties>
+
+    <!-- Project dependencies configuration -->
+    <dependencies>
+        <!-- Java EE Web Services Dependency -->
+        <dependency>
+            <groupId>org.glassfish.metro</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>2.3</version> <!-- Provides runtime support for Java EE web services -->
+        </dependency>
+
+        <!-- JAXB API Dependency for XML Binding -->
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version> <!-- Provides API for Java-XML binding -->
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+            <version>2.3.1</version> <!-- JAXB runtime for the API above -->
+        </dependency>
+
+        <!-- Javax JAX-WS API Dependency for SOAP Web Services -->
+        <dependency>
+            <groupId>javax.xml.ws</groupId>
+            <artifactId>jaxws-api</artifactId>
+            <version>2.3.1</version> <!-- Provides API for building and consuming SOAP web services -->
+        </dependency>
+
+        <!-- Javax Annotations API Dependency -->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version> <!-- Provides common Java annotations used in web services and more -->
+        </dependency>
+
+        <!-- Java EE API Dependency -->
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>8.0</version> <!-- Full Java EE 8 API -->
+            <scope>provided</scope> <!-- Provided scope, meaning it's expected to be provided by the server or container -->
+        </dependency>
+    </dependencies>
+</project>

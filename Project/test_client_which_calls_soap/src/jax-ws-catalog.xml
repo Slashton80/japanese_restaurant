@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="http://localhost:8080/studentservice?wsdl" uri="wsdl/localhost_8080/studentservice.wsdl"/>
+    <system systemId="http://localhost:8080/studentservice/?wsdl" uri="wsdl/localhost_8080/studentservice/.wsdl"/>
+    <system systemId="http://localhost:8080/studentservice?xsd=1" uri="wsdl/localhost_8080/studentservice.xsd_1.xsd"/>
+    <system systemId="http://localhost:8081/studentservice?wsdl" uri="wsdl/localhost_8081/studentservice.wsdl"/>
+    <system systemId="http://localhost:8081/studentservice?xsd=1" uri="wsdl/localhost_8081/studentservice.xsd_1.xsd"/>
+    <system systemId="http://localhost:8083/assessmentservice/?wsdl" uri="wsdl/localhost_8083/assessmentservice/.wsdl"/>
+    <system systemId="http://localhost:8083/assessmentservice?wsdl" uri="wsdl/localhost_8083/assessmentservice.wsdl"/>
+    <system systemId="http://localhost:8083/assessmentservice?xsd=1" uri="wsdl/localhost_8083/assessmentservice.xsd_1.xsd"/>
+    <system systemId="http://localhost:8083/buspassservice?wsdl" uri="wsdl/localhost_8083/buspassservice.wsdl"/>
+    <system systemId="http://localhost:8083/buspassservice?xsd=1" uri="wsdl/localhost_8083/buspassservice.xsd_1.xsd"/>
+    <system systemId="http://localhost:8083/reservationservice?wsdl" uri="wsdl/localhost_8083/reservationservice.wsdl"/>
+    <system systemId="http://localhost:8083/reservationservice?xsd=1" uri="wsdl/localhost_8083/reservationservice.xsd_1.xsd"/>
+
+</catalog>

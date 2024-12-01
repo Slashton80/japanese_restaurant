@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Published by JAX-WS RI (http://jax-ws.java.net). RI's version is JAX-WS RI 2.2.9-b130926.1035 -->
+<xs:schema xmlns:tns="http://soap.restaurant.reservation.hccis.info/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://soap.restaurant.reservation.hccis.info/">
+
+    <xs:element name="getReservation" type="tns:getReservation"></xs:element>
+
+    <xs:element name="getReservationResponse" type="tns:getReservationResponse"></xs:element>
+
+    <xs:element name="getReservations" type="tns:getReservations"></xs:element>
+
+    <xs:element name="getReservationsResponse" type="tns:getReservationsResponse"></xs:element>
+
+    <xs:element name="getCount" type="tns:getCount"></xs:element>
+
+    <xs:element name="getCountResponse" type="tns:getCountResponse"></xs:element>
+
+    <xs:complexType name="getReservations">
+        <xs:sequence></xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getReservationsResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:reservation" minOccurs="0" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="reservation">
+        <xs:sequence>
+            <xs:element name="address" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="city" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="cost" type="xs:decimal" minOccurs="0"></xs:element>
+            <xs:element name="id" type="xs:int" minOccurs="0"></xs:element>
+            <xs:element name="lengthOfStay" type="xs:int" minOccurs="0"></xs:element>
+            <xs:element name="name" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="reservationType" type="xs:int" minOccurs="0"></xs:element>
+            <xs:element name="preferredTable" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="startDate" type="xs:string" minOccurs="0"></xs:element>
+            <xs:element name="validForVIP" type="xs:boolean" minOccurs="0"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getCount">
+        <xs:sequence></xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getCountResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:int"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getReservation">
+        <xs:sequence>
+            <xs:element name="arg0" type="xs:int"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getReservationResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:reservation" minOccurs="0"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+</xs:schema>

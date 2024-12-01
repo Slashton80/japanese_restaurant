@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+             xmlns:wsp="http://www.w3.org/ns/ws-policy"
+             xmlns:wsp1_2="http://schemas.xmlsoap.org/ws/2004/09/policy"
+             xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://soap.pass.bus.hccis.info/"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="http://soap.pass.bus.hccis.info/"
+             name="ReservationServiceImplService">
+
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://soap.pass.bus.hccis.info/" schemaLocation="http://localhost:8083/reservationservice?xsd=1"/>
+        </xsd:schema>
+    </types>
+
+    <!-- Message Definitions -->
+    <message name="getReservation">
+        <part name="parameters" element="tns:getReservation"/>
+    </message>
+    <message name="getReservationResponse">
+        <part name="parameters" element="tns:getReservationResponse"/>
+    </message>
+    <message name="getCount">
+        <part name="parameters" element="tns:getCount"/>
+    </message>
+    <message name="getCountResponse">
+        <part name="parameters" element="tns:getCountResponse"/>
+    </message>
+    <message name="getReservations">
+        <part name="parameters" element="tns:getReservations"/>
+    </message>
+    <message name="getReservationsResponse">
+        <part name="parameters" element="tns:getReservationsResponse"/>
+    </message>
+
+    <!-- Port Type Definition -->
+    <portType name="ReservationService">
+        <operation name="getReservation">
+            <input wsam:Action="http://soap.pass.bus.hccis.info/ReservationService/getReservationRequest" message="tns:getReservation"/>
+            <output wsam:Action="http://soap.pass.bus.hccis.info/ReservationService/getReservationResponse" message="tns:getReservationResponse"/>
+        </operation>
+        <operation name="getCount">
+            <input wsam:Action="http://soap.pass.bus.hccis.info/ReservationService/getCountRequest" message="tns:getCount"/>
+            <output wsam:Action="http://soap.pass.bus.hccis.info/ReservationService/getCountResponse" message="tns:getCountResponse"/>
+        </operation>
+        <operation name="getReservations">
+            <input wsam:Action="http://soap.pass.bus.hccis.info/ReservationService/getReservationsRequest" message="tns:getReservations"/>
+            <output wsam:Action="http://soap.pass.bus.hccis.info/ReservationService/getReservationsResponse" message="tns:getReservationsResponse"/>
+        </operation>
+    </portType>
+
+    <!-- Binding Definition -->
+    <binding name="ReservationServiceImplPortBinding" type="tns:ReservationService">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <operation name="getReservation">
+            <soap:operation soapAction=""/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="getCount">
+            <soap:operation soapAction=""/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+        <operation name="getReservations">
+            <soap:operation soapAction=""/>
+            <input><soap:body use="literal"/></input>
+            <output><soap:body use="literal"/></output>
+        </operation>
+    </binding>
+
+    <!-- Service Definition -->
+    <service name="ReservationServiceImplService">
+        <port name="ReservationServiceImplPort" binding="tns:ReservationServiceImplPortBinding">
+            <soap:address location="http://localhost:8083/reservationservice"/>
+        </port>
+    </service>
+</definitions>
