@@ -39,7 +39,7 @@ import java.util.List;
  * @author Sherri Ashton
  * @since 2024-11-16
  */
-
+@Component
 public class ReservationBO {
 
     /**

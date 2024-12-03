@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Anime List</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+<h1>Anime List</h1>
+<div th:if="${animeList.isEmpty()}">
+    <p>No anime found.</p>
+</div>
+<ul th:if="${not #lists.isEmpty(animeList)}">
+    <li th:each="anime : ${animeList}">
+        <strong th:text="${anime.title}">Anime Title</strong> -
+        Score: <span th:text="${anime.score}">Score</span>
+    </li>
+</ul>
+<a href="/anime/fetch">Fetch Latest Anime</a>
+</body>
+</html>

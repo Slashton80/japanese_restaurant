@@ -11,8 +11,9 @@ public interface ReservationService {
     @WebMethod
     Reservation getReservation(int id);
     @WebMethod
-    List<Reservation> getReservations();
+    List<Reservation> getReservationsForToday();
     @WebMethod
     int getCount();
-    
+    @WebMethod
+    List<Reservation> getReservations();
 }

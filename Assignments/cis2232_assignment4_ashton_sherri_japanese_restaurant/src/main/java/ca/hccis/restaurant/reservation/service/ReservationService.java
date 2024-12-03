@@ -1,4 +1,4 @@
-package ca.hccis.restaurant.reservation.rest;
+package ca.hccis.restaurant.reservation.service;
 
 import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.repositories.ReservationRepository;

@@ -5,7 +5,7 @@ import ca.hccis.restaurant.reservation.jpa.entity.Reservation;
 import ca.hccis.restaurant.reservation.repositories.CodeValueRepository;
 import ca.hccis.restaurant.reservation.repositories.ReservationRepository;
 
-import ca.hccis.restaurant.reservation.rest.ReservationService;
+import ca.hccis.restaurant.reservation.service.ReservationService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
