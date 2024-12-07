@@ -146,7 +146,6 @@ public class ReservationBO {
         reservation.setTotalCost(roundedTotalCost);
     }
 
-
     /**
      * Sets default values for a reservation object.
      *
@@ -176,6 +175,7 @@ public class ReservationBO {
 
     }
     /**
+     * DIDN"T END UP USING!!!
      * Loads reservation types into the HTTP session if they are not already loaded.
      *
      * <p>
@@ -196,7 +196,6 @@ public class ReservationBO {
             session.setAttribute("reservationTypes", reservationTypes);
         }
     }
-
 
 }
 

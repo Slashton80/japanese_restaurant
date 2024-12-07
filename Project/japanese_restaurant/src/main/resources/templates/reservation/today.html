@@ -5,10 +5,11 @@
   <title>Today's Reservations</title>
 </head>
 <body>
+<!--navbar-->
 <nav th:replace="fragments/navHeader :: navbar"></nav>
-<div class="container">
-  <h2>Reservations for Today</h2>
-
+<!--table-->
+<div class="container table-container">
+  <h2 class="text-center mb-4">Reservations for Today</h2>
   <table class="table is-bordered is-striped is-hoverable">
     <thead>
     <tr>
@@ -36,6 +37,7 @@
 
   <p th:if="${#lists.isEmpty(reservations)}">No reservations found for today.</p>
 </div>
+<!--footer-->
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

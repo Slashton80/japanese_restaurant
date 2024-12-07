@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 /**
@@ -113,8 +114,14 @@ public class ReportController {
      */
     @PostMapping("/reservation/daterange/submit")
     public String reportReservationDateRangeSubmit(Model model, @ModelAttribute("reportInput") ReportReservation reportReservation) {
+        LocalDate startDate = LocalDate.parse(reportReservation.getDateStart());
+        LocalDate endDate = LocalDate.parse(reportReservation.getDateEnd());
         //Call BO method to process the report
         ArrayList<Reservation> reservations = ReservationBO.processDateRangeReport(reportReservation.getDateStart(), reportReservation.getDateEnd());
+        if (endDate.isBefore(startDate)) {
+            model.addAttribute("message", "End date cannot be before start date.");
+            return "report/reportReservationDateRange";
+        }
 
         // Format the date and time for each reservation
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

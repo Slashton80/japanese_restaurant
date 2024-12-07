@@ -1,63 +1,107 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
-  <title th:text="#{title.reservation.addEdit}">Add/Edit Reservation</title>
+  <title>Add Reservation</title>
+  <style>
+    /* Custom styles for the form container */
+    .form-container {
+      max-width: 100%; /* Full-width to fit the screen */
+      width: 90%; /* 90% of the screen width */
+      margin: 40px auto; /* Center the form horizontally */
+      padding: 20px; /* Reduce padding to make it more compact */
+      background-color: var(--main-color-bright);
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Adjust the form elements for responsiveness */
+    .form-container input[type="text"],
+    .form-container input[type="email"],
+    .form-container input[type="datetime-local"],
+    .form-container input[type="number"] {
+      width: 100%; /* Make inputs take up the full width of the form container */
+      padding: 8px; /* Adjust padding for better appearance */
+      margin-bottom: 15px;
+      border-radius: 5px;
+      border: 1px solid var(--main-color-grey);
+    }
+
+    /* Adjust submit button for responsiveness */
+    .form-container button {
+      padding: 12px;
+      background-color: #00d1b2;
+      color: #fff;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%; /* Make the submit button full-width */
+    }
+
+    .form-container .btn {
+      width: 100%; /* Make the submit button full-width */
+    }
+  </style>
 </head>
 <body>
+<!-- Include Navbar -->
 <nav th:replace="fragments/navHeader :: navbar"></nav>
-<div class="container has-text-centered">
-  <h2 class="title is-2" th:if="${reservation.id != null}" th:text="#{label.edit.reservation}">Edit Reservation</h2>
-  <h2 class="title is-2" th:if="${reservation.id == null}" th:text="#{label.add.reservation}">Add Reservation</h2>
 
-  <form th:object="${reservation}" th:action="@{/reservation/submit}" method="post" class="form">
-    <input type="hidden" th:field="*{id}"/>
-    <input type="hidden" th:field="*{totalCost}"/>
+<!-- Main Content Container -->
+<div class="container form-container">
+  <h2 class="text-center mb-4">Add Reservation</h2>
 
-    <p>
-      <label>Name:</label>
-      <input type="text" th:field="*{name}" required />
-      <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
-    </p>
+  <form action="/reservation/submit" method="post" class="form">
+    <input type="hidden" id="id" name="id" value="">
+    <input type="hidden" id="totalCost" name="totalCost" value="25">
 
-    <p>
-      <label>Email:</label>
-      <input type="email" th:field="*{email}" required />
-      <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
-    </p>
+    <div class="mb-2">
+      <label for="name" class="form-label">Name:</label>
+      <input type="text" class="form-control" id="name" name="name" required value="">
+    </div>
 
-    <p>
-      <label>Date and Time:</label>
-      <input type="datetime-local" th:field="*{reservationDateTime}" required />
-      <span class="error" th:if="${#fields.hasErrors('reservationDateTime')}" th:errors="*{reservationDateTime}"></span>
-    </p>
+    <div class="mb-2">
+      <label for="email" class="form-label">Email:</label>
+      <input type="email" class="form-control" id="email" name="email" required value="">
+    </div>
 
-    <p>
-      <label>Number of Adults:</label>
-      <input type="number" th:field="*{numberOfAdults}" required />
-      <span class="error" th:if="${#fields.hasErrors('numberOfAdults')}" th:errors="*{numberOfAdults}"></span>
-    </p>
+    <div class="mb-2">
+      <label for="reservationDateTime" class="form-label">Date and Time:</label>
+      <input type="datetime-local" class="form-control" id="reservationDateTime" name="reservationDateTime" required value="">
+    </div>
 
-    <p>
-      <label>Number of Seniors:</label>
-      <input type="number" th:field="*{numberOfSeniors}" />
-      <span class="error" th:if="${#fields.hasErrors('numberOfSeniors')}" th:errors="*{numberOfSeniors}"></span>
-    </p>
+    <div class="mb-2">
+      <label for="numberOfAdults" class="form-label">Number of Adults:</label>
+      <input type="number" class="form-control" id="numberOfAdults" name="numberOfAdults" required value="1">
+    </div>
 
-    <p>
-      <label>Number of Children:</label>
-      <input type="number" th:field="*{numberOfChildren}" />
-      <span class="error" th:if="${#fields.hasErrors('numberOfChildren')}" th:errors="*{numberOfChildren}"></span>
-    </p>
+    <div class="mb-2">
+      <label for="numberOfSeniors" class="form-label">Number of Seniors:</label>
+      <input type="number" class="form-control" id="numberOfSeniors" name="numberOfSeniors" value="0">
+    </div>
 
-    <p>
-      <label>Coupon Discount:</label>
-      <input type="number" step="0.01" th:field="*{couponDiscount}" />
-      <span class="error" th:if="${#fields.hasErrors('couponDiscount')}" th:errors="*{couponDiscount}"></span>
-    </p>
+    <div class="mb-2">
+      <label for="numberOfChildren" class="form-label">Number of Children:</label>
+      <input type="number" class="form-control" id="numberOfChildren" name="numberOfChildren" value="0">
+    </div>
 
-    <button type="submit" class="button is-primary" th:text="#{label.submit}">Submit</button>
+    <div class="mb-2">
+      <label for="couponDiscount" class="form-label">Coupon Discount:</label>
+      <input type="number" class="form-control" step="0.01" id="couponDiscount" name="couponDiscount" value="0.0">
+    </div>
+
+
+
+        <div class="text-center">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
   </form>
 </div>
+
+
+<!-- Include Footer -->
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

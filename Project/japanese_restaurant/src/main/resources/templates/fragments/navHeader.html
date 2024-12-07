@@ -17,42 +17,46 @@
         <span aria-hidden="true"></span>
     </a>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
+        <div id="navbarBasicExample" class="navbar-menu">
         <ul class="navbar-nav me-auto"> <!-- `me-auto` ensures spacing between sections -->
             <li class="nav-item me-3"> <!-- `me-3` adds margin-right -->
                 <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : ''}" th:href="@{/}">Home</a>
             </li>
+
             <!-- Reservations-->
-            <div id="navbarBasicExample" class="navbar-menu">
+
                 <div class="navbar-end">
                     <!-- Reservations Dropdown -->
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a th:href="@{/reservation}" href="/reservation" class="navbar-link">Reservations</a>
+                        <a href="#" class="navbar-link">Reservations</a>
                         <div class="navbar-dropdown">
+                            <a th:href="@{/reservation}" href="/reservation" class="navbar-item">View All Reservations</a>
                             <a th:href="@{/reservation/today}" href="/reservation/today" class="navbar-item">Today's Reservations</a>
+                            <a th:href="@{/reservation/add}" href="/reservation/add" class="navbar-item">Add New Reservation</a>
                             <hr class="navbar-divider">
                         </div>
                     </div>
 
                     <!-- Reports Dropdown -->
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a th:href="@{/report}" href="/report" class="navbar-link">Reports</a>
+                        <a href="#" class="navbar-link">Reports</a>
                         <div class="navbar-dropdown">
                             <a th:href="@{/report/reservation/daterange}" href="/report/reservation/daterange" class="navbar-item">Date Range</a>
-                            <hr class="navbar-divider">
-                            <a th:href="@{/report/reservation/minlength}" href="/report/reservation/minlength" class="navbar-item">Min Pass Length</a>
                         </div>
                     </div>
 
                     <!-- About Dropdown -->
                     <div class="navbar-item has-dropdown is-hoverable">
-                        <a th:href="@{/about}" href="/about" class="navbar-link">About</a>
+                        <a href="#" class="navbar-link">About</a>
                         <div class="navbar-dropdown">
                             <a th:href="@{/about}" href="/about" class="navbar-item">About</a>
                             <hr class="navbar-divider">
                             <a th:href="@{/pirate}" href="/pirate" class="navbar-item">Pirate</a>
                         </div>
                     </div>
-
+                </div>
+            </div>
+    </div>
     </div>
 </nav>
 </body>

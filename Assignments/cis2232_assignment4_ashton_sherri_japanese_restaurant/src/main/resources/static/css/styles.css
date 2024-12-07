@@ -86,9 +86,6 @@ tr:nth-child(even) {
     padding: 0 32px 0 0
 }
 
-h2 {
-    /*    margin-bottom:-10px!important*/
-}
 
 table {
     padding: 0 !important;
@@ -181,31 +178,120 @@ h2 {
 .container {
     padding-top: 30px;
 }
-.success-message {
-    color: green;
-    font-weight: bold;
-}
 
 .error-message {
     color: red;
     font-weight: bold;
 }
-/* Apply the same style to all navbar links */
-.nav-link, .dropdown-item {
-    color: var(--main-color-primary) !important; /* Match color with Home link */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease; /* Smooth transition effect */
+/* Applies the same style to all navbar links */
+ .dropdown-item {
+    color: var(--main-color-primary) !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
 }
 
-/* Highlight active or hovered links */
-.nav-link:hover, .dropdown-item:hover {
-    color: black !important; /* Hover color */
-    background-color: var(--main-color-dark) !important; /* Optional hover background */
+/* Highlights active or hovered links */
+ .dropdown-item:hover {
+    color: black !important;
+    background-color: var(--main-color-dark) !important;
 }
 
 /* Active link styling */
 .nav-link.active, .dropdown-item.active {
     color: var(--main-color-primary) !important;
-    font-weight: bold; /* Optional: Bold for active */
+    font-weight: bold;
+}
+.feature-section {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
 }
 
+.form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: var(--main-color-bright);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="datetime-local"],
+.form-container input[type="number"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--main-color-grey);
+}
+
+.form-container button {
+    padding: 12px;
+    background-color: #00d1b2;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form-container button:hover {
+    background-color: #3aa473;
+}
+.form-container .form-control {
+    margin-bottom: 10px;
+}
+/* Styles for rounded and styled tables */
+.table-container {
+    max-width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--main-color-bright);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--main-color-grey);
+}
+
+.table th {
+    background-color: var(--main-color-dark);
+    color: var(--main-color-text);
+}
+
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}

@@ -12,8 +12,6 @@ public class Anime {
     private String title;
     private double score;
 
-
-
     // Getters and setters
     public String getTitle() {
         return title;

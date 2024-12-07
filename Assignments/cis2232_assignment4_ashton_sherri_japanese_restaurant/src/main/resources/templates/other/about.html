@@ -1,10 +1,52 @@
-<!DOCTYPE html><html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
-    <title id="pageTitle" th:text="#{application.name}">App name</title>
+    <title id="pageTitle" th:text="#{application.name}">App Name</title>
+    <style>
+        /* Custom styles for the container */
+        .about-container {
+            max-width: 100%; /* Full-width to fit the screen */
+            width: 90%; /* 90% of the screen width */
+            margin: 40px auto; /* Center the container horizontally */
+            padding: 20px; /* Padding around the content */
+            background-color: var(--main-color-bright); /* Same background color as other pages */
+            border-radius: 10px; /* Rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for the container */
+        }
+
+        /* Style adjustments for the table */
+        .about-container table {
+            width: 100%; /* Full-width table inside the container */
+            border-collapse: collapse; /* Remove spacing between table cells */
+            margin-bottom: 20px; /* Spacing at the bottom of the table */
+        }
+
+        .about-container th,
+        .about-container td {
+            padding: 10px; /* Padding inside the table cells */
+            border: 1px solid var(--main-color-grey); /* Border for cells to match the style */
+        }
+
+        .about-container th {
+            background-color: var(--main-color-primary); /* Primary color for the header */
+            color: var(--main-color-bright); /* Bright color for text in the header */
+        }
+
+        .about-container tr:nth-child(even) {
+            background-color: #f9f9f9; /* Light background color for alternate rows */
+        }
+
+        .about-container tr:hover {
+            background-color: var(--main-color-dark); /* Hover effect for rows */
+        }
+    </style>
 </head>
 <body>
+<!-- Include the Navbar -->
 <nav th:replace="fragments/navHeader :: navbar"></nav>
-<div class="container has-text-centered">
+
+<!-- Main Content Container -->
+<div class="container about-container has-text-centered">
     <h2 class="title is-2" th:text="#{about}">About Us</h2>
     <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <thead>
@@ -29,6 +71,8 @@
         </tbody>
     </table>
 </div>
-</body>
+
+<!-- Include the Footer -->
 <footer th:replace="fragments/footer :: footer"></footer>
+</body>
 </html>

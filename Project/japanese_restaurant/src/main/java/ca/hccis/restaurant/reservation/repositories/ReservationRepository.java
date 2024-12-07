@@ -47,4 +47,6 @@ public interface ReservationRepository extends CrudRepository<Reservation, Integ
      */
     @Query("SELECT r FROM Reservation r WHERE DATE(r.reservationDateTime) = CURRENT_DATE")
     List<Reservation> findReservationsForToday();
+
+
 }

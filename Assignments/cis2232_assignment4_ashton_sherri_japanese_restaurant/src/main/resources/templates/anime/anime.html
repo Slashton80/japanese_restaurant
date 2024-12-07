@@ -1,21 +1,42 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/head :: headerFragment">
     <title>Anime List</title>
     <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-<h1>Anime List</h1>
-<div th:if="${animeList.isEmpty()}">
-    <p>No anime found.</p>
+<!-- Include Navbar -->
+<nav th:replace="fragments/navHeader :: navbar"></nav>
+
+<div class="container centered2" style="text-align: center; margin: 20px auto;">
+    <h2 class="title is-2">Anime List</h2>
+
+    <!-- Anime List Section -->
+    <div th:if="${animeList.isEmpty()}" class="notification is-warning">
+        <p>No anime found.</p>
+    </div>
+
+    <ul th:if="${not #lists.isEmpty(animeList)}" class="anime-list" style="list-style: none; padding: 0;">
+        <li th:each="anime : ${animeList}" style="margin-bottom: 20px;">
+            <div style="display: inline-block; text-align: center;">
+                <strong th:text="${anime.title}" style="display: block; font-size: 1.5em;">Anime Title</strong>
+                <p>Score: <span th:text="${anime.score}">Score</span></p>
+            </div>
+        </li>
+    </ul>
+
+    <!-- Fetch Latest Anime Button -->
+    <div style="margin-top: 20px;">
+        <a href="/anime/fetch" class="btn btn-primary">Fetch Latest Anime</a>
+    </div>
+
+    <!-- Back Button -->
+    <div style="margin-top: 20px;">
+        <a th:href="@{/}" class="btn btn-secondary">Back to Home</a>
+    </div>
 </div>
-<ul th:if="${not #lists.isEmpty(animeList)}">
-    <li th:each="anime : ${animeList}">
-        <strong th:text="${anime.title}">Anime Title</strong> -
-        Score: <span th:text="${anime.score}">Score</span>
-    </li>
-</ul>
-<a href="/anime/fetch">Fetch Latest Anime</a>
+
+<!-- Include Footer -->
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

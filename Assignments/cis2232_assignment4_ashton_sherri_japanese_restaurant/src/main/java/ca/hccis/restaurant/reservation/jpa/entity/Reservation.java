@@ -18,7 +18,6 @@ import java.time.LocalDateTime;
 /**
  * Entity class representing a reservation in the restaurant reservation system.
  *
- * <p>
  * This class is mapped to the "reservation" table in the database and contains all the
  * attributes required to define a reservation, such as name, email, reservation date and time,
  * number of adults, seniors, and children, coupon discount, and total cost.

@@ -37,7 +37,7 @@ public class AnimeRestService {
                 return Collections.emptyList();
             }
         } catch (Exception e) {
-            // Log the error and return an empty list if there is an error
+            // Logs the error and return an empty list if there is an error
             System.err.println("Error fetching anime data: " + e.getMessage());
             return Collections.emptyList();
         }
@@ -49,6 +49,6 @@ public class AnimeRestService {
      */
     public void fetchAndSaveAnime() {
         List<Anime> animeList = getAllAnime();
-        // You can save this data to your database if needed using a repository.
+
     }
 }

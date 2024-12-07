@@ -87,7 +87,7 @@ public class ReservationRestService {
     @Path("/today")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getTodayReservation() {
-        // Assuming Reservation entity has a field named reservationDateTime
+
         LocalDate today = LocalDate.now();
         List<Reservation> allReservations = (List<Reservation>) reservationRepository.findAll();
         List<Reservation> todayReservations = new ArrayList<>();

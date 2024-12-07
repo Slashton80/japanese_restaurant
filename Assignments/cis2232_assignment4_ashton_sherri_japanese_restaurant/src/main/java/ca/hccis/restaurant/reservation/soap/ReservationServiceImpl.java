@@ -11,7 +11,17 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * Implementation of the ReservationService interface for the SOAP Web Service.
+ * This class implements all methods defined in the ReservationService interface,
+ * allowing users to create, retrieve, and manage restaurant reservations through a SOAP endpoint.
+ *
+ * It includes methods to fetch all reservations, retrieve today's reservations, count the reservations,
+ * and get a specific reservation by ID.
+ *
+ * @author Sherri Ashton
+ * @since 2024-11-28
+ */
 @WebService(endpointInterface = "ca.hccis.restaurant.reservation.soap.ReservationService")
 public class ReservationServiceImpl implements ReservationService {
 

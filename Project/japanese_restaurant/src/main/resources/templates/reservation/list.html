@@ -4,9 +4,10 @@
     <title id="pageTitle">Reservations</title>
 </head>
 <body>
+<!--navbar-->
 <nav th:replace="fragments/navHeader :: navbar"></nav>
-<div class="container has-text-centered">
-    <h2 class="title is-2">Reservations</h2>
+<div class="container table-container">
+    <h2 class="text-center mb-4">Reservations</h2>
     <p th:if="${not #strings.isEmpty(message)}" th:text="${message}">Message from controller</p>
 
     <!-- Search Form -->
@@ -58,11 +59,12 @@
     <!-- Total Number of Reservations -->
     <p>Total: <b th:text="${#lists.size(reservations)}"></b> reservations.</p>
 
-    <!-- Add New Reservation -->
+    <!-- Adds New Reservation -->
     <a th:href="@{/reservation/add}">
         <button class="button is-primary">Add New Reservation</button>
     </a>
 </div>
+<!--footer-->
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

@@ -2,90 +2,122 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: head">
     <title id="pageTitle">Report</title>
+
 </head>
 <body>
-<style scoped="scoped">input:not(.hidden) {
-    display: inline-block;
-    float: right
-}
-
-.cd {
-    color: #F00 !important;
-    font-weight: bold;
-    margin-bottom: -48px
-}
-
-label {
-    margin-right: 8px
-}</style>
+<!--navbar-->
 <nav th:replace="fragments/navHeader :: navbar"></nav>
-<div class="container has-text-centered">
-    <h2 class="title is-2" th:text="#{label.report.restaurant.reservation.date.range}">_</h2>
-    <form th:action="@{/report/reservation/daterange/submit}" method="post" class="wbb"
-          style="display:inline-block;text-align:left!important">
-        <label>Start date: </label>
-        <input type="date" th:field="${reportInput.dateStart}"></input>
-        <br></br>
-        <label>End date: </label>
-        <input type="date" th:field="${reportInput.dateEnd}"></input>
-        <br></br>
-        <button style="display:block;margin-top:24px!important" class="centered">Submit</button>
-    </form>
-    <br></br>
-    <!--Messages-->
-    <p th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found.date}">test</p>
+<div class="container">
+    <!-- Form Container -->
+    <div class="form-container">
+        <h2 class="title is-2" th:text="#{label.report.restaurant.reservation.date.range}">_</h2>
+        <form th:action="@{/report/reservation/daterange/submit}" method="post">
+            <label>Start date: </label>
+            <input type="date" name="dateStart" th:field="${reportInput.dateStart}">
+            <br>
+            <label>End date: </label>
+            <input type="date" name="dateEnd" th:field="${reportInput.dateEnd}">
+            <br>
+            <button style="display:block;margin-top:24px;" class="centered">Submit</button>
+        </form>
+    </div>
 
+    <!-- Messages -->
+    <p class="no-data-message" th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found.date}">test</p>
 
-    <div class="container">
+    <!-- Table Container -->
+    <div class="table-container">
         <h2>Reservations</h2>
         <table class="table is-bordered">
             <thead>
             <tr>
                 <th>ID</th>
-                <th class="a"></th>
                 <th>Name</th>
-                <th class="a"></th>
                 <th>Email</th>
-                <th class="a"></th>
                 <th>Date and Time</th>
-                <th class="a"></th>
                 <th>Number of Adults</th>
-                <th class="a"></th>
                 <th>Number of Seniors</th>
-                <th class="a"></th>
                 <th>Number of Children</th>
-                <th class="a"></th>
                 <th>Coupon Discount</th>
-                <th class="a"></th>
                 <th>Total Cost</th>
-                <th class="a"></th>
             </tr>
             </thead>
+            <tbody>
             <tr th:each="current,iterStat : ${reportInput.reservations}">
                 <td th:text="${current.id}"></td>
-                <td></td>
                 <td th:text="${current.name}"></td>
-                <td></td>
                 <td th:text="${current.email}"></td>
-                <td></td>
-                <td th:text="${current.reservationDateTime}"></td>
-                <td></td>
+                <td th:text="${#temporals.format(current.reservationDateTime, 'yyyy-MM-dd HH:mm')}"></td>
                 <td th:text="${current.numberOfAdults}"></td>
-                <td></td>
                 <td th:text="${current.numberOfSeniors}"></td>
-                <td></td>
                 <td th:text="${current.numberOfChildren}"></td>
-                <td></td>
                 <td th:text="${current.couponDiscount}"></td>
-                <td></td>
                 <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
-                <td></td>
             </tr>
-
-
+            </tbody>
         </table>
     </div>
 </div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.querySelector("form");
+        const startDateInput = document.querySelector("input[name='dateStart']");
+        const endDateInput = document.querySelector("input[name='dateEnd']");
+        const reservationTable = document.querySelector("table");
+        const noDataMessage = document.querySelector("p[th\\:if*='no.data.found']");
+
+        // Creates error message element if not already in the HTML
+        let errorMessage = document.querySelector(".error-date-validation");
+        if (!errorMessage) {
+            errorMessage = document.createElement("span");
+            errorMessage.className = "error error-date-validation";
+            errorMessage.style.display = "none";
+            errorMessage.textContent = "End date cannot be before start date.";
+            form.insertBefore(errorMessage, form.querySelector("button"));
+        }
+
+        // Validates dates on form submission
+        form.addEventListener("submit", function(event) {
+            // Parse dates to ensure accurate comparison
+            const startDate = Date.parse(startDateInput.value);
+            const endDate = Date.parse(endDateInput.value);
+
+            if (!isNaN(startDate) && !isNaN(endDate)) {
+                if (endDate < startDate) {
+                    // Shows error if the end date is before the start date
+                    errorMessage.style.display = "block";
+                    event.preventDefault(); // Prevent form submission
+
+                    // Clears reservation table content except for the header
+                    if (reservationTable) {
+                        const tableBody = reservationTable.querySelector("tbody");
+                        if (tableBody) {
+                            tableBody.innerHTML = ""; // Clear all rows from the table body
+                        }
+                    }
+
+                    // Hides the "No reservations found" message when there is a validation error
+                    if (noDataMessage) {
+                        noDataMessage.style.display = "none";
+                    }
+                } else {
+                    // Hides the error message if the dates are valid
+                    errorMessage.style.display = "none";
+
+                    // Allows the "No reservations found" message to be displayed if appropriate
+                    if (noDataMessage && noDataMessage.textContent.trim() !== "") {
+                        noDataMessage.style.display = "block";
+                    }
+                }
+            } else {
+                // Handles case where date inputs are invalid (e.g., empty fields)
+                errorMessage.style.display = "none";
+            }
+        });
+    });
+</script>
+<!-- Footer -->
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

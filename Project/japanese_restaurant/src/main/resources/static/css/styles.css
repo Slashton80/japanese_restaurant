@@ -1,22 +1,53 @@
+/**********************
+* Made changes to fit my project better
+* Since: 2024-12-06
+* Author: Sherri Ashton
+************************/
+
 html {
     overflow: auto !important;
     min-width: 246px;
-
 }
 
-/*Mathew Elder provided (2023-10) the following style to fix our view issue with many columns.*/
+/* Mathew Elder provided (2023-10) the following style to fix our view issue with many columns */
 th {
-    white-space: normal
+    white-space: normal;
+}
+
+/*about title*/
+h2.title.is-2 {
+    color: #000 !important;
+    text-align: center;
+}
+
+
+/* Set the color for dropdown items to match the navbar primary color */
+.navbar-link, .navbar-item, .dropdown-item {
+    color: var(--main-color-primary) !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+/* Styling for hover effect */
+.navbar-link:hover, .dropdown-item:hover {
+    color: var(--main-color-text) !important;
+    background-color: var(--main-color-dark) !important;
+}
+
+/* Active link styling for consistency */
+.nav-link.active, .navbar-item.active, .dropdown-item.active {
+    color: var(--main-color-primary) !important;
+    font-weight: bold;
 }
 
 :root {
-    /*Variable for team color*/
-    /*light ac3e37 main 770711 dark 470000*/
+    /* Variable for team color */
     --main-color-grey: #9c9a9a;
     --main-color-primary: #d1a36e;
     --main-color-dark: #f9f4ef;
     --main-color-text: #fa8072;
     --main-color-bright: #ffffff;
+    --main-color-container: #e4ddd6;
 
 }
 
@@ -37,7 +68,6 @@ footer {
 
 nav, .nav, .navbar {
     margin-bottom: 50px;
-
     background: var(--main-color-dark) !important;
     position: sticky !important;
 }
@@ -48,17 +78,11 @@ nav, .nav, .navbar {
 }
 
 .navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav .nav-link.show {
-    color: var(--main-color-primary); !important;
+    color: var(--main-color-primary) !important;
 }
 
-/*.cd {*/
-/*    color: #F00 !important;*/
-/*    !*    font-weight:bold;*!*/
-/*    !*    margin-bottom:-48px*!*/
-/*}*/
-
 label {
-    margin-right: 8px
+    margin-right: 8px;
 }
 
 th, tr, td {
@@ -66,7 +90,7 @@ th, tr, td {
 }
 
 td {
-    padding: 10px !important
+    padding: 10px !important;
 }
 
 tr, thead, th {
@@ -75,37 +99,33 @@ tr, thead, th {
 
 tr th {
     line-height: 1;
-    padding-bottom: 8px
+    padding-bottom: 8px;
 }
 
 tr:nth-child(even) {
-    background-color: #FFF
+    background-color: #FFF;
 }
 
 .a {
-    padding: 0 32px 0 0
-}
-
-h2 {
-    /*    margin-bottom:-10px!important*/
+    padding: 0 32px 0 0;
 }
 
 table {
     padding: 0 !important;
-    display: inline-block !important
+    display: inline-block !important;
 }
 
 .logo {
-    height: 40px
+    height: 40px;
 }
 
 .no-link {
-    color: inherit
+    color: inherit;
 }
 
 .no-link:hover {
     text-decoration: none;
-    color: inherit
+    color: inherit;
 }
 
 .ftr {
@@ -114,18 +134,21 @@ table {
     background: var(--main-color-dark);
     color: var(--main-color-text);
     bottom: 0;
-    /*    position:absolute;*/
-    width: 100%
+    width: 100%;
 }
 
+h2 {
+    padding-bottom: 30px;
+    font-size: 30px;
+
+}
 
 .centered {
-    margin: 0 auto
+    margin: 0 auto;
 }
 
-
 .centered2, .has-text-centered {
-    text-align: center
+    text-align: center;
 }
 
 form {
@@ -133,17 +156,12 @@ form {
     margin-top: 10px;
 }
 
-
-.navbar-link, .navbar-link:focus, .navbar-bgn {
-    color: var(--main-color-text) !important
-}
-
 .title {
-    color: var(--main-color-bright) !important
+    color: var(--main-color-bright) !important;
 }
 
 body, p, strong, th {
-    color: #000 !important
+    color: #000 !important;
 }
 
 img.sushi {
@@ -154,58 +172,196 @@ img.sushi {
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-
-/*white background box.*/
+/* white background box */
 .wbb, .ddl {
     padding: 0px 8px 0px 8px !important;
     background-color: #ccc !important;
     border: 8px #ccc solid !important;
     border-radius: 12px !important;
-    /*white-space: nowrap !important;*/
-}
-.nav-link:hover, .dropdown-item:hover {
-    color: black;
-    transition: color 0.3s ease;
 }
 
-h2 {
-    padding-bottom: 30px;
-    font-size:30px;
-
-}
 .dropdown-menu .dropdown-item {
     white-space: normal;
     word-wrap: break-word;
     max-width: 250px;
 }
+
 .container {
-    padding-top: 30px;
+    display: inline-block;
+    padding: 20px;
+    background-color: var(--main-color-bright);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
 }
-.success-message {
-    color: green;
+
+/* error message styling */
+.no-data-message {
+    color: #b22222;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 10px;
+    text-align: center;
+    display: block;
+}
+
+/* Feature section styling */
+.feature-section {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    max-width: 400px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.form-container {
+    min-height: 600px;
+
+    width: 90%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--main-color-dark);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    transition: height 0.3s ease-in-out;
+    height: auto;
+}
+
+.form-container form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-container label {
+    margin-bottom: 8px;
+    font-weight: bold;
+}
+.form-container label, .form-container input, .form-container button {
+    width: 100%;
+}
+.form-container input[type="text"],
+.form-container input[type="email"],
+.form-container input[type="datetime-local"],
+.form-container input[type="number"],
+.form-container input[type="date"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid var(--main-color-grey);
+}
+.form-container, .table-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--main-color-dark);
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.error {
+    min-height: 20px;
+    color: #b22222;
+    font-size: 1em;
+    font-weight: bold;
+    margin-top: 5px;
+    display: block;
+}
+
+/* Submit button styling */
+.form-container button {
+    padding: 12px;
+    background-color: #00d1b2;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+}
+
+.form-container button:hover {
+    background-color: #3aa473;
+}
+
+.form-container .form-control {
+    margin-bottom: 10px;
+}
+.form-container input {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--main-color-grey);
+}
+/* Styles for cohesive tables */
+.table-container {
+    max-width: 95%;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: var(--main-color-dark);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+}
+
+.table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.table th, .table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--main-color-grey);
+}
+
+.table th {
+    background-color: var(--main-color-bright);
+    color: var(--main-color-bright);
     font-weight: bold;
 }
 
+.table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.table tr:last-child td {
+    border-bottom: none;
+}
+
+.table tr:hover {
+    background-color: var(--main-color-primary);
+    color: var(--main-color-bright);
+    transition: background-color 0.3s ease;
+}
 .error-message {
-    color: red;
+    color: #b22222 !important;
     font-weight: bold;
+    font-size: 0.9em;
+    margin-top: 10px;
+    display: block;
 }
-/* Apply the same style to all navbar links */
-.nav-link, .dropdown-item {
-    color: var(--main-color-primary) !important; /* Match color with Home link */
-    text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease; /* Smooth transition effect */
-}
+p {
+    color: #b22222 !important;
+    font-weight: bold;
+    font-size: 0.9em;
+    margin-top: 10px;
+    display: block;
+    padding-bottom: 10px;
 
-/* Highlight active or hovered links */
-.nav-link:hover, .dropdown-item:hover {
-    color: black !important; /* Hover color */
-    background-color: var(--main-color-dark) !important; /* Optional hover background */
 }
-
-/* Active link styling */
-.nav-link.active, .dropdown-item.active {
-    color: var(--main-color-primary) !important;
-    font-weight: bold; /* Optional: Bold for active */
+@media (max-width: 768px) {
+    .form-container {
+        width: 90%;
+        padding: 10px;
+    }
 }
-
