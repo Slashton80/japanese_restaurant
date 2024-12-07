@@ -10,11 +10,17 @@
     <h2 class="text-center mb-4">Reservations</h2>
     <p th:if="${not #strings.isEmpty(message)}" th:text="${message}">Message from controller</p>
 
-    <!-- Search Form -->
-    <form th:object="${reservation}" th:action="@{/reservation/search}" method="post">
-        <label for="name">Name</label>
-        <input type="text" id="name" th:field="*{name}"/>
-        <button type="submit">Search</button>
+<!--Search bars-->
+    <form th:object="${reservation}" th:action="@{/reservation/search}" method="post" class="mb-4">
+        <div class="mb-3">
+            <label for="id">Reservation ID:</label>
+            <input type="number" id="id" th:field="*{id}" min="1" class="form-control w-25" />
+        </div>
+        <div class="mb-3">
+            <label for="name">Reservation Name:</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control w-25" />
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
     </form>
 
     <!-- Reservations Table -->

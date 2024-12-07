@@ -301,6 +301,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 /**
@@ -449,10 +451,41 @@ public class ReservationController {
         //Use repository method created to find any entities which contain
         //the name entered on the list page.
         //**********************************************************************
-        model.addAttribute("reservations", _bpr.findByNameContaining(reservation.getName()));
-        logger.debug("searched for Reservation name:" + reservation.getName());
+        // Check if the ID is filled for searching by ID
+        if (reservation.getId() != null && reservation.getId() > 0) {
+            Optional<Reservation> reservationOptional = _bpr.findById(reservation.getId());
+            if (reservationOptional.isPresent()) {
+                model.addAttribute("reservations", Collections.singletonList(reservationOptional.get()));
+            } else {
+                model.addAttribute("reservations", new ArrayList<>());
+                model.addAttribute("message", "No reservation found with ID: " + reservation.getId());
+            }
+            logger.debug("searched for Reservation by ID: " + reservation.getId());
+        }
+        // If the ID is not provided, search by name
+        else if (reservation.getName() != null && !reservation.getName().isEmpty()) {
+            model.addAttribute("reservations", _bpr.findByNameContaining(reservation.getName()));
+            logger.debug("searched for Reservation name: " + reservation.getName());
+        }
+        // If neither ID nor name are provided, return an empty list or an appropriate message
+        else {
+            model.addAttribute("reservations", new ArrayList<>());
+            model.addAttribute("message", "Please enter either a Name or an ID to search.");
+        }
+
         return "reservation/list";
     }
+//    @PostMapping("/search")
+//    public String search(Model model, @ModelAttribute("reservation") Reservation reservation) {
+//
+//        //**********************************************************************
+//        //Use repository method created to find any entities which contain
+//        //the name entered on the list page.
+//        //**********************************************************************
+//        model.addAttribute("reservations", _bpr.findByNameContaining(reservation.getName()));
+//        logger.debug("searched for Reservation name:" + reservation.getName());
+//        return "reservation/list";
+//    }
     /**
      * Displays the form for editing an existing reservation.
      *

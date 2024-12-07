@@ -143,27 +143,6 @@ public class ReportController {
         return "report/reportReservationDateRange";
 
     }
-
-    /**
-     * Method to send user to the min length report.
-     *
-     * @param model
-     * @return view for list
-     * @author BJM
-     * @since 2024-10-10 . Changed 2024-10-25 by Sherri Ashton for reservation.
-     */
-    @RequestMapping("/reservation/minlength")
-    public String reportReservationMinLength(Model model) {
-
-        //**********************************************************************
-        // Put the report object in the model and send the user
-        // to the report input view.
-        //**********************************************************************
-        model.addAttribute("reportInput", new ReportReservation());
-
-        return "report/reportReservationMinLength";
-    }
-
     /**
      * Process the report
      *

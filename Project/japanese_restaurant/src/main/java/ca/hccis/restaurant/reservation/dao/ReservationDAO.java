@@ -250,5 +250,30 @@ public void saveOrUpdate(Reservation reservation) {
         }
         return reservations;
     }
+    public Reservation selectById(int id) {
+        String sql = "SELECT * FROM reservation WHERE id = ?";
+        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    Reservation reservation = new Reservation();
+                    reservation.setId(rs.getInt("id"));
+                    reservation.setName(rs.getString("name"));
+                    reservation.setEmail(rs.getString("email"));
+                    reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime());
+                    reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
+                    reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
+                    reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
+                    reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+                    reservation.setTotalCost(rs.getBigDecimal("totalCost"));
+                    return reservation;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }
