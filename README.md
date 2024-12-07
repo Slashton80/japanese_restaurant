@@ -34,11 +34,12 @@ We understand that unexpected changes can sometimes occur, so we offer a flexibl
 By choosing to make your reservation online, you're not only ensuring a hassle-free dining experience but also taking advantage of exclusive offers and discounts. We look forward to welcoming you to our restaurant and providing you with an unforgettable culinary journey.</br>
 ---
 ## Color ##
-main-color-light: #9c9a9a;<br/>
-main-color-primary: #d1a36e;<br/>
-main-color-dark: #f9f4ef;<br/>
-main-color-text: #ff6347;<br/>
-main-color-bright: #ffffff;<br/>
+ --main-color-grey: #9c9a9a;<br>
+    --main-color-primary: #d1a36e;<br>
+    --main-color-white: #f9f4ef;<br>
+    --main-color-text: #fa8072;<br>
+    --main-color-bright: #ffffff;<br>
+    --main-color-container: #e4ddd6;<br>
 ---
 ## Required Fields ##
 This will be a list of fields and their datatype (class design format). There are expected to be a minimum of six fields.<br>
@@ -87,3 +88,48 @@ Results View:
 <br/>
 File Output:
 <br/>Implemented functionality to save report results to a file in the c:\cis2232\ directory, with a naming convention that includes the report type and current date (e.g., ReservationsForPeriodYYYYMMDDHHMM.txt).
+
+---
+## Sprints and Assignment 4 ##
+
+### Sprint 1
+<br/> - Initial version of the project created and checked into Bitbucket.
+<br/> - Project name updated, and context path set.
+<br/> - README created with project information, formatted neatly.
+<br/> - Repository access granted to the learning manager.
+<br/> - Team members added as collaborators.
+<br/> - Color scheme implemented and demonstrated in the project.
+
+### Sprint 2
+<br/> - Report functionality implemented, as specified in the README.
+<br/> - JDBC used for fetching input and output result sets.
+<br/> - Report content written to a file in the specified format.
+
+### Sprint 3
+<br/> - Added list page functionality to the web application.
+<br/> - Calculations completed when add/edit is submitted, showing detailed results to the user.
+<br/> - Implemented functionality for adding, updating, and deleting entries in the web application.
+<br/> - Enabled Spring validation for adding new entries.
+
+### Sprint 4
+<br/> - REST services implemented to provide JSON data.
+<br/> - Clients set up to call the REST services.
+<br/> - Standard response codes implemented, including error handling for invalid inputs.
+<br/> - Services provided for fetching all records, selecting one record, and performing create, update, and delete operations.
+<br/> - SOAP service implemented to fetch a single entity by ID, along with a client to call the service.
+
+### Sprint 5
+<br/> - Added search functionality to allow searching by non-primary keys on the list page. In this case by a name.
+<br/> - Business validation rules implemented - validates date is not in the past for making reservations, having at least a senior or adult book and no children can be booked without an adult or senior.
+<br/> - Unit tests created for calculation methods and input validation.
+<br/> - Demo provided showcasing full application functionality.
+<br/> - Repository, documentation, and project code reviewed for quality assurance.
+
+### Assignment 4: External API Access
+<br/> - Integrated an external API to fetch additional information.
+<br/> - Java client implemented to call the API.
+<br/> - Web application modified to display results from the API call.
+
+---
+
+
