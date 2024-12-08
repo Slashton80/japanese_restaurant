@@ -17,24 +17,22 @@
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <div class="container table-container">
     <h2 class="text-center mb-4">Reservations</h2>
-    <p th:if="${not #strings.isEmpty(message)}" th:text="${message}">Message from controller</p>
 
     <!--Search bars-->
-    <div class="centered-container">
-        <form th:object="${reservation}" th:action="@{/reservation/search}" method="post" class="centered-form">
-            <div class="mb-3">
-                <label for="id">Reservation ID:</label>
-                <input type="number" id="id" th:field="*{id}" min="1" class="form-control w-25"/>
-            </div>
-            <div class="mb-3">
-                <label for="name">Reservation Name:</label>
-                <input type="text" id="name" th:field="*{name}" class="form-control w-25"/>
-            </div>
-<!--            <button type="submit" class="button is-primary">Search</button>-->
+    <form th:object="${reservation}" th:action="@{/reservation/search}" method="post" class="centered-form">
+        <div class="mb-3">
+            <label for="id">Reservation ID:</label>
+            <input type="number" id="id" th:field="*{id}" min="0" class="form-control w-25"/>
+        </div>
+        <div class="mb-3">
+            <label for="name">Reservation Name:</label>
+            <input type="text" id="name" th:field="*{name}" class="form-control w-25"/>
+        </div>
+        <!-- Error message -->
+        <p th:if="${not #strings.isEmpty(message)}" th:text="${message}" class="error-message"></p>
 
-        </form>
-    </div>
-
+        <button type="submit" class="button is-primary">Search</button>
+    </form>
 
     <!-- Reservations Table -->
     <table class="table is-bordered">
@@ -65,38 +63,37 @@
             <td th:text="${#numbers.formatCurrency(current.totalCost)}"></td>
             <td>
                 <a th:href="@{/reservation/edit/{id}(id=${current.id})}">
-                    <span class = "icon-2">
+                    <span class="icon-2">
                     <i class="fas fa-edit" title="Edit"></i>
                         </span>
                 </a>
                 <a th:href="@{/reservation/delete/{id}(id=${current.id})}">
-                    <span class = "icon-2">
+                    <span class="icon-2">
                     <i class="fas fa-trash" title="Delete"></i>
                         </span>
                 </a>
             </td>
         </tr>
-        <tr>
-            <td>
-                <a th:href="@{/reservation/add}">
+
+        </tbody>
+    </table>
+    <div class="add-button-container">
+        <a th:href="@{/reservation/add}">
                     <span class="icon">
                         <i class="fas fa-plus-square" title="Add New Reservation"></i>
                     </span>
-                </a>
-            </td>
-        </tr>
-        </tbody>
-    </table>
+        </a>
+    </div>
 
     <!-- Total Number of Reservations -->
     <p>Total: <b th:text="${#lists.size(reservations)}"></b> reservations.</p>
 
     <!-- Regular Button Adds New Reservation -->
-<!--    <div class="centered-container">-->
-<!--        <a th:href="@{/reservation/add}">-->
-<!--            <button class="button is-primary">Add New Reservation</button>-->
-<!--        </a>-->
-<!--    </div>-->
+    <!--    <div class="centered-container">-->
+    <!--        <a th:href="@{/reservation/add}">-->
+    <!--            <button class="button is-primary">Add New Reservation</button>-->
+    <!--        </a>-->
+    <!--    </div>-->
 </div>
 <!--footer-->
 <footer th:replace="fragments/footer :: footer"></footer>

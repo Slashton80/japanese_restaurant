@@ -60,35 +60,6 @@ public class ReservationBO {
         return reservations;
     }
 
-//    /**
-//     * Processes reservations based on a minimum length and writes the report to a file.
-//     * This method uses the {@link ReservationDAO} to fetch reservations that meet the
-//     * specified minimum length requirement. It also writes the resulting report to a file for further reference.
-//     *
-//     * @param minLength The minimum length of the reservation.
-//     * @return A list of {@link Reservation} objects meeting the minimum length requirement.
-//     * @throws SQLException If an SQL error occurs while fetching data.
-//     * @author Sherri Ashton
-//     * @since 2024-11-16
-//     */
-//    public static ArrayList<Reservation> processMinLengthReport(int minLength) throws SQLException {
-//
-//        //**********************************************************************
-//        // This could be done using the repository but there will be times when
-//        // jdbc will be useful.  For the reports, the requirements state that you
-//        // are to use jdbc to obtain the data for the report.
-//        //**********************************************************************
-//        ReservationDAO reservationDAO = new ReservationDAO();
-//        ArrayList<Reservation> reservations = null;
-//
-//        reservations = reservationDAO.selectAllWithMinLength(minLength);
-//
-//        // writes the report to a file
-//        CisUtilityFile.writeReportToFile("minLengthReport", reservations);
-//
-//        return reservations;
-//    }
-
     /**
      * Calculates the total cost of a reservation based on customer counts and discounts.
      *

@@ -128,37 +128,6 @@ public class ReportController {
         return "report/reportReservationDateRange";
 
     }
-//    /**
-//     * Process the report
-//     *
-//     * @param model
-//     * @param reportReservation Object containing inputs for the report
-//     * @return view to show report
-//     * @author BJM
-//     * @since 2024-10-11.  Changed 2024-10-25 by Sherri Ashton for reservation.
-//     */
-//    @RequestMapping("/reservation/minlength/submit")
-//    public String reportReservationMinLengthSubmit(Model model, @ModelAttribute("reportInput") ReportReservation reportReservation) {
-//
-//        ArrayList<Reservation> reservations;
-//        try {
-//            reservations = ReservationBO.processMinLengthReport(reportReservation.getMinLength());
-//        } catch (SQLException e) {
-//            model.addAttribute("message", "Exception accessing database");
-//            reservations = null;
-//        }
-//
-//        reportReservation.setReservations(reservations);
-//
-//        if (reservations != null && reservations.isEmpty()) {
-//            model.addAttribute("message", "No data found");
-//            System.out.println("BJM - no data found");
-//        }
-//
-//        model.addAttribute("reportInput",reportReservation);
-//
-//        return "report/reportReservationMinLength";
-//    }
 }
 
 

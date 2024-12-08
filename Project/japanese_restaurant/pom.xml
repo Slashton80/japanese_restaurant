@@ -13,11 +13,11 @@
     </parent>
 
     <!-- Project metadata -->
-    <groupId>info.hccis</groupId>
-    <artifactId>performance_hall</artifactId>
+    <groupId>ca.info.hccis</groupId>
+    <artifactId>restaurant_application</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>performance_hall</name>
-    <description>Sample Application</description>
+    <name>Japanese Restaurant</name>
+    <description>Japanese Restaurant Reservation System</description>
     <packaging>jar</packaging>
 
     <!-- Project properties -->
@@ -127,11 +127,11 @@
         </dependency>
 
         <!-- JAX-WS dependencies -->
-        <dependency>
-            <groupId>com.sun.xml.ws</groupId>
-            <artifactId>jaxws-ri</artifactId>
-            <version>2.3.3</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.sun.xml.ws</groupId>-->
+<!--            <artifactId>jaxws-ri</artifactId>-->
+<!--            <version>2.3.3</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>jakarta.xml.ws</groupId>
             <artifactId>jakarta.xml.ws-api</artifactId>

@@ -74,6 +74,7 @@ nav, .nav, .navbar {
 /* Navbar brand logo */
 .navbar-brand, .navbar-brand:hover {
     color: var(--main-color-primary) !important;
+    font-weight: bold;
 }
 
 .navbar-nav .nav-link.active, .navbar-nav, .nav-link.show, .nav-link, .nav-link:hover, .dropdown-toggle, .navbar-nav .nav-link.show {
@@ -139,6 +140,7 @@ table {
 h2 {
     padding-bottom: 30px;
     font-size: 30px;
+    font-weight: bold;
 
 }
 
@@ -348,12 +350,12 @@ img.sushi {
     color: var(--main-color-bright);
     transition: background-color 0.3s ease;
 }
-
 .error-message {
     color: #b22222 !important;
     font-weight: bold;
     font-size: 0.9em;
     margin-top: 10px;
+    margin-bottom: 20px;
     display: block;
 }
 
@@ -376,32 +378,96 @@ p {
 }
 /* Increase the size of the icons */
 .icon i {
-    font-size: 40px; /* Adjust size as needed */
-    line-height: 1; /* Align icon properly */
-    vertical-align: middle; /* Center within its container */
+    font-size: 40px;
+    line-height: 1;
+    vertical-align: middle;
 }
 
-/* Optional: Adjust spacing around the icons */
 .icon {
-    margin: 0 8px; /* Adjust spacing between icons */
+    margin: 0 8px;
     display: inline-flex;
-    align-items: center;
-    justify-content: center;
+
+
     color: #00d1b2;
     font-size: 35px;
+
 }
 
 /* Hover effect for larger icons */
 .icon :hover {
-    color: #3aa473; /* Optional hover color */
-    transform: scale(1.1); /* Slight zoom effect */
+    color: #3aa473;
+    transform: scale(1.1);
     transition: transform 0.2s ease, color 0.3s ease;
 }
 .icon-2 {
     color: #00d1b2;
 }
 .icon-2 :hover {
-    color: #3aa473; /* Optional hover color */
-    transform: scale(1.1); /* Slight zoom effect */
+    color: #3aa473;
+    transform: scale(1.1);
     transition: transform 0.2s ease, color 0.3s ease;
+}
+.add-button-container {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+/* General style for all h2 headings */
+h2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Specific style for .title.is-2, if needed */
+h2.title.is-2 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Specific style for .text-center.mb-4 */
+h2.text-center.mb-4 {
+    font-size: 30px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    margin-bottom: 20px;
+}
+/* Main page title styling */
+.title.is-main {
+    font-size: 48px;
+    font-weight: bold;
+    color: var(--main-color-primary) !important;
+    text-align: center;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    padding-bottom: 20px;
+}
+
+/* Culinary Journey section title styling */
+.culinary-journey h3 {
+    font-size: 25px;
+    font-weight: bold;
+    color: #7d5743;
+    text-align: center;
+    margin-bottom: 20px;
+}
+.image-container {
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.button.is-primary {
+    margin-bottom: 20px;
+}
+.centered-form {
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding-left: 20px;
 }

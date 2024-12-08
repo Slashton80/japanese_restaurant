@@ -17,7 +17,10 @@
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <!-- Main Content -->
 <div class="container">
-    <h2 class="title is-2"><span th:text="#{application.name}"></span></h2>
+    <h2 class="title is-main"><span th:text="#{application.name}"></span></h2>
+    <div class="culinary-journey">
+        <h3>"A Culinary Journey: Our All-You-Can-Eat"</h3>
+    </div>
     <div class="image-container" style="text-align: center; margin: 20px auto;">
         <img th:src="@{/images/sushi.jpg}" alt="Delicious Sushi"
              style="width: 100%; height: auto; max-width: 600px; margin: 20px auto; border-radius: 15px;">

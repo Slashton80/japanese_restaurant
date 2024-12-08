@@ -167,10 +167,16 @@ public class ReservationController {
         // If neither ID nor name are provided, return an empty list or an appropriate message
         else {
             model.addAttribute("reservations", new ArrayList<>());
-            model.addAttribute("message", "Please enter either a Name or an ID to search.");
+            model.addAttribute("message", "* Please enter either a Name or an ID to search.");
         }
+        // Clears the fields in the reservation object to reset the form
+        reservation.setId(null);
+        reservation.setName(null);
+
+        model.addAttribute("reservation", reservation);
 
         return "reservation/list";
+
     }
 
     /**
