@@ -2,14 +2,6 @@
 <persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence">
   <persistence-unit name="NewPersistenceUnit">
     <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-    <class>info.hccis.sample.jpa.entity.TutorSkill</class>
-    <class>info.hccis.sample.jpa.entity.Tutor</class>
-    <class>info.hccis.sample.jpa.entity.InvoiceHour</class>
-    <class>info.hccis.sample.jpa.entity.Student</class>
-    <class>info.hccis.sample.jpa.entity.StudentSkill</class>
-    <class>info.hccis.sample.jpa.entity.Invoice</class>
-    <class>info.hccis.sample.jpa.entity.Customer</class>
-    <class>info.hccis.performance.jpa.entity.TicketOrder</class>
     <class>info.hccis.performance.jpa.entity.CodeValue</class>
     <properties>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/cis2232_tutor"/>

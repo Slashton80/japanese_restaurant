@@ -8,9 +8,9 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
 /**
  * Data Access Object (DAO) for the Reservation entity.
- *
  * This class handles database operations such as selecting, updating, and inserting
  * reservations using JDBC.
  *
@@ -22,9 +22,11 @@ public class ReservationDAO {
     private static ResultSet rs;
     private static Connection conn = null;
     private static final Logger logger = LoggerFactory.getLogger(ReservationDAO.class);
+
     /**
      * Constructor to establish the database connection using credentials
      * and connection string from the application properties file.
+     *
      * @author Sherri Ashton
      * @since 2024-10-25
      */
@@ -93,8 +95,8 @@ public class ReservationDAO {
     /**
      * Select all by date range
      *
-     * @since 20241010. Updated for reservation by Sherri Ashton, 2024-10-25.
      * @author BJM
+     * @since 20241010. Updated for reservation by Sherri Ashton, 2024-10-25.
      */
     public ArrayList<Reservation> selectAllByDateRange(String start, String end) {
         ArrayList<Reservation> passes = null;
@@ -120,15 +122,15 @@ public class ReservationDAO {
             passes = new ArrayList<>();
             while (rs.next()) {
                 Reservation reservation = new Reservation();
-                reservation.setId(rs.getInt("id")); // Maps the ID column
-                reservation.setName(rs.getString("name")); // Maps the Name column
-                reservation.setEmail(rs.getString("email")); // Maps the Email column
-                reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime()); // Maps DateTime
-                reservation.setNumberOfAdults(rs.getInt("numberOfAdults")); // Maps Number of Adults
-                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors")); // Maps Number of Seniors
-                reservation.setNumberOfChildren(rs.getInt("numberOfChildren")); // Maps Number of Children
-                reservation.setCouponDiscount(rs.getDouble("couponDiscount")); // Maps Coupon Discount
-                reservation.setTotalCost(rs.getBigDecimal("totalCost")); // Maps Total Cost
+                reservation.setId(rs.getInt("id"));
+                reservation.setName(rs.getString("name"));
+                reservation.setEmail(rs.getString("email"));
+                reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime());
+                reservation.setNumberOfAdults(rs.getInt("numberOfAdults"));
+                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors"));
+                reservation.setNumberOfChildren(rs.getInt("numberOfChildren"));
+                reservation.setCouponDiscount(rs.getDouble("couponDiscount"));
+                reservation.setTotalCost(rs.getBigDecimal("totalCost"));
 
                 passes.add(reservation);
             }
@@ -143,88 +145,60 @@ public class ReservationDAO {
         }
         return passes;
     }
+
     /**
-     * Select all for min length report
+     * Updates reservations from the database.
      *
-     * @since 20241011.  Updated for reservation by Sherri Ashton, 2024-10-25.
-     * @author BJM
+     * @author Sherri Ashton
+     * @since 2024-10-25
      */
-    public ArrayList<Reservation> selectAllWithMinLength(int minLength) {
-        ArrayList<Reservation> passes = new ArrayList<>();
-        String sql = "SELECT * FROM reservation WHERE LENGTH(name) >= ?";
-
-        //******************************************************************
-        //Use the DriverManager to get a connection to our MySql database.  Note
-        //that in the dependencies, we added the Java connector to MySql which
-        //will allow us to connect to a MySql database.
-        //******************************************************************
-        //******************************************************************
-        //Create a statement object using our connection to the database.  This
-        //statement object will allow us to run sql commands against the database.
-        //******************************************************************
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1, minLength);
-
-            rs = pstmt.executeQuery();
-            while (rs.next()) {
-                Reservation reservation = new Reservation();
-                reservation.setId(rs.getInt("id")); // Maps the ID column
-                reservation.setName(rs.getString("name")); // Maps the Name column
-                reservation.setEmail(rs.getString("email")); // Maps the Email column
-                reservation.setDateTime(rs.getTimestamp("reservationDateTime").toLocalDateTime()); // Maps DateTime
-                reservation.setNumberOfAdults(rs.getInt("numberOfAdults")); // Maps Number of Adults
-                reservation.setNumberOfSeniors(rs.getInt("numberOfSeniors")); // Maps Number of Seniors
-                reservation.setNumberOfChildren(rs.getInt("numberOfChildren")); // Maps Number of Children
-                reservation.setCouponDiscount(rs.getDouble("couponDiscount")); // Maps Coupon Discount
-                reservation.setTotalCost(rs.getBigDecimal("totalCost")); // Maps Total Cost
-
-                passes.add(reservation);
+    public void saveOrUpdate(Reservation reservation) {
+        if (reservation.getId() != null) {
+            // Updates existing reservation
+            String sql = "UPDATE reservation SET name = ?, email = ?, reservationDateTime = ?, " +
+                    "numberOfAdults = ?, numberOfSeniors = ?, numberOfChildren = ?, " +
+                    "couponDiscount = ?, totalCost = ? WHERE id = ?";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, reservation.getName());
+                pstmt.setString(2, reservation.getEmail());
+                pstmt.setTimestamp(3, Timestamp.valueOf(reservation.getReservationDateTime()));
+                pstmt.setInt(4, reservation.getNumberOfAdults());
+                pstmt.setInt(5, reservation.getNumberOfSeniors());
+                pstmt.setInt(6, reservation.getNumberOfChildren());
+                pstmt.setDouble(7, reservation.getCouponDiscount());
+                pstmt.setBigDecimal(8, reservation.getTotalCost());
+                pstmt.setInt(9, reservation.getId());
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        } else {
+            // Inserts new reservation
+            String sql = "INSERT INTO reservation (name, email, reservationDateTime, numberOfAdults, " +
+                    "numberOfSeniors, numberOfChildren, couponDiscount, totalCost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+            try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                pstmt.setString(1, reservation.getName());
+                pstmt.setString(2, reservation.getEmail());
+                pstmt.setTimestamp(3, Timestamp.valueOf(reservation.getReservationDateTime()));
+                pstmt.setInt(4, reservation.getNumberOfAdults());
+                pstmt.setInt(5, reservation.getNumberOfSeniors());
+                pstmt.setInt(6, reservation.getNumberOfChildren());
+                pstmt.setDouble(7, reservation.getCouponDiscount());
+                pstmt.setBigDecimal(8, reservation.getTotalCost());
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-        return passes;
     }
 
-public void saveOrUpdate(Reservation reservation) {
-    if (reservation.getId() != null) {
-        // Update existing reservation
-        String sql = "UPDATE reservation SET name = ?, email = ?, reservationDateTime = ?, " +
-                "numberOfAdults = ?, numberOfSeniors = ?, numberOfChildren = ?, " +
-                "couponDiscount = ?, totalCost = ? WHERE id = ?";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, reservation.getName());
-            pstmt.setString(2, reservation.getEmail());
-            pstmt.setTimestamp(3, Timestamp.valueOf(reservation.getReservationDateTime()));
-            pstmt.setInt(4, reservation.getNumberOfAdults());
-            pstmt.setInt(5, reservation.getNumberOfSeniors());
-            pstmt.setInt(6, reservation.getNumberOfChildren());
-            pstmt.setDouble(7, reservation.getCouponDiscount());
-            pstmt.setBigDecimal(8, reservation.getTotalCost());
-            pstmt.setInt(9, reservation.getId());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    } else {
-        // Insert new reservation
-        String sql = "INSERT INTO reservation (name, email, reservationDateTime, numberOfAdults, " +
-                "numberOfSeniors, numberOfChildren, couponDiscount, totalCost) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
-        try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, reservation.getName());
-            pstmt.setString(2, reservation.getEmail());
-            pstmt.setTimestamp(3, Timestamp.valueOf(reservation.getReservationDateTime()));
-            pstmt.setInt(4, reservation.getNumberOfAdults());
-            pstmt.setInt(5, reservation.getNumberOfSeniors());
-            pstmt.setInt(6, reservation.getNumberOfChildren());
-            pstmt.setDouble(7, reservation.getCouponDiscount());
-            pstmt.setBigDecimal(8, reservation.getTotalCost());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }
-}
+    /**
+     * Selects reservations from the database by name.
+     *
+     * @return name.
+     * @author Sherri Ashton
+     * @since 2024-10-25
+     */
     public List<Reservation> selectByName(String name) {
         List<Reservation> reservations = new ArrayList<>();
         String sql = "SELECT * FROM reservation WHERE name LIKE ?";
@@ -250,6 +224,14 @@ public void saveOrUpdate(Reservation reservation) {
         }
         return reservations;
     }
+
+    /**
+     * Retrieves reservations from the database by id.
+     *
+     * @return id.
+     * @author Sherri Ashton
+     * @since 2024-10-25
+     */
     public Reservation selectById(int id) {
         String sql = "SELECT * FROM reservation WHERE id = ?";
         try (PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -274,6 +256,4 @@ public void saveOrUpdate(Reservation reservation) {
         }
         return null;
     }
-
-
 }

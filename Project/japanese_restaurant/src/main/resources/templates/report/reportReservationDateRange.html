@@ -1,5 +1,13 @@
+<!--
+    /**
+     * Provides a form to generate and view date range reports.
+     *
+     * Author: Sherri Ashton
+     * Since: 2024-12-07
+     */
+-->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 <head th:replace="fragments/head :: head">
     <title id="pageTitle">Report</title>
 
@@ -13,17 +21,22 @@
         <h2 class="title is-2" th:text="#{label.report.restaurant.reservation.date.range}">_</h2>
         <form th:action="@{/report/reservation/daterange/submit}" method="post">
             <label>Start date: </label>
-            <input type="date" name="dateStart" th:field="${reportInput.dateStart}">
+            <label>
+                <input type="date" name="dateStart" th:field="${reportInput.dateStart}">
+            </label>
             <br>
             <label>End date: </label>
-            <input type="date" name="dateEnd" th:field="${reportInput.dateEnd}">
+            <label>
+                <input type="date" name="dateEnd" th:field="${reportInput.dateEnd}">
+            </label>
             <br>
             <button style="display:block;margin-top:24px;" class="centered">Submit</button>
         </form>
     </div>
 
     <!-- Messages -->
-    <p class="no-data-message" th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found.date}">test</p>
+    <p class="no-data-message" th:if="${not #strings.isEmpty(message)}" th:text="#{error.message.no.data.found.date}">
+        test</p>
 
     <!-- Table Container -->
     <div class="table-container">
@@ -60,7 +73,7 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function() {
+    document.addEventListener("DOMContentLoaded", function () {
         const form = document.querySelector("form");
         const startDateInput = document.querySelector("input[name='dateStart']");
         const endDateInput = document.querySelector("input[name='dateEnd']");
@@ -78,7 +91,7 @@
         }
 
         // Validates dates on form submission
-        form.addEventListener("submit", function(event) {
+        form.addEventListener("submit", function (event) {
             // Parse dates to ensure accurate comparison
             const startDate = Date.parse(startDateInput.value);
             const endDate = Date.parse(endDateInput.value);

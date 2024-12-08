@@ -1,5 +1,15 @@
+<!--
+    /**
+     * About Us page for the web application.
+     * Displays the team members and their roles in a table format.
+     * Includes dynamic elements rendered using Thymeleaf, such as the page title and navbar/footer fragments.
+     *
+     * @author Sherri Ashton
+     * @since 2024-12-07
+     */
+-->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 <head th:replace="fragments/head :: head">
     <title id="pageTitle" th:text="#{application.name}">App Name</title>
 
@@ -9,7 +19,7 @@
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <div class="container table-container">
 
-<!-- Main Content Container -->
+    <!-- Main Content Container -->
     <h2 class="title is-2" th:text="#{about}">About Us</h2>
     <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <thead>
@@ -33,7 +43,6 @@
         </tr>
         </tbody>
     </table>
-</div>
 </div>
 
 <!-- Footer -->

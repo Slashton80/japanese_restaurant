@@ -5,8 +5,11 @@
 //import java.time.LocalDateTime;
 //import java.time.format.DateTimeFormatter;
 //
-///**
+/// **
 // * JAXB adapter for LocalDateTime to convert it to and from a String during XML serialization/deserialization.
+// * Added for the SOAP getReservation method for older Java versions
+// * Source: https://docs.oracle.com/javase/tutorial/jaxb/intro/arch.html
+// *        https://www.baeldung.com/jaxb
 // */
 //public class LocalDateTimeJaxbAdapter extends XmlAdapter<String, LocalDateTime> {
 //

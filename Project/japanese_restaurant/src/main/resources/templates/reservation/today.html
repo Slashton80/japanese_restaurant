@@ -1,41 +1,50 @@
+<!--
+    /**
+     * Page displaying reservations scheduled for the current day.
+     * Includes a table of today's reservations or a message if no reservations are found.
+     *
+     * Author: Sherri Ashton
+     * Since: 2024-12-07
+     */
+-->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 <head th:replace="fragments/head :: head">
 
-  <title>Today's Reservations</title>
+    <title>Today's Reservations</title>
 </head>
 <body>
 <!--navbar-->
 <nav th:replace="fragments/navHeader :: navbar"></nav>
 <!--table-->
 <div class="container table-container">
-  <h2 class="text-center mb-4">Reservations for Today</h2>
-  <table class="table is-bordered is-striped is-hoverable">
-    <thead>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Email</th>
-      <th>Date and Time</th>
-      <th>Number of Adults</th>
-      <th>Number of Seniors</th>
-      <th>Number of Children</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="reservation : ${reservations}">
-      <td th:text="${reservation.id}"></td>
-      <td th:text="${reservation.name}"></td>
-      <td th:text="${reservation.email}"></td>
-      <td th:text="${reservation.formattedReservationDateTime}"></td>
-      <td th:text="${reservation.numberOfAdults}"></td>
-      <td th:text="${reservation.numberOfSeniors}"></td>
-      <td th:text="${reservation.numberOfChildren}"></td>
-    </tr>
-    </tbody>
-  </table>
+    <h2 class="text-center mb-4">Reservations for Today</h2>
+    <table class="table is-bordered is-striped is-hoverable">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Date and Time</th>
+            <th>Number of Adults</th>
+            <th>Number of Seniors</th>
+            <th>Number of Children</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="reservation : ${reservations}">
+            <td th:text="${reservation.id}"></td>
+            <td th:text="${reservation.name}"></td>
+            <td th:text="${reservation.email}"></td>
+            <td th:text="${reservation.formattedReservationDateTime}"></td>
+            <td th:text="${reservation.numberOfAdults}"></td>
+            <td th:text="${reservation.numberOfSeniors}"></td>
+            <td th:text="${reservation.numberOfChildren}"></td>
+        </tr>
+        </tbody>
+    </table>
 
-  <p th:if="${#lists.isEmpty(reservations)}">No reservations found for today.</p>
+    <p th:if="${#lists.isEmpty(reservations)}">No reservations found for today.</p>
 </div>
 <!--footer-->
 <footer th:replace="fragments/footer :: footer"></footer>

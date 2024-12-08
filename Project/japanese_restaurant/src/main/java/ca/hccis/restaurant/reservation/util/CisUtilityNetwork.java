@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * Utility class to make a network connection
+ *
  * @author BJM
  * @since 20241104
  */
@@ -15,10 +16,11 @@ public class CisUtilityNetwork {
     /**
      * Code from:
      * https://medium.com/swlh/getting-json-data-from-a-restful-api-using-java-b327aafb3751
+     *
      * @param urlString
      * @return
-     * @since 20241104
      * @author BJM
+     * @since 20241104
      */
     public static String connectToApi(String urlString) {
         try {

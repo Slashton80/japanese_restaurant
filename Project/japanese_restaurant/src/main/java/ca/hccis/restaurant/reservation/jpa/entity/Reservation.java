@@ -17,22 +17,13 @@ import java.time.LocalDateTime;
 
 /**
  * Entity class representing a reservation in the restaurant reservation system.
- *
- * <p>
  * This class is mapped to the "reservation" table in the database and contains all the
  * attributes required to define a reservation, such as name, email, reservation date and time,
  * number of adults, seniors, and children, coupon discount, and total cost.
- * </p>
- *
- * <p>
  * Validation annotations are applied to ensure data integrity, such as constraints on
  * minimum and maximum values, mandatory fields, and proper email format.
- * </p>
- *
- * <p>
  * The entity is used in various operations, including creating, reading, updating,
  * and deleting reservations in the database.
- * </p>
  *
  * @author Sherri Ashton
  * @since 2024-11-16

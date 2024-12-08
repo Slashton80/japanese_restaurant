@@ -13,7 +13,7 @@ import java.util.ResourceBundle;
  */
 public class DatabaseUtility {
 
-        public static boolean checkConnection() {
+    public static boolean checkConnection() {
 
         Connection conn = null;
         try {
@@ -25,15 +25,15 @@ public class DatabaseUtility {
         return true;
 
     }
-    
+
     /**
      * Get a connection to the database
      *
      * @param connectionProperties CSV with db name, username, and password
      * @return Connection to the specified db or default from application
      * properties file
-     * @since 20201007
      * @author BJM
+     * @since 20201007
      */
     public static Connection getConnection(String connectionProperties) throws SQLException {
         System.out.println("BJM-getting connection from db utility class.");

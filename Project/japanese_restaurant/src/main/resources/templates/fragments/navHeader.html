@@ -1,8 +1,21 @@
+<!--
+    /**
+     * Navigation bar for the web application.
+     * Provides links to Home, Reservations, Reports, and About sections.
+     * Includes dropdown menus for additional navigation options.
+     * Utilizes Thymeleaf for dynamic content rendering.
+     *
+     * @author Sherri Ashton
+     * @since 2024-12-07
+     */
+-->
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 <body>
 <nav class="navbar navbar-expand-lg sticky-top" th:fragment="navbar">
     <div class="container-fluid">
+        <!--Logo Image:
+                Source: https://www.vecteezy.com/png/11578210-set-of-sushi-japanese-traditional-food-png-->
         <a class="navbar-brand" href="/" th:href="@{/}">
             <img alt="Logo" class="d-inline-block align-text-top"
                  style="width: 26px; height: 27.6666666667px; margin-right: 10px" th:src="@{/images/sushi.png}">
@@ -18,45 +31,47 @@
     </a>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNavAltMarkup">
         <div id="navbarBasicExample" class="navbar-menu">
-        <ul class="navbar-nav me-auto"> <!-- `me-auto` ensures spacing between sections -->
-            <li class="nav-item me-3"> <!-- `me-3` adds margin-right -->
-                <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : ''}" th:href="@{/}">Home</a>
-            </li>
-
+            <ul class="navbar-nav me-auto"> <!-- `me-auto` ensures spacing between sections -->
+                <li class="nav-item me-3"> <!-- `me-3` adds margin-right -->
+                    <a class="nav-link" th:classappend="${#httpServletRequest.getRequestURI() == '/' ? 'active' : ''}"
+                       th:href="@{/}">Home</a>
+                </li>
+            </ul>
             <!-- Reservations-->
 
-                <div class="navbar-end">
-                    <!-- Reservations Dropdown -->
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a href="#" class="navbar-link">Reservations</a>
-                        <div class="navbar-dropdown">
-                            <a th:href="@{/reservation}" href="/reservation" class="navbar-item">View All Reservations</a>
-                            <a th:href="@{/reservation/today}" href="/reservation/today" class="navbar-item">Today's Reservations</a>
-                            <a th:href="@{/reservation/add}" href="/reservation/add" class="navbar-item">Add New Reservation</a>
-                            <hr class="navbar-divider">
-                        </div>
+            <div class="navbar-end">
+                <!-- Reservations Dropdown -->
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="#" class="navbar-link">Reservations</a>
+                    <div class="navbar-dropdown">
+                        <a th:href="@{/reservation}" href="/reservation" class="navbar-item">View All
+                            Reservations</a>
+                        <a th:href="@{/reservation/today}" href="/reservation/today" class="navbar-item">Today's
+                            Reservations</a>
+                        <a th:href="@{/reservation/add}" href="/reservation/add" class="navbar-item">Add New
+                            Reservation</a>
+                        <hr class="navbar-divider">
                     </div>
+                </div>
 
-                    <!-- Reports Dropdown -->
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a href="#" class="navbar-link">Reports</a>
-                        <div class="navbar-dropdown">
-                            <a th:href="@{/report/reservation/daterange}" href="/report/reservation/daterange" class="navbar-item">Date Range</a>
-                        </div>
+                <!-- Reports Dropdown -->
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="#" class="navbar-link">Reports</a>
+                    <div class="navbar-dropdown">
+                        <a th:href="@{/report/reservation/daterange}" href="/report/reservation/daterange"
+                           class="navbar-item">Date Range</a>
                     </div>
+                </div>
 
-                    <!-- About Dropdown -->
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a href="#" class="navbar-link">About</a>
-                        <div class="navbar-dropdown">
-                            <a th:href="@{/about}" href="/about" class="navbar-item">About</a>
-                            <hr class="navbar-divider">
-                            <a th:href="@{/pirate}" href="/pirate" class="navbar-item">Pirate</a>
-                        </div>
+                <!-- About Dropdown -->
+                <div class="navbar-item has-dropdown is-hoverable">
+                    <a href="#" class="navbar-link">About</a>
+                    <div class="navbar-dropdown">
+                        <a th:href="@{/about}" href="/about" class="navbar-item">About</a>
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 </nav>
 </body>

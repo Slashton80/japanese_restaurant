@@ -1,3 +1,6 @@
+-- Database setup script for Japanese Restaurant
+-- Author: Sherri Ashton
+-- Date: 2024-12-07
 DROP DATABASE IF EXISTS cis2232_japanese_restaurant;
 CREATE DATABASE cis2232_japanese_restaurant;
 USE cis2232_japanese_restaurant;
@@ -79,26 +82,25 @@ CREATE TABLE reservation
     numberOfSeniors     INT(3)        DEFAULT 0 COMMENT 'Number of seniors',
     numberOfChildren    INT(3)        DEFAULT 0 COMMENT 'Number of children',
     couponDiscount      DECIMAL(4, 2) DEFAULT 0.0 COMMENT 'Discount applied as a percentage (0.0 to 1.0)',
-    totalCost           DECIMAL(10, 2) COMMENT 'Calculated total cost',
-    reservationTypeId   INT(3),
-    FOREIGN KEY (reservationTypeId) REFERENCES codeValue (codeValueId)
+    totalCost           DECIMAL(10, 2) COMMENT 'Calculated total cost'
+#     reservationTypeId   INT(3),
+#     FOREIGN KEY (reservationTypeId) REFERENCES codeValue (codeValueId)
 );
 
 -- Inserts reservation values
 -- Test cases
--- Commented out to disable test data insertion
-INSERT INTO reservation (name, email, reservationDateTime, reservationTypeId, numberOfAdults, numberOfSeniors,
+-- reservationTypeId is not used!!
+INSERT INTO reservation (name, email, reservationDateTime, numberOfAdults, numberOfSeniors,
                          numberOfChildren, couponDiscount, totalCost)
-VALUES ('John Doe', 'john.doe@example.com', '2024-08-15 18:30', 1, 2, 1, 0, 0.1, 63.75),
-       ('Laura Adams', 'laura.a@example.com', '2024-09-21 18:00', 2, 3, 1, 0, 0.10, 85.50),
-       ('Ethan Murphy', 'ethan.murphy@example.com', '2024-10-22 19:00', 3, 2, 0, 1, 0.20, 74.00),
-       ('Zoe Bell', 'zoe.bell@example.com', '2024-10-23 17:45', 1, 2, 2, 2, 0.15, 120.75),
-       ('Lucas Walker', 'lucas.walker@example.com', '2024-11-24 20:30', 2, 1, 0, 0, 0.00, 30.00),
-       ('Grace Hughes', 'grace.hughes@example.com', '2024-11-25 18:15', 3, 3, 0, 0, 0.05, 90.25),
-       ('Emma Wilson', 'emma.wilson@example.com', '2024-11-26 19:00', 1, 0, 1, 3, 0.25, 65.00),
-       ('Oliver Hall', 'oliver.hall@example.com', '2024-12-27 18:45', 3, 4, 1, 0, 0.10, 105.00),
-       ('Charlotte Brooks', 'charlotte.brooks@example.com', '2024-12-28 18:30', 1, 2, 1, 1, 0.00, 88.50),
-       ('Benjamin Green', 'benjamin.green@example.com', '2025-11-29 19:15', 2, 1, 1, 1, 0.10, 56.75);
-
+VALUES ('John Doe', 'john.doe@example.com', '2024-08-15 18:30', 2, 1, 0, 0.1, 63.75),
+       ('Laura Adams', 'laura.a@example.com', '2024-09-21 18:00', 3, 1, 0, 0.10, 85.50),
+       ('Ethan Murphy', 'ethan.murphy@example.com', '2024-10-22 19:00', 2, 0, 1, 0.20, 74.00),
+       ('Zoe Bell', 'zoe.bell@example.com', '2024-10-23 17:45', 2, 2, 2, 0.15, 120.75),
+       ('Lucas Walker', 'lucas.walker@example.com', '2024-11-24 20:30', 1, 0, 0, 0.00, 30.00),
+       ('Grace Hughes', 'grace.hughes@example.com', '2024-11-25 18:15', 3, 0, 0, 0.05, 90.25),
+       ('Emma Wilson', 'emma.wilson@example.com', '2024-11-26 19:00', 0, 1, 3, 0.25, 65.00),
+       ('Oliver Hall', 'oliver.hall@example.com', '2024-12-27 18:45', 4, 1, 0, 0.10, 105.00),
+       ('Charlotte Brooks', 'charlotte.brooks@example.com', '2024-12-28 18:30', 2, 1, 1, 0.00, 88.50),
+       ('Benjamin Green', 'benjamin.green@example.com', '2025-11-29 19:15', 1, 1, 1, 0.10, 56.75);
 
 

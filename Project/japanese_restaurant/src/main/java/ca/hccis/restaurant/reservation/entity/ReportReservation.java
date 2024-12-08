@@ -13,16 +13,7 @@ import java.util.ArrayList;
 public class ReportReservation {
     private String dateStart;
     private String dateEnd;
-    private int minLength;
     private ArrayList<Reservation> reservations;
-
-    public int getMinLength() {
-        return minLength;
-    }
-
-    public void setMinLength(int minLength) {
-        this.minLength = minLength;
-    }
 
     public String getDateStart() {
         return dateStart;

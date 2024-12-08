@@ -52,8 +52,8 @@ public class Utility {
     /**
      * This method will use md5 to create a hash value for the pw.
      *
-     * @since 20170516
      * @author BJM
+     * @since 20170516
      */
     public static String getHashPassword(String inPassword) {
         try {
@@ -73,9 +73,9 @@ public class Utility {
     /**
      * This wil;l give current date/time in format provided
      *
-     * @since 20170516
      * @param format
      * @return formatted now
+     * @since 20170516
      */
     public static String getNow(String format) {
         if (format.isEmpty()) {

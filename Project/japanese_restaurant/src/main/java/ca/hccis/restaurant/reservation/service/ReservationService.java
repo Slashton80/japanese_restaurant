@@ -10,11 +10,8 @@ import java.util.List;
 
 /**
  * Service class for managing reservation-related operations.
- *
- * <p>
  * This class provides business logic for handling reservations, such as fetching
  * today's reservations or performing other reservation-related operations.
- * </p>
  *
  * @author Sherri Ashton
  * @since 2024-11-19
@@ -44,7 +41,7 @@ public class ReservationService {
      * Validates that the end date is not before the start date.
      *
      * @param startDate The start date.
-     * @param endDate The end date.
+     * @param endDate   The end date.
      * @return True if the end date is not before the start date, false otherwise.
      */
     public boolean validateDateRange(LocalDate startDate, LocalDate endDate) {

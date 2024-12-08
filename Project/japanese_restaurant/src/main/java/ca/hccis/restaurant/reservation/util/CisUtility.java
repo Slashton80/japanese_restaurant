@@ -1,9 +1,9 @@
 package ca.hccis.restaurant.reservation.util;
 
+import javax.swing.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import javax.swing.JOptionPane;
 
 /**
  * Class containing utility methods that are useful for our projects.
@@ -26,13 +26,14 @@ public class CisUtility {
     /*
     Methods to get input from the user
      */
+
     /**
      * Method which will prompt the user and return the value entered as a
      * String.
      *
-     * @author BJ MacLean
      * @param prompt The user prompt
      * @return The String entered by the user
+     * @author BJ MacLean
      * @since 20181121
      */
     public static String getInputString(String prompt) {
@@ -52,9 +53,9 @@ public class CisUtility {
     /**
      * Method which will prompt the user and return an int value.
      *
-     * @author BJ MacLean
      * @param prompt The user prompt
      * @return The number entered by the user
+     * @author BJ MacLean
      * @since 20181121
      */
     public static int getInputInt(String prompt) {
@@ -66,9 +67,9 @@ public class CisUtility {
     /**
      * Method which will prompt the user and return a double value.
      *
-     * @author BJ MacLean
      * @param prompt The user prompt
      * @return The number entered by the user
+     * @author BJ MacLean
      * @since 20181121
      */
     public static double getInputDouble(String prompt) {
@@ -79,15 +80,15 @@ public class CisUtility {
 
     /**
      * Method to input a boolean value.The prompt will have y/n instructions
-     appended to it.
+     * appended to it.
      *
-     * @author BJ MacLean
      * @param prompt Base prompt for the user
      * @return true/false
+     * @author BJ MacLean
      * @since 20200129
      */
     public static boolean getInputBoolean(String prompt) {
-        String temp = getInputString(prompt+" (y/n)");
+        String temp = getInputString(prompt + " (y/n)");
         return temp.equalsIgnoreCase("y") || temp.equalsIgnoreCase("yes") || temp.equalsIgnoreCase("true")
                 || temp.equalsIgnoreCase("1");
     }
@@ -96,8 +97,8 @@ public class CisUtility {
      * Method to display a string for the user
      *
      * @param output The string that will be displayed to the user
-     * @since 20181115
      * @author BJM
+     * @since 20181115
      */
     public static void display(String output) {
         //System.out.println(output);
@@ -112,8 +113,8 @@ public class CisUtility {
      * This method will use the Math class to get a random number between 1 and
      * the max inclusive.
      *
-     * @author BJ MacLean
      * @param max The upper limit for the random number (inclusive)
+     * @author BJ MacLean
      * @since 20181121
      */
     public static int getRandom(int max) {
@@ -125,7 +126,6 @@ public class CisUtility {
     }
 
     /**
-     *
      * @author BJ MacLean
      * @since 2020
      */
@@ -228,7 +228,7 @@ public class CisUtility {
     /**
      * This method will return the current time in milliseconds since a specific
      * start of time.
-     *
+     * <p>
      * https://www.tutorialspoint.com/java/lang/system_currenttimemillis.htm
      *
      * @author BJ MacLean

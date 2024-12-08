@@ -20,7 +20,6 @@ h2.title.is-2 {
     text-align: center;
 }
 
-
 /* Set the color for dropdown items to match the navbar primary color */
 .navbar-link, .navbar-item, .dropdown-item {
     color: var(--main-color-primary) !important;
@@ -31,7 +30,7 @@ h2.title.is-2 {
 /* Styling for hover effect */
 .navbar-link:hover, .dropdown-item:hover {
     color: var(--main-color-text) !important;
-    background-color: var(--main-color-dark) !important;
+    background-color: var(--main-color-white) !important;
 }
 
 /* Active link styling for consistency */
@@ -44,7 +43,7 @@ h2.title.is-2 {
     /* Variable for team color */
     --main-color-grey: #9c9a9a;
     --main-color-primary: #d1a36e;
-    --main-color-dark: #f9f4ef;
+    --main-color-white: #f9f4ef;
     --main-color-text: #fa8072;
     --main-color-bright: #ffffff;
     --main-color-container: #e4ddd6;
@@ -68,7 +67,7 @@ footer {
 
 nav, .nav, .navbar {
     margin-bottom: 50px;
-    background: var(--main-color-dark) !important;
+    background: var(--main-color-white) !important;
     position: sticky !important;
 }
 
@@ -131,7 +130,7 @@ table {
 .ftr {
     margin-top: 50px;
     padding: 20px;
-    background: var(--main-color-dark);
+    background: var(--main-color-white);
     color: var(--main-color-text);
     bottom: 0;
     width: 100%;
@@ -222,7 +221,7 @@ img.sushi {
     width: 90%;
     margin: 40px auto;
     padding: 20px;
-    background-color: var(--main-color-dark);
+    background-color: var(--main-color-white);
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
@@ -241,9 +240,11 @@ img.sushi {
     margin-bottom: 8px;
     font-weight: bold;
 }
+
 .form-container label, .form-container input, .form-container button {
     width: 100%;
 }
+
 .form-container input[type="text"],
 .form-container input[type="email"],
 .form-container input[type="datetime-local"],
@@ -254,14 +255,16 @@ img.sushi {
     border-radius: 5px;
     border: 1px solid var(--main-color-grey);
 }
+
 .form-container, .table-container {
     max-width: 600px;
     margin: 40px auto;
     padding: 20px;
-    background-color: var(--main-color-dark);
+    background-color: var(--main-color-white);
     border-radius: 12px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .error {
     min-height: 20px;
     color: #b22222;
@@ -292,18 +295,20 @@ img.sushi {
 .form-container .form-control {
     margin-bottom: 10px;
 }
+
 .form-container input {
     margin-bottom: 20px;
     padding: 10px;
     border-radius: 5px;
     border: 1px solid var(--main-color-grey);
 }
+
 /* Styles for cohesive tables */
 .table-container {
     max-width: 95%;
     margin: 40px auto;
     padding: 20px;
-    background-color: var(--main-color-dark);
+    background-color: var(--main-color-white);
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
@@ -343,6 +348,7 @@ img.sushi {
     color: var(--main-color-bright);
     transition: background-color 0.3s ease;
 }
+
 .error-message {
     color: #b22222 !important;
     font-weight: bold;
@@ -350,6 +356,7 @@ img.sushi {
     margin-top: 10px;
     display: block;
 }
+
 p {
     color: #b22222 !important;
     font-weight: bold;
@@ -359,9 +366,42 @@ p {
     padding-bottom: 10px;
 
 }
+
 @media (max-width: 768px) {
     .form-container {
         width: 90%;
         padding: 10px;
     }
+
+}
+/* Increase the size of the icons */
+.icon i {
+    font-size: 40px; /* Adjust size as needed */
+    line-height: 1; /* Align icon properly */
+    vertical-align: middle; /* Center within its container */
+}
+
+/* Optional: Adjust spacing around the icons */
+.icon {
+    margin: 0 8px; /* Adjust spacing between icons */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #00d1b2;
+    font-size: 35px;
+}
+
+/* Hover effect for larger icons */
+.icon :hover {
+    color: #3aa473; /* Optional hover color */
+    transform: scale(1.1); /* Slight zoom effect */
+    transition: transform 0.2s ease, color 0.3s ease;
+}
+.icon-2 {
+    color: #00d1b2;
+}
+.icon-2 :hover {
+    color: #3aa473; /* Optional hover color */
+    transform: scale(1.1); /* Slight zoom effect */
+    transition: transform 0.2s ease, color 0.3s ease;
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="">
 <head th:replace="fragments/head :: head">
   <title th:text="#{title.reservation.addEdit}">Add/Edit Reservation</title>
 
@@ -20,7 +20,9 @@
     <div class="field mb-3">
       <label class="form-label">Name:</label>
       <div class="control">
-        <input type="text" class="form-control" th:field="*{name}" required />
+        <label>
+          <input type="text" class="form-control" th:field="*{name}" required />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
     </div>
@@ -28,7 +30,9 @@
     <div class="field mb-3">
       <label class="form-label">Email:</label>
       <div class="control">
-        <input type="email" class="form-control" th:field="*{email}" required />
+        <label>
+          <input type="email" class="form-control" th:field="*{email}" required />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
     </div>
@@ -36,7 +40,9 @@
     <div class="field mb-3">
       <label class="form-label">Date and Time:</label>
       <div class="control">
-        <input type="datetime-local" class="form-control" th:field="*{reservationDateTime}" required />
+        <label>
+          <input type="datetime-local" class="form-control" th:field="*{reservationDateTime}" required />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('reservationDateTime')}" th:errors="*{reservationDateTime}"></span>
     </div>
@@ -44,7 +50,9 @@
     <div class="field mb-3">
       <label class="form-label">Number of Adults:</label>
       <div class="control">
-        <input type="number" class="form-control" th:field="*{numberOfAdults}" required min="0" />
+        <label>
+          <input type="number" class="form-control" th:field="*{numberOfAdults}" required min="0" />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('numberOfAdults')}" th:errors="*{numberOfAdults}"></span>
     </div>
@@ -52,7 +60,9 @@
     <div class="field mb-3">
       <label class="form-label">Number of Seniors:</label>
       <div class="control">
-        <input type="number" class="form-control" th:field="*{numberOfSeniors}" min="0" />
+        <label>
+          <input type="number" class="form-control" th:field="*{numberOfSeniors}" min="0" />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('numberOfSeniors')}" th:errors="*{numberOfSeniors}"></span>
     </div>
@@ -60,7 +70,9 @@
     <div class="field mb-3">
       <label class="form-label">Number of Children:</label>
       <div class="control">
-        <input type="number" class="form-control" th:field="*{numberOfChildren}" min="0" />
+        <label>
+          <input type="number" class="form-control" th:field="*{numberOfChildren}" min="0" />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('numberOfChildren')}" th:errors="*{numberOfChildren}"></span>
     </div>
@@ -68,7 +80,9 @@
     <div class="field mb-3">
       <label class="form-label">Coupon Discount:</label>
       <div class="control">
-        <input type="number" class="form-control" step="0.01" th:field="*{couponDiscount}" min="0" />
+        <label>
+          <input type="number" class="form-control" step="0.01" th:field="*{couponDiscount}" min="0" />
+        </label>
       </div>
       <span class="error" th:if="${#fields.hasErrors('couponDiscount')}" th:errors="*{couponDiscount}"></span>
     </div>

@@ -18,7 +18,7 @@
 //import java.util.Collections;
 //import java.util.List;
 //
-///**
+/// **
 // * This class allows reservations to be handled in two separate threads: one using a console-based
 // * user interface and the other using a GUI (JOptionPane) interface. Reservations are synchronized and
 // * stored in a JSON file, shared between both threads.
