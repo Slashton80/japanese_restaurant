@@ -1,7 +1,12 @@
 ## About the Project
-This project was developed as part of my CIS coursework at Holland College PEI.
+This project was developed as part of my CIS coursework at Holland College PEI in 2024. We worked in a group of three to complete this project, with each member playing a specific role. I served as the **Lead Developer**, where I was tasked with implementing the Japanese Restaurant system based on the idea presented by our **Business Client**, Nguyen Nguyen. Additionally, I contributed as a **Quality Assurance (QA)** tester for another teammate's project.
 
-# Project: Japanese Restaurant #
+This project was an excellent demonstration of teamwork and collaboration. It also introduced us to **source control and project management tools**, such as **Bitbucket**, **Jira**, and **Sourcetree**, which we used extensively to manage our codebase, track tasks, and maintain version control throughout the development process.
+
+Some of the code was adapted from BJ MacLean's examples.
+
+---
+# Advanecd Java Project: Japanese Restaurant #
 ---
 
 ## Development Team ##
