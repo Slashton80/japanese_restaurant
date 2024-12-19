@@ -40,7 +40,9 @@ To make your reservation even more rewarding, we offer a variety of coupons and 
 We understand that unexpected changes can sometimes occur, so we offer a flexible cancellation policy. If you need to cancel your reservation, simply contact us directly and we'll do our best to accommodate your request.
 <br/><br/>
 By choosing to make your reservation online, you're not only ensuring a hassle-free dining experience but also taking advantage of exclusive offers and discounts. We look forward to welcoming you to our restaurant and providing you with an unforgettable culinary journey.</br>
+
 ---
+
 ## Color ##
  --main-color-grey: #9c9a9a;<br>
     --main-color-primary: #d1a36e;<br>
@@ -48,6 +50,7 @@ By choosing to make your reservation online, you're not only ensuring a hassle-f
     --main-color-text: #fa8072;<br>
     --main-color-bright: #ffffff;<br>
     --main-color-container: #e4ddd6;<br>
+    
 ---
 ## Required Fields ##
 This will be a list of fields and their datatype (class design format). There are expected to be a minimum of six fields.<br>
